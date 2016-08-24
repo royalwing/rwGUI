@@ -105,7 +105,7 @@
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
@@ -113,7 +113,7 @@
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'">
     <OutDir>..\..\..\royalwing_github_io\GUI</OutDir>
@@ -121,7 +121,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>C:\Projects\royalwing_github_io\GUI;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
@@ -129,7 +129,7 @@
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
@@ -137,7 +137,7 @@
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">
     <OutDir>..\..\..\royalwing_github_io\GUI</OutDir>
@@ -145,7 +145,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>C:\Projects\royalwing_github_io\GUI;$(LibraryPath)</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

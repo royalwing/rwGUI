@@ -114,7 +114,7 @@
     <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>C:\Projects\wincurl\third-party\libcurl\lib\dll-release-x64;$(LibraryPath)</LibraryPath>
@@ -122,7 +122,7 @@
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'">
     <LibraryPath>C:\Projects\wincurl\third-party\libcurl\lib\dll-release-x64;$(LibraryPath)</LibraryPath>
@@ -130,7 +130,7 @@
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
@@ -138,7 +138,7 @@
     <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
@@ -146,7 +146,7 @@
     <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
@@ -154,7 +154,7 @@
     <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

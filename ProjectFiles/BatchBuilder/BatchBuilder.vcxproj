@@ -107,7 +107,7 @@
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -116,7 +116,7 @@
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,7 +125,7 @@
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -134,7 +134,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -143,7 +143,7 @@
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -152,7 +152,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -32,3 +32,5 @@
 # Project files
 *.sdf
 /.vs/*
+*.ilk
+*.pdb

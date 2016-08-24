@@ -1,8 +1,2 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  main.cpp
-  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\ProjectFiles\GUI\..\..\..\royalwing_github_io\GUI\GUI_x64.exe
-  [master b30edca] Updated application 'GUI'
-   5 files changed, 1 insertion(+), 1 deletion(-)
-   rewrite GUI/manifest.json (100%)
-  To https://github.com/royalwing/royalwing.github.io.git
-     fdb410f..b30edca  master -> master
+﻿  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x86.exe
+  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x86.pdb (Partial PDB)

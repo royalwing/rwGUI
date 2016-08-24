@@ -105,7 +105,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
@@ -113,7 +113,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
@@ -121,7 +121,7 @@
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
@@ -129,7 +129,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
@@ -137,7 +137,7 @@
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'">
     <IncludePath>$(SolutionDir)Source\rwupd;$(SolutionDir)Source\rwgui;$(IncludePath)</IncludePath>
@@ -145,7 +145,7 @@
     <OutDir>$(SolutionDir)Binaries\</OutDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <LibraryPath>$(LibraryPath);$(SolutionDir)Binaries\</LibraryPath>
-    <TargetName>$(ProjectName)_$(Platform)</TargetName>
+    <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
