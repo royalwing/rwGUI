@@ -27,8 +27,8 @@
 *.exe
 *.out
 *.app
-/Binaries
+/Binaries/*
 
 # Project files
 *.sdf
-/vs
+/.vs/*
