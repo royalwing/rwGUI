@@ -1,3 +1,2 @@
-﻿     Создается библиотека C:\Projects\RoyalWing's Updater\Binaries\rwgui_x86.lib и объект C:\Projects\RoyalWing's Updater\Binaries\rwgui_x86.exp
-  rwgui.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwgui_x86.dll
-  rwgui.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwgui_x86.pdb (Partial PDB)
+﻿  rwgui.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwgui_x64.dll
+  rwgui.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwgui_x64.pdb (Partial PDB)

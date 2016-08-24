@@ -1,3 +1,16 @@
-﻿     Создается библиотека C:\Projects\RoyalWing's Updater\Binaries\rwupd_x86.lib и объект C:\Projects\RoyalWing's Updater\Binaries\rwupd_x86.exp
-  rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x86.dll
-  rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x86.pdb (Partial PDB)
+﻿  sha256.cpp
+  rwupd.cpp
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(100): warning C4267: +=: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(106): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(146): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(174): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(323): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(324): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\rwupd.cpp(327): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  json.cpp
+c:\projects\royalwing's updater\source\rwupd\json.cpp(140): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\json.cpp(197): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+c:\projects\royalwing's updater\source\rwupd\json.cpp(244): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода...
+  rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.dll
+  rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.pdb (Partial PDB)

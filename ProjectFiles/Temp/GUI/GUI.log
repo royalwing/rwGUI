@@ -1,2 +1,3 @@
-﻿  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x86.exe
-  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x86.pdb (Partial PDB)
+﻿  main.cpp
+  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x64.exe
+  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x64.pdb (Partial PDB)

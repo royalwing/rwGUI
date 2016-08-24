@@ -1,5 +1,6 @@
 ﻿#include <rwupd.h>
 #include <rwgui.h>
+#include <Elements/Pages/BasePage.h>
 
 class UpdaterGUIApp : public Application
 {

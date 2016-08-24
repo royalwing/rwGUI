@@ -1,15 +1,20 @@
 #ifndef RWGUI_H
 #define RWGUI_H
 
+class ApplicationPage;
+class Drawable;
+
 #include "rwapi.h"
 
 // External includes
 #include <Windows.h>
+#include <vector>
 
 // Internal includes
 #include <Common/rwmath.h>
+#include <Elements/Pages/ApplicationPage.h>
+#include <Elements/Drawables/Drawable.h>
 #include <rwd2d.h>
-#include <Elements/Elements.h>
 
 class RWGUI_API GUIResources
 {

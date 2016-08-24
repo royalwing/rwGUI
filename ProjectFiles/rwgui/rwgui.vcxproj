@@ -28,13 +28,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\rwmath.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Elements.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Drawable.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwapi.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Elements.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Drawable.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.cpp" />
   </ItemGroup>
