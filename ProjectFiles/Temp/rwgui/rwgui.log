@@ -1,0 +1,80 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Elements.cpp
+..\..\..\RoyalWing's Updater\Source\rwgui\Elements\Elements.cpp(1): warning C4005: DLLLIB: изменение макроопределения
+  ..\..\..\RoyalWing's Updater\Source\rwgui\Elements\Elements.cpp(1): note: аргументы командной строки:  см. предыдущее определение "DLLLIB"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(18): warning C4251: Drawable::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Drawable"
+          with
+          [
+              _Ty=Drawable *
+          ]
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(63): warning C4251: Border::borderColor: class "Color" должен иметь dll-интерфейс для использования клиентами class "Border"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(77): warning C4251: Button::Position: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(78): warning C4251: Button::Size: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(107): warning C4251: Background::color: class "Color" должен иметь dll-интерфейс для использования клиентами class "Background"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(118): warning C4251: ApplicationPage::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "ApplicationPage"
+          with
+          [
+              _Ty=Drawable *
+          ]
+c:\projects\royalwing's updater\source\rwgui\elements\../rwgui.h(33): warning C4251: Application::Pages: class "std::vector<ApplicationPage *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Application"
+          with
+          [
+              _Ty=ApplicationPage *
+          ]
+  rwd2d.cpp
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(18): warning C4251: Drawable::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Drawable"
+          with
+          [
+              _Ty=Drawable *
+          ]
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(63): warning C4251: Border::borderColor: class "Color" должен иметь dll-интерфейс для использования клиентами class "Border"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(77): warning C4251: Button::Position: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(78): warning C4251: Button::Size: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(107): warning C4251: Background::color: class "Color" должен иметь dll-интерфейс для использования клиентами class "Background"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(118): warning C4251: ApplicationPage::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "ApplicationPage"
+          with
+          [
+              _Ty=Drawable *
+          ]
+c:\projects\royalwing's updater\source\rwgui\rwgui.h(33): warning C4251: Application::Pages: class "std::vector<ApplicationPage *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Application"
+          with
+          [
+              _Ty=ApplicationPage *
+          ]
+  rwgui.cpp
+..\..\..\RoyalWing's Updater\Source\rwgui\rwgui.cpp(1): warning C4005: DLLLIB: изменение макроопределения
+  ..\..\..\RoyalWing's Updater\Source\rwgui\rwgui.cpp(1): note: аргументы командной строки:  см. предыдущее определение "DLLLIB"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(18): warning C4251: Drawable::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Drawable"
+          with
+          [
+              _Ty=Drawable *
+          ]
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(63): warning C4251: Border::borderColor: class "Color" должен иметь dll-интерфейс для использования клиентами class "Border"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(77): warning C4251: Button::Position: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(78): warning C4251: Button::Size: class "Vector2D" должен иметь dll-интерфейс для использования клиентами class "Button"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(7): note:  см. объявление "Vector2D"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(107): warning C4251: Background::color: class "Color" должен иметь dll-интерфейс для использования клиентами class "Background"
+  C:\Projects\RoyalWing's Updater\Source\rwgui\Common/rwmath.h(47): note:  см. объявление "Color"
+C:\Projects\RoyalWing's Updater\Source\rwgui\Elements/Elements.h(118): warning C4251: ApplicationPage::Elements: class "std::vector<Drawable *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "ApplicationPage"
+          with
+          [
+              _Ty=Drawable *
+          ]
+c:\projects\royalwing's updater\source\rwgui\rwgui.h(33): warning C4251: Application::Pages: class "std::vector<ApplicationPage *,std::allocator<_Ty>>" должен иметь dll-интерфейс для использования клиентами class "Application"
+          with
+          [
+              _Ty=ApplicationPage *
+          ]
+  Создание кода...
+     Создается библиотека ..\..\..\royalwing_github_io\GUI\rwgui_x64.lib и объект ..\..\..\royalwing_github_io\GUI\rwgui_x64.exp
+  rwgui.vcxproj -> C:\Projects\RoyalWing's Updater\ProjectFiles\rwgui\..\..\..\royalwing_github_io\GUI\rwgui_x64.dll

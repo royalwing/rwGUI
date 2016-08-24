@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Elements">
+      <UniqueIdentifier>{21a32673-b0d5-4cfc-aa6c-2a209998c553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{e2165db5-2f5a-440c-824a-7de08cdc4258}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwapi.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Elements.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\rwmath.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Elements.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
