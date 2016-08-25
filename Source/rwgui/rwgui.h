@@ -11,22 +11,13 @@ class Drawable;
 #include <vector>
 
 // Internal includes
+#include <Common/Types.h>
 #include <Common/rwmath.h>
 #include <Elements/Pages/ApplicationPage.h>
 #include <Elements/Drawables/Drawable.h>
 #include <rwd2d.h>
 
-class RWGUI_API GUIResources
-{
-private:
-	GUIResources();
-	~GUIResources() {};
 
-public:
-	static GUIResources* Get() { static GUIResources instance; return &instance; };
-	HCURSOR CURSOR_ARROW;
-	HCURSOR CURSOR_WAIT;
-};
 
 class RWGUI_API Application
 {
@@ -57,6 +48,9 @@ public:
 	virtual void BuildPages(std::vector<ApplicationPage*>& outPages) {};
 	virtual void OnKeyPressed(char key);
 	virtual void OnKeyReleased(char key);
+
+
+	void GlobalEvent(EGlobalEvent eventType);
 
 	Drawable* GetDrawableAtPosition(Vector2D Position);
 	Drawable* GetCurrentHoveredDrawable() { return currentHoveredDrawable; };

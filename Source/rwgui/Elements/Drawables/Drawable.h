@@ -4,7 +4,7 @@
 class RWD2D;
 class Application;
 
-
+#include <Resources/ResourceManager.h>
 #include <Elements/Pages/ApplicationPage.h>
 
 class RWGUI_API Drawable
@@ -31,6 +31,7 @@ public:
 	virtual void OnMousePress() {};
 	virtual void OnMouseRelease() {};
 	virtual void OnMouseClick() {};
+	virtual void OnGlobalEvent(EGlobalEvent eventType) {};
 	bool IsInteractive() { return bInteractive; };
 
 	ApplicationPage* GetAppPage();

@@ -1,6 +1,6 @@
 #include "rwd2d.h"
 #include "rwgui.h"
-
+#include <Resources/ResourceManager.h>
 
 bool RWD2D::Init(Application * app)
 {
@@ -20,8 +20,10 @@ bool RWD2D::Init(Application * app)
 		&renderTarget
 		);
 	if (result != S_OK) return false;
+	ResourceManager::Get()->SetReferenceRenderTarget(renderTarget);
 	result = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&writeFactory));
 	if (result != S_OK) return false;
+	ResourceManager::Get()->SetReferenceDirectWriteFactory(writeFactory);
 	bInitialized = true;
 	return true;
 }

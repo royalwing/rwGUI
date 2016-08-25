@@ -15,8 +15,10 @@ BasePage::BasePage(char* pageTitle, Color backgroundColor, Color borderColor, in
 	AddElement(new Border("TopRightBorder", EBorderType::TopRight, borderColor, borderWidth));
 	AddElement(new Border("BottomRightBorder", EBorderType::BottomRight, borderColor, borderWidth));
 	AddElement(new Border("BottomLeftBorder", EBorderType::BottomLeft, borderColor, borderWidth));
-	AddElement(new Button("CloseButton", Bounds(0, 0, 32, 32), [](Application* app) {
+	AddElement(new Button("CloseButton","Close", Bounds(50, 50, 170, 35), [](Application* app) {
 		app->Stop();
+	}));
+	AddElement(new Button("Button2","None", Bounds(240, 50, 170, 35), [](Application* app) {
 	}));
 	AddElement(new Header("Header", pageTitle));
 

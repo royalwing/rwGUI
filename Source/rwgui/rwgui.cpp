@@ -1,4 +1,3 @@
-#define DLLLIB
 #include "rwgui.h"
 #include <iostream>
 #include <windowsx.h>
@@ -20,7 +19,6 @@ int Application::Run(HINSTANCE hInstance)
 	windowClass.style = CS_HREDRAW | CS_VREDRAW;
 	RegisterClassEx(&windowClass);
 
-	GUIResources::Get();
 
 	Bounds bounds = GetDefaultWindowBounds();
 	RECT rect = { bounds.Pos.x, bounds.Pos.y, bounds.Size.x, bounds.Size.y};
@@ -95,12 +93,21 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
 	case WM_LBUTTONUP:
 		OnKeyReleased(VK_LBUTTON);
+		GlobalEvent(MOUSEBUTTONRELEASED);
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
 	case WM_RBUTTONDOWN:
 		OnKeyPressed(VK_RBUTTON);
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
 	case WM_RBUTTONUP:
 		OnKeyReleased(VK_RBUTTON);
+		GlobalEvent(MOUSEBUTTONRELEASED);
+		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
+	case WM_MBUTTONDOWN:
+		OnKeyPressed(VK_MBUTTON);
+		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
+	case WM_MBUTTONUP:
+		OnKeyReleased(VK_MBUTTON);
+		GlobalEvent(MOUSEBUTTONRELEASED);
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
 	case WM_KEYUP:
 		OnKeyReleased(wparam & 0xFF);
@@ -174,6 +181,14 @@ void Application::OnKeyReleased(char key)
 	}
 }
 
+void Application::GlobalEvent(EGlobalEvent eventType)
+{
+	for (auto element : GetActivePage()->Elements)
+	{
+		element->OnGlobalEvent(eventType);
+	}
+}
+
 Drawable * Application::GetDrawableAtPosition(Vector2D Position)
 {
 	if (GetActivePage() == nullptr) return nullptr;
@@ -229,10 +244,4 @@ Bounds Application::GetCurrentWindowBounds()
 	ID2D1HwndRenderTarget* rt = Renderer->GetRenderTarget();
 	if (rt == nullptr) return Bounds(0, 0, 0, 0);
 	return Bounds(0,0,rt->GetSize().width,rt->GetSize().height);
-}
-
-GUIResources::GUIResources()
-{
-	CURSOR_ARROW = LoadCursor(NULL, IDC_ARROW);
-	CURSOR_WAIT = LoadCursor(NULL, IDC_WAIT);
 }

@@ -8,6 +8,7 @@
 
 class Application;
 
+
 class RWD2D
 {
 	ID2D1Factory* factory;
@@ -28,6 +29,7 @@ public:
 	void BeginDraw() { renderTarget->BeginDraw(); };
 	void EndDraw() { renderTarget->EndDraw(); };
 	void Resize();
+
 
 	ID2D1Factory* GetFactory() { return factory; };
 	IDWriteFactory* GetWriteFactory() { return writeFactory; };

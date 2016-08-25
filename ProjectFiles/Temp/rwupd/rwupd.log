@@ -12,5 +12,6 @@ c:\projects\royalwing's updater\source\rwupd\json.cpp(140): warning C4267: retur
 c:\projects\royalwing's updater\source\rwupd\json.cpp(197): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
 c:\projects\royalwing's updater\source\rwupd\json.cpp(244): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
   Создание кода...
+     Создается библиотека C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.lib и объект C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.exp
   rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.dll
   rwupd.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\rwupd_x64.pdb (Partial PDB)

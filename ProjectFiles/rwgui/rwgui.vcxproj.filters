@@ -13,6 +13,9 @@
     <Filter Include="Elements\Drawables">
       <UniqueIdentifier>{47950060-37ea-47d8-b435-1f7a4167740e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{6cb489ef-99cb-45bb-ac00-4400c3a893ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwapi.h" />
@@ -42,6 +45,12 @@
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.h">
       <Filter>Elements\Pages</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\Types.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
@@ -66,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp">
       <Filter>Elements\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
