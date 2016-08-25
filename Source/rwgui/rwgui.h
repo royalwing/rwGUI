@@ -16,6 +16,7 @@ class Drawable;
 #include <Elements/Pages/ApplicationPage.h>
 #include <Elements/Drawables/Drawable.h>
 #include <rwd2d.h>
+#include <wincodec.h>
 
 
 

@@ -12,11 +12,23 @@ Button::Button(char* name, std::string caption,Bounds bounds, Button::OnButtonPr
 	OnButtonPressed = OnPress;
 	Position = bounds.Pos;
 	Size = bounds.Size;
+	BackgroundColor = Color(1.0f, 1.0f, 1.0f);
 }
 
 void Button::OnMouseClick()
 {
 	if (OnButtonPressed != nullptr) OnButtonPressed(GetApplication());
+}
+
+void Button::SetBackgroundColor(Color bgColor)
+{
+	BackgroundColor = bgColor;
+}
+
+void Button::SetBackgroundImage(char * bgImagePath)
+{
+	if (strlen(bgImagePath) == 0) background = nullptr;
+	background = MAKEBITMAP(bgImagePath);
 }
 
 void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
@@ -30,19 +42,22 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	Drawable* curHovered = GetApplication()->GetCurrentHoveredDrawable();
 	if (bPressed)
 	{
-		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(0.88f, 0.88f, 0.88f)));
-		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(0.6f,0.6f,0.6f)));
+		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.87f));
+		if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f,D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0,0,background->GetSize().width, background->GetSize().height).ToD2DRect());
+		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.6f));
 		renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(b.Pos.x + b.Size.x / 2 - metrics.width / 2, b.Pos.y + b.Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(0.0f, 0.0f, 0.0f)));
 	} else
 	if (curHovered != nullptr &&  curHovered == this)
 	{
-		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(0.8f, 0.8f, 0.8f)));
-		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
+		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.8f));
+		if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 0.9f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0, 0, background->GetSize().width, background->GetSize().height).ToD2DRect());
+		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor));
 		renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(b.Pos.x + b.Size.x / 2 - metrics.width / 2, b.Pos.y + b.Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
 	}
 	else {
-		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(0.7f, 0.7f, 0.7f)));
-		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
+		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.7f));
+		if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0, 0, background->GetSize().width, background->GetSize().height).ToD2DRect());
+		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor));
 		renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(b.Pos.x + b.Size.x / 2 - metrics.width / 2, b.Pos.y + b.Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
 	}
 

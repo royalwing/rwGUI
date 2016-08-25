@@ -5,6 +5,7 @@
 #pragma comment(lib,"d2d1.lib")
 #include <d2d1.h>
 #include <dwrite.h>
+#include <wincodec.h>
 
 class Application;
 
@@ -14,6 +15,7 @@ class RWD2D
 	ID2D1Factory* factory;
 	ID2D1HwndRenderTarget* renderTarget;
 	IDWriteFactory* writeFactory;
+	IWICImagingFactory* imageFactory;
 	Application* application;
 	bool bInitialized;
 public:

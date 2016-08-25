@@ -24,6 +24,9 @@ bool RWD2D::Init(Application * app)
 	result = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&writeFactory));
 	if (result != S_OK) return false;
 	ResourceManager::Get()->SetReferenceDirectWriteFactory(writeFactory);
+	result = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)&imageFactory);
+	if (result != S_OK) return false;
+	ResourceManager::Get()->SetReferenceImageFactory(imageFactory);
 	bInitialized = true;
 	return true;
 }

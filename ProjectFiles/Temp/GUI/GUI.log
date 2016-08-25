@@ -1,2 +1,7 @@
-﻿  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x64.exe
+﻿  main.cpp
+c:\projects\royalwing's updater\source\rwgui\resources\resourcemanager.h(27): warning C4101: cursor: неиспользованная локальная переменная
+  c:\projects\royalwing's updater\source\rwgui\resources\resourcemanager.h(27): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  c:\projects\royalwing's updater\source\rwgui\resources\resourcemanager.h(55): note: см. ссылку на создание экземпляров функции шаблон при компиляции "Resource<ID2D1Bitmap>::~Resource(void)"
+  c:\projects\royalwing's updater\source\rwgui\resources\resourcemanager.h(52): note: см. ссылку на создание экземпляров класса шаблон при компиляции "Resource<ID2D1Bitmap>"
+  GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x64.exe
   GUI.vcxproj -> C:\Projects\RoyalWing's Updater\Binaries\GUI_x64.pdb (Partial PDB)

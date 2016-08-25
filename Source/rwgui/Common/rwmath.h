@@ -62,6 +62,7 @@ public:
 	Color(float inr, float ing, float inb, float ina = 1.0f) : r(inr), g(ing), b(inb), a(ina) {};
 	D2D1_COLOR_F ToD2D1ColorF() { return D2D1::ColorF(r,g,b,a); };
 	bool operator==(Color bc) { return (r == bc.r && g == bc.g && b == bc.b && a == bc.a); };
+	Color operator*(float val) { return Color(r*val, g*val, b*val, a*val); };
 };
 
 #endif

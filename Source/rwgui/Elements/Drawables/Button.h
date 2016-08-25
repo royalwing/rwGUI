@@ -10,8 +10,10 @@ public:
 private:
 	Vector2D Position;
 	Vector2D Size;
+	Color BackgroundColor;
 	wchar_t* Caption = L"";
 	OnButtonPressedDelegate OnButtonPressed = nullptr;
+	ID2D1Bitmap* background = nullptr;
 	bool bPressed = false;
 public:
 	Button(char* name, std::string caption, Bounds bounds = Bounds(0, 0, 200, 35), OnButtonPressedDelegate btnPressed = nullptr);
@@ -22,6 +24,9 @@ public:
 	virtual void OnMouseClick() override;
 	virtual void OnGlobalEvent(EGlobalEvent eventType) override { if (eventType == MOUSEBUTTONRELEASED) bPressed = false; };
 	virtual int GetDrawableNCObjectType() { return HTCLIENT; };
+	
+	void SetBackgroundColor(Color bgColor);
+	void SetBackgroundImage(char* bgImagePath);
 
 };
 

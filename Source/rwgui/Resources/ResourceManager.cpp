@@ -54,3 +54,53 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 	}
 	return format;
 }
+
+ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
+{
+	ID2D1Bitmap* bitmap = nullptr;
+	if (ResourceManager::Get()->renderTarget != nullptr)
+	{
+		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
+		for (auto resource : Resources)
+		{
+			Resource_Bitmap* sBitmap = dynamic_cast<Resource_Bitmap*>(resource);
+			if (sBitmap != nullptr && strcmp(sBitmap->bitmapPath,bitmapPath)==0)
+			{
+				return sBitmap->GetValue();
+			}
+		}
+		if (ResourceManager::Get()->imageFactory!=nullptr)
+		{
+			IWICBitmapDecoder* pDecoder = nullptr;
+			IWICBitmapFrameDecode* pSource = nullptr;
+			IWICFormatConverter* pConverter = nullptr;
+
+
+			std::wstring wBitmapPath(strlen(bitmapPath), L'#');
+			mbstowcs(&wBitmapPath[0], bitmapPath, strlen(bitmapPath));
+
+			HRESULT result = ResourceManager::Get()->imageFactory->CreateDecoderFromFilename(wBitmapPath.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
+			if (result == S_OK)
+			{
+				result = pDecoder->GetFrame(0, &pSource);
+				if (result == S_OK)
+				{
+					result = ResourceManager::Get()->imageFactory->CreateFormatConverter(&pConverter);
+					if (result == S_OK)
+					{
+						result = pConverter->Initialize(pSource, GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherTypeNone, nullptr, 0.f, WICBitmapPaletteTypeMedianCut);
+						if (result == S_OK)
+						{
+							result = ResourceManager::Get()->renderTarget->CreateBitmapFromWicBitmap(pConverter, nullptr, &bitmap);
+							new Resource_Bitmap(bitmapPath, bitmap);
+						}
+					}
+				}
+			}
+			if (pDecoder != nullptr) pDecoder->Release();
+			if (pSource != nullptr) pSource->Release();
+			if (pConverter != nullptr) pConverter->Release();
+		}
+	}
+	return bitmap;
+}
