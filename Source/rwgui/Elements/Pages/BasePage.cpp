@@ -28,8 +28,8 @@ void BasePage::BuildPage()
 		CloseButton(char* name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
 		virtual void Update(float DeltaTime)
 		{
-			SetPosition(GetOuterBounds().Size.x - 24 - 8, 8);
-			SetSize(24, 24);
+			SetPosition(GetOuterBounds().Size.x - 18 - 12, 8);
+			SetSize(18, 18);
 		}
 	};
 
