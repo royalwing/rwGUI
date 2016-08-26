@@ -31,6 +31,7 @@ private:
 	int activePage = 0;
 	Drawable* currentHoveredDrawable = nullptr;
 	Drawable* currentPressedDrawable = nullptr;
+	Vector2D MinWindowSize;
 	bool Input[0x100] = { 0 };
 public:
 
@@ -43,10 +44,12 @@ public:
 
 	virtual void OnCommandLineArgument(char* arg,char* value) {};
 	virtual void OnStop() {};
-	virtual bool Update() { return false; };
+	void InternalUpdate(float DeltaTime);
+	virtual void Update(float DeltaTime);
 	virtual void OnInit() {};
 	virtual void OnDraw(RWD2D* d2d,ID2D1HwndRenderTarget* renderTarget);
-	virtual void BuildPages(std::vector<ApplicationPage*>& outPages) {};
+	virtual void BuildPages() {};
+	void AddPage(ApplicationPage* appPage);
 	virtual void OnKeyPressed(char key);
 	virtual void OnKeyReleased(char key);
 
@@ -67,6 +70,10 @@ public:
 	HWND GetWindowHandler();
 	char* GetWindowClassName();
 	Bounds GetCurrentWindowBounds();
+
+	void SetMinimalWindowSize(Vector2D minSize);
+	bool UpdateMinimalWindowSize();
+	Vector2D GetMinimalWindowSize();
 
 	void InternalProcessCommandLine(char* cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument
 };

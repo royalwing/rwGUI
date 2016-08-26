@@ -12,65 +12,46 @@ Border::Border(char* name, EBorderType type, Color color, int width)
 void Border::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 {
 	if (borderBrush == nullptr) renderTarget->CreateSolidColorBrush(D2D1::ColorF(borderColor.r, borderColor.g, borderColor.b, borderColor.a), &borderBrush);
-	renderTarget->FillRectangle(GetAbsoluteBounds().ToD2DRect(), borderBrush);
+	renderTarget->FillRectangle(GetBounds().ToD2DRect(), borderBrush);
 }
 
-Bounds Border::GetBounds()
+void Border::Update(float DeltaTime)
 {
-	Bounds outerBounds = GetOuterBounds();
-	Bounds curBounds;
 	switch (borderType)
 	{
 	case EBorderType::Top:
-		curBounds.Pos.x = borderWidth;
-		curBounds.Pos.y = 0;
-		curBounds.Size.x = outerBounds.Size.x - borderWidth * 2;
-		curBounds.Size.y = borderWidth;
+		SetPosition(borderWidth, 0);
+		SetSize(GetOuterBounds().Size.x - borderWidth * 2, borderWidth);
 		break;
 	case EBorderType::Bottom:
-		curBounds.Pos.x = borderWidth;
-		curBounds.Pos.y = outerBounds.Size.y - borderWidth;
-		curBounds.Size.x = outerBounds.Size.x - borderWidth * 2;
-		curBounds.Size.y = borderWidth;
+		SetPosition(borderWidth, GetOuterBounds().Size.y - borderWidth);
+		SetSize(GetOuterBounds().Size.x - borderWidth * 2, borderWidth);
 		break;
 	case EBorderType::Left:
-		curBounds.Pos.x = 0;
-		curBounds.Pos.y = borderWidth;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = outerBounds.Size.y - borderWidth * 2;
+		SetPosition(0, borderWidth);
+		SetSize(borderWidth, GetOuterBounds().Size.y - borderWidth * 2);
 		break;
 	case EBorderType::Right:
-		curBounds.Pos.x = outerBounds.Size.x - borderWidth;
-		curBounds.Pos.y = borderWidth;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = outerBounds.Size.y - borderWidth * 2;
+		SetPosition(GetOuterBounds().Size.x - borderWidth, borderWidth);
+		SetSize(borderWidth, GetOuterBounds().Size.y - borderWidth * 2);
 		break;
 	case EBorderType::TopLeft:
-		curBounds.Pos.x = 0;
-		curBounds.Pos.y = 0;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = borderWidth;
+		SetPosition(0,0);
+		SetSize(borderWidth,borderWidth);
 		break;
 	case EBorderType::TopRight:
-		curBounds.Pos.x = outerBounds.Size.x - borderWidth;
-		curBounds.Pos.y = 0;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = borderWidth;
+		SetPosition(GetOuterBounds().Size.x - borderWidth, 0);
+		SetSize(borderWidth, borderWidth);
 		break;
 	case EBorderType::BottomRight:
-		curBounds.Pos.x = outerBounds.Size.x - borderWidth;
-		curBounds.Pos.y = outerBounds.Size.y - borderWidth;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = borderWidth;
+		SetPosition(GetOuterBounds().Size.x - borderWidth, GetOuterBounds().Size.y - borderWidth);
+		SetSize(borderWidth, borderWidth);
 		break;
 	case EBorderType::BottomLeft:
-		curBounds.Pos.x = 0;
-		curBounds.Pos.y = outerBounds.Size.y - borderWidth;
-		curBounds.Size.x = borderWidth;
-		curBounds.Size.y = borderWidth;
+		SetPosition(0, GetOuterBounds().Size.y - borderWidth);
+		SetSize(borderWidth, borderWidth);
 		break;
 	}
-	return curBounds;
 }
 
 Bounds Border::GetSelectionBounds()

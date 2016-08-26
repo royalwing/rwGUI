@@ -20,6 +20,7 @@ public:
 	Vector2D operator-(float val) { return Vector2D(x - val, y - val); };
 	Vector2D operator/(float val) { return Vector2D(x / val, y / val); };
 	Vector2D operator*(float val) { return Vector2D(x * val, y * val); };
+	Vector2D& operator+=(Vector2D b) { x += b.x; y+=b.y; return *this; };
 };
 
 class Bounds

@@ -8,6 +8,7 @@ ID2D1Brush * ResourceManager::MakeBrush(Color color)
 		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
 		for (auto resource : Resources)
 		{
+			if (resource == nullptr) continue;
 			Resource_SolidBrush* sBrush = dynamic_cast<Resource_SolidBrush*>(resource);
 			if (sBrush!=nullptr && sBrush->clr == color)
 			{
@@ -30,6 +31,7 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
 		for (auto resource : Resources)
 		{
+			if (resource == nullptr) continue;
 			Resource_TextFormat* sTextFormat = dynamic_cast<Resource_TextFormat*>(resource);
 			if (sTextFormat != nullptr)
 			{
@@ -63,6 +65,8 @@ ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
 		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
 		for (auto resource : Resources)
 		{
+			if (resource == nullptr) continue;
+			// TODO : Исправить вылет при поиске битмапа 
 			Resource_Bitmap* sBitmap = dynamic_cast<Resource_Bitmap*>(resource);
 			if (sBitmap != nullptr && strcmp(sBitmap->bitmapPath,bitmapPath)==0)
 			{

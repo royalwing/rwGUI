@@ -9,12 +9,15 @@ private:
 	ID2D1LinearGradientBrush* brush = nullptr;
 	ID2D1SolidColorBrush* textBrush = nullptr;
 	IDWriteTextFormat* textFormat = nullptr;
+	Color textColor;
 	char* headerTitle = "";
 public:
 	Header(char* name, char* title);
-	virtual Bounds GetBounds() override;
+	virtual void Update(float DeltaTime) override;
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual int GetDrawableNCObjectType() { return HTCAPTION; };
+	void SetTextColor(Color tColor) { textColor = tColor; if (textBrush != nullptr) { textBrush->Release(); textBrush = nullptr; } };
+	void SetText(char* newTitle) { headerTitle = newTitle; };
 };
 
 

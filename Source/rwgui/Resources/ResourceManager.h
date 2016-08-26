@@ -52,7 +52,7 @@ class Resource_Bitmap : public Resource<ID2D1Bitmap>
 {
 public:
 	char* bitmapPath;
-	Resource_Bitmap(char* bitmapPath, ID2D1Bitmap* nVal) : Resource(nVal) {};
+	Resource_Bitmap(char* nBitmapPath, ID2D1Bitmap* nVal) : Resource(nVal) { bitmapPath = nBitmapPath; };
 	virtual void Release() override { if (value != nullptr) value->Release(); };
 
 };

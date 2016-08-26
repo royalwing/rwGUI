@@ -35,4 +35,5 @@
 *.ilk
 *.pdb
 *.tlog
+*.log
 ProjectFiles/Temp/*

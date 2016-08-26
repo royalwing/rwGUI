@@ -25,7 +25,7 @@ public:
 	int borderWidth;
 	Border(char* name, EBorderType borderType, Color color, int borderWidth = 1);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
-	virtual Bounds GetBounds() override;
+	virtual void Update(float DeltaTime) override;
 	Bounds GetSelectionBounds() override;
 	virtual int GetDrawableNCObjectType() override;
 };

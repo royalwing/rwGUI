@@ -30,7 +30,7 @@ public:
 	bool Init(Application* app);
 	void BeginDraw() { renderTarget->BeginDraw(); };
 	void EndDraw() { renderTarget->EndDraw(); };
-	void Resize();
+	void Resize(int x, int y);
 
 
 	ID2D1Factory* GetFactory() { return factory; };

@@ -51,3 +51,37 @@ void ApplicationPage::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 		elem->Draw(d2d, renderTarget);
 	}
 }
+
+void ApplicationPage::InternalUpdate(float DeltaTime)
+{
+	for (Drawable* element : Elements)
+	{
+		element->InternalUpdate(DeltaTime);
+	}
+	Update(DeltaTime);
+}
+
+void ApplicationPage::Update(float DeltaTime)
+{
+}
+
+
+void ApplicationPage::SetApp(Application* nApp)
+{
+	this->App = nApp;
+}
+
+
+
+void ApplicationPage::SetTitle(char * newtitle)
+{
+	if (newtitle == nullptr) pageTitle = "";
+	else pageTitle = newtitle;
+}
+
+char * ApplicationPage::GetTitle()
+{
+	return pageTitle;
+}
+
+

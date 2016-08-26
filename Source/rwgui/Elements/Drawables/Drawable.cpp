@@ -39,6 +39,11 @@ Drawable * Drawable::GetOuter()
 	return Outer;
 }
 
+void Drawable::InternalUpdate(float DeltaTime)
+{
+	Update(DeltaTime);
+}
+
 char* Drawable::GetName()
 {
 	return name;
@@ -46,25 +51,15 @@ char* Drawable::GetName()
 
 Bounds Drawable::GetBounds()
 {
-	return Bounds(0, 0, 0, 0);
+	Bounds outerBounds = GetOuterBounds();
+	outerBounds.Pos += Position;
+	outerBounds.Size = Size;
+	return outerBounds;
 }
 
 Bounds Drawable::GetOuterBounds()
 {
 	return GetOuter() != nullptr ? GetOuter()->GetBounds() : appPage->GetBounds();
-}
-
-Bounds Drawable::GetAbsoluteBounds()
-{
-	Bounds result = GetBounds();
-	Drawable* outer = GetOuter();
-	while (outer != nullptr)
-	{
-		result += outer->GetBounds();
-		outer = GetOuter();
-	}
-	result += appPage->GetApplication()->GetCurrentWindowBounds();
-	return result;
 }
 
 Drawable* Drawable::GetDrawableAtPosition(Vector2D Position)

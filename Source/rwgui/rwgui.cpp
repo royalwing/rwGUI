@@ -37,11 +37,7 @@ int Application::Run(HINSTANCE hInstance)
 	Renderer = new RWD2D();
 	if (!Renderer || !Renderer->Init(this)) return 1;
 
-	BuildPages(Pages);
-	for (ApplicationPage* page : Pages)
-	{
-		page->SetApp(this);
-	}
+	BuildPages();
 	OnInit();
 	
 
@@ -53,9 +49,6 @@ int Application::Run(HINSTANCE hInstance)
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-		}
-		else {
-			if (!Update()) return 1;
 		}
 		
 	}
@@ -83,6 +76,8 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	Drawable* drawable = nullptr;
 	Vector2D pt(0,0);
 	RECT rc;
+	LPRECT rect;
+	UINT width, height;
 	switch (uMsg)
 	{
 	case WM_KEYDOWN:
@@ -131,12 +126,27 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		currentHoveredDrawable = drawable;
 		if (drawable) return drawable->GetDrawableNCObjectType();
 		return HTCLIENT;
+	case WM_SIZING:
+		if (UpdateMinimalWindowSize()) return 0;
+		rect = (LPRECT)lparam;
+		if (Renderer)
+		{
+			Renderer->Resize(rect->right - rect->left, rect->bottom - rect->top);
+		}
+		return DefWindowProc(WindowHandler, uMsg, wparam, lparam);
 	case WM_SIZE:
-		if (Renderer) Renderer->Resize();
-		return 0;
+		if (UpdateMinimalWindowSize()) return 0;
+		width = LOWORD(lparam); 
+		height = HIWORD(lparam); 
+		if (Renderer)
+		{
+			Renderer->Resize(width, height);
+		}
+		return DefWindowProc(WindowHandler,uMsg,wparam,lparam);
 	case WM_ERASEBKGND:
 		return 0;
 	case WM_PAINT:
+		InternalUpdate(0);
 		if (Renderer) Renderer->Update();
 		return 0;
 	case WM_DESTROY:
@@ -147,11 +157,29 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
 }
 
+void Application::InternalUpdate(float DeltaTime)
+{
+	GetActivePage()->InternalUpdate(DeltaTime);
+	Update(DeltaTime);
+}
+
+void Application::Update(float DeltaTime)
+{
+}
+
 void Application::OnDraw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 {
 	if (activePage < Pages.size()) Pages[activePage]->Draw(d2d, renderTarget);
 }
 
+
+void Application::AddPage(ApplicationPage* appPage)
+{
+	if (appPage == nullptr) return;
+	appPage->SetApp(this);
+	appPage->BuildPage();
+	Pages.push_back(appPage);
+}
 
 void Application::OnKeyPressed(char key)
 {
@@ -205,23 +233,17 @@ int Application::GetActivePageID()
 	return activePage;
 }
 
-ApplicationPage * Application::GetActivePage()
-{
-	if (activePage < Pages.size()) return Pages[activePage];
-	return nullptr;
-}
-
-
-void ApplicationPage::SetApp(Application* nApp)
-{
-	this->App = nApp;
-}
-
 char * Application::GetApplicationTitle()
 {
 	return GetApplicationName();
 }
 
+
+ApplicationPage * Application::GetActivePage()
+{
+	if (activePage < Pages.size()) return Pages[activePage];
+	return nullptr;
+}
 
 
 Bounds Application::GetDefaultWindowBounds()
@@ -244,4 +266,27 @@ Bounds Application::GetCurrentWindowBounds()
 	ID2D1HwndRenderTarget* rt = Renderer->GetRenderTarget();
 	if (rt == nullptr) return Bounds(0, 0, 0, 0);
 	return Bounds(0,0,rt->GetSize().width,rt->GetSize().height);
+}
+
+void Application::SetMinimalWindowSize(Vector2D minSize)
+{
+	MinWindowSize = minSize;
+	UpdateMinimalWindowSize();
+}
+
+bool Application::UpdateMinimalWindowSize()
+{
+	bool bResult = false;
+	Vector2D minSize = GetMinimalWindowSize();
+	RECT rc;
+	GetWindowRect(WindowHandler, &rc);
+	if (rc.right - rc.left < minSize.x) { rc.right = rc.left + minSize.x; bResult = true; }
+	if (rc.bottom - rc.top < minSize.y) { rc.bottom = rc.top + minSize.y; bResult = true; }
+	MoveWindow(WindowHandler, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top, true);
+	return bResult;
+}
+
+Vector2D Application::GetMinimalWindowSize()
+{
+	return MinWindowSize;
 }

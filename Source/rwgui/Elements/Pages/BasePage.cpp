@@ -4,9 +4,12 @@
 #include <Elements/Drawables/Button.h>
 #include <Elements/Drawables/Header.h>
 
-BasePage::BasePage(char* pageTitle, Color backgroundColor, Color borderColor, int borderWidth)
-{
-	AddElement(new Background("Background", backgroundColor));
+void BasePage::BuildPage()
+{	
+
+	Background* background = new Background("Background", backgroundColor);
+	background->SetBackgroundImage(backgroundPath);
+	AddElement(background);
 	AddElement(new Border("TopBorder", EBorderType::Top, borderColor, borderWidth));
 	AddElement(new Border("BottomBorder", EBorderType::Bottom, borderColor, borderWidth));
 	AddElement(new Border("LeftBorder", EBorderType::Left, borderColor, borderWidth));
@@ -15,13 +18,32 @@ BasePage::BasePage(char* pageTitle, Color backgroundColor, Color borderColor, in
 	AddElement(new Border("TopRightBorder", EBorderType::TopRight, borderColor, borderWidth));
 	AddElement(new Border("BottomRightBorder", EBorderType::BottomRight, borderColor, borderWidth));
 	AddElement(new Border("BottomLeftBorder", EBorderType::BottomLeft, borderColor, borderWidth));
-	AddElement(new Header("Header", pageTitle));
+	header = new Header("Header", GetTitle());
+	header->SetTextColor(Color(1.0f, 1.0f, 1.0f));
+	Bounds pageBounds = GetBounds();
 
-	Button* closeButton = new Button("CloseButton", "x", Bounds(50, 50, 170, 35), [](Application* app) {
+	class CloseButton : public Button
+	{
+	public:
+		CloseButton(char* name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
+		virtual void Update(float DeltaTime)
+		{
+			SetPosition(GetOuterBounds().Size.x - 24 - 8, 8);
+			SetSize(24, 24);
+		}
+	};
+
+	CloseButton* closeButton = new  CloseButton("CloseButton", [](Application* app) {
 		app->Stop();
 	});
-	closeButton->SetBackgroundImage("D:\\Images\\8462.jpg");
-	//closeButton->SetBackgroundColor(Color(1.0f, 0.0f, 0.0f));
+	closeButton->SetBackgroundColor(Color(0.0f,0.0f,0.0f,0.0f));
+	closeButton->SetBackgroundImage(closeBtnPath);
 	AddElement(closeButton);
+	AddElement(header);
+}
 
+void BasePage::SetTitle(char * newtitle)
+{
+	ApplicationPage::SetTitle(newtitle);
+	if (header) header->SetText(newtitle);
 }

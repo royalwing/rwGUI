@@ -8,6 +8,12 @@ Header::Header(char* name, char* title)
 	headerTitle = title;
 }
 
+void Header::Update(float DeltaTime)
+{
+	SetPosition(0, 0);
+	SetSize(GetOuterBounds().Size.x, 35);
+}
+
 void Header::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 {
 	if (brush == nullptr)
@@ -27,7 +33,7 @@ void Header::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	}
 	if (textBrush == nullptr)
 	{
-		renderTarget->CreateSolidColorBrush(Color(0.0f, 0.0f, 0.0f).ToD2D1ColorF(), &textBrush);
+		renderTarget->CreateSolidColorBrush(textColor.ToD2D1ColorF(), &textBrush);
 	}
 	if (textFormat == nullptr)
 	{
@@ -37,14 +43,4 @@ void Header::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	std::wstring titleText(strlen(headerTitle), L'#');
 	mbstowcs(&titleText[0], headerTitle, strlen(headerTitle));
 	renderTarget->DrawTextA(titleText.c_str(), (UINT32)strlen(headerTitle), textFormat, (GetBounds() + Bounds(15, 8, 0, 0)).ToD2DRect(), textBrush);
-}
-
-Bounds Header::GetBounds()
-{
-	Bounds OuterBounds = GetOuterBounds();
-	Bounds result;
-	result.Pos = Vector2D(0, 0);
-	result.Size = OuterBounds.Size;
-	result.Size.y = 35;
-	return result;
 }

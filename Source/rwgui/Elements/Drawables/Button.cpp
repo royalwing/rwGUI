@@ -1,17 +1,11 @@
 #include "Button.h"
 #include "../../rwgui.h"
 
-Button::Button(char* name, std::string caption,Bounds bounds, Button::OnButtonPressedDelegate OnPress)
+Button::Button(char* name, Button::OnButtonPressedDelegate OnPress)
 	: Drawable(name)
 {
-	int captionLen = caption.size();
-	Caption = new wchar_t[captionLen];
-	Caption[captionLen] = '\0';
-	mbstowcs(Caption, caption.c_str(), caption.size());
 	bInteractive = true;
 	OnButtonPressed = OnPress;
-	Position = bounds.Pos;
-	Size = bounds.Size;
 	BackgroundColor = Color(1.0f, 1.0f, 1.0f);
 }
 
@@ -29,6 +23,14 @@ void Button::SetBackgroundImage(char * bgImagePath)
 {
 	if (strlen(bgImagePath) == 0) background = nullptr;
 	background = MAKEBITMAP(bgImagePath);
+}
+
+void Button::SetCaption(char* caption)
+{
+	int captionLen = strlen(caption);
+	Caption = new wchar_t[captionLen];
+	Caption[captionLen] = '\0';
+	mbstowcs(Caption, caption, strlen(caption));
 }
 
 void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
@@ -61,9 +63,4 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 		renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(b.Pos.x + b.Size.x / 2 - metrics.width / 2, b.Pos.y + b.Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
 	}
 
-}
-
-Bounds Button::GetBounds()
-{
-	return Bounds(Position, Size);
 }

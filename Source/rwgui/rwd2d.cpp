@@ -31,11 +31,9 @@ bool RWD2D::Init(Application * app)
 	return true;
 }
 
-void RWD2D::Resize()
+void RWD2D::Resize(int x,int y)
 {
-	RECT rect;
-	GetClientRect(application->GetWindowHandler(), &rect);
-	renderTarget->Resize(D2D1::SizeU(rect.right, rect.bottom));
+	if(renderTarget) renderTarget->Resize(D2D1::SizeU(x, y));
 }
 
 bool RWD2D::Update()

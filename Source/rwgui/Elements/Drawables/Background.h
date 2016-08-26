@@ -8,10 +8,13 @@ class RWGUI_API Background : public Drawable
 private:
 	ID2D1SolidColorBrush* brush = nullptr;
 	Color color;
+	ID2D1Bitmap* backgroundImage = nullptr;
 public:
 	Background(char* name, Color inColor);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
-	virtual Bounds GetBounds() { return Bounds(0, 0, GetOuterBounds().Size.x, GetOuterBounds().Size.y); };
+	virtual void Update(float DeltaTime) override;
+	
+	void SetBackgroundImage(char* backgroundImagePath);
 };
 
 #endif
