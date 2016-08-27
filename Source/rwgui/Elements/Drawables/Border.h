@@ -28,6 +28,7 @@ public:
 	virtual void Update(float DeltaTime) override;
 	Bounds GetSelectionBounds() override;
 	virtual int GetDrawableNCObjectType() override;
+	virtual HCURSOR GetCursor() override;
 };
 
 #endif BORDER_H

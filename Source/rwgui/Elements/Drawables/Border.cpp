@@ -135,4 +135,20 @@ int Border::GetDrawableNCObjectType()
 		return HTTOPRIGHT;
 	}
 	return HTNOWHERE;
-};
+}
+HCURSOR Border::GetCursor()
+{
+	switch (borderType)
+	{
+	case Bottom:
+	case Top: return LoadCursor(nullptr, IDC_SIZENS);
+	case Left:
+	case Right: return LoadCursor(nullptr, IDC_SIZEWE);
+	case TopLeft:
+	case BottomRight: return LoadCursor(nullptr, IDC_SIZENWSE);
+	case TopRight:
+	case BottomLeft: return LoadCursor(nullptr, IDC_SIZENESW);
+	}
+	return LoadCursor(nullptr,IDC_ARROW);
+}
+;

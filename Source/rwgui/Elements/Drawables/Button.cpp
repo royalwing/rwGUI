@@ -14,6 +14,11 @@ void Button::OnMouseClick()
 	if (OnButtonPressed != nullptr) OnButtonPressed(GetApplication());
 }
 
+HCURSOR Button::GetCursor()
+{
+	return LoadCursor(nullptr, IDC_HAND);
+}
+
 void Button::SetBackgroundColor(Color bgColor)
 {
 	BackgroundColor = bgColor;

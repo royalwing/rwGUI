@@ -126,6 +126,11 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		currentHoveredDrawable = drawable;
 		if (drawable) return drawable->GetDrawableNCObjectType();
 		return HTCLIENT;
+	case WM_SETCURSOR:
+		drawable = GetCurrentHoveredDrawable();
+		if (drawable) SetCursor(drawable->GetCursor());
+		else SetCursor(LoadCursor(nullptr, IDC_ARROW));
+		return 0;
 	case WM_SIZING:
 		if (UpdateMinimalWindowSize()) return 0;
 		rect = (LPRECT)lparam;

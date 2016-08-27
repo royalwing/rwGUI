@@ -35,6 +35,7 @@ public:
 	virtual void OnMouseRelease() {};
 	virtual void OnMouseClick() {};
 	virtual void OnGlobalEvent(EGlobalEvent eventType) {};
+	virtual HCURSOR GetCursor() { return LoadCursor(nullptr, IDC_ARROW); };
 	bool IsInteractive() { return bInteractive; };
 
 	void SetPosition(float x, float y) { Position.x = x; Position.y = y; };

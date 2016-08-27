@@ -21,6 +21,7 @@ public:
 	virtual void OnMouseClick() override;
 	virtual void OnGlobalEvent(EGlobalEvent eventType) override { if (eventType == MOUSEBUTTONRELEASED) bPressed = false; };
 	virtual int GetDrawableNCObjectType() { return HTCLIENT; };
+	virtual HCURSOR GetCursor() override;
 	
 	void SetBackgroundColor(Color bgColor);
 	void SetBackgroundImage(char* bgImagePath);
