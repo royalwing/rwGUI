@@ -33,15 +33,23 @@ bool RWD2D::Init(Application * app)
 
 void RWD2D::Resize(int x,int y)
 {
-	if(renderTarget) renderTarget->Resize(D2D1::SizeU(x, y));
+	if (renderTarget)
+	{
+		HRESULT result = renderTarget->Resize(D2D1::SizeU(x, y));
+		if (result != S_OK)
+		{
+			DebugBreak();
+		}
+	}
 }
 
 bool RWD2D::Update()
 {
 	if (!bInitialized) return true;
 	BeginDraw();
-	renderTarget->Clear(D2D1::ColorF(0,0,0));
-	if (application) application->OnDraw(this,renderTarget);
+	renderTarget->Clear(internal_ClearColor);
+	if (application!=nullptr)
+		application->OnDraw(this,renderTarget);
 	EndDraw();
 	return true;
 }

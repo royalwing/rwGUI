@@ -6,7 +6,9 @@ Border::Border(char* name, EBorderType type, Color color, int width)
 	, borderColor(color)
 	, borderWidth(width)
 {
+	bIsNonClient = true;
 	bInteractive = true;
+	zOrder = -1;
 }
 
 void Border::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
@@ -17,38 +19,39 @@ void Border::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 
 void Border::Update(float DeltaTime)
 {
+	Bounds outerBounds = GetOuterBounds(IsNonClient());
 	switch (borderType)
 	{
 	case EBorderType::Top:
 		SetPosition(borderWidth, 0);
-		SetSize(GetOuterBounds().Size.x - borderWidth * 2, borderWidth);
+		SetSize(outerBounds.Size.x - borderWidth * 2, borderWidth);
 		break;
 	case EBorderType::Bottom:
-		SetPosition(borderWidth, GetOuterBounds().Size.y - borderWidth);
-		SetSize(GetOuterBounds().Size.x - borderWidth * 2, borderWidth);
+		SetPosition(borderWidth, outerBounds.Size.y - borderWidth);
+		SetSize(outerBounds.Size.x - borderWidth * 2, borderWidth);
 		break;
 	case EBorderType::Left:
 		SetPosition(0, borderWidth);
-		SetSize(borderWidth, GetOuterBounds().Size.y - borderWidth * 2);
+		SetSize(borderWidth, outerBounds.Size.y - borderWidth * 2);
 		break;
 	case EBorderType::Right:
-		SetPosition(GetOuterBounds().Size.x - borderWidth, borderWidth);
-		SetSize(borderWidth, GetOuterBounds().Size.y - borderWidth * 2);
+		SetPosition(outerBounds.Size.x - borderWidth, borderWidth);
+		SetSize(borderWidth, outerBounds.Size.y - borderWidth * 2);
 		break;
 	case EBorderType::TopLeft:
 		SetPosition(0,0);
 		SetSize(borderWidth,borderWidth);
 		break;
 	case EBorderType::TopRight:
-		SetPosition(GetOuterBounds().Size.x - borderWidth, 0);
+		SetPosition(outerBounds.Size.x - borderWidth, 0);
 		SetSize(borderWidth, borderWidth);
 		break;
 	case EBorderType::BottomRight:
-		SetPosition(GetOuterBounds().Size.x - borderWidth, GetOuterBounds().Size.y - borderWidth);
+		SetPosition(outerBounds.Size.x - borderWidth, outerBounds.Size.y - borderWidth);
 		SetSize(borderWidth, borderWidth);
 		break;
 	case EBorderType::BottomLeft:
-		SetPosition(0, GetOuterBounds().Size.y - borderWidth);
+		SetPosition(0, outerBounds.Size.y - borderWidth);
 		SetSize(borderWidth, borderWidth);
 		break;
 	}
@@ -56,14 +59,14 @@ void Border::Update(float DeltaTime)
 
 Bounds Border::GetSelectionBounds()
 {
-	Bounds outerBounds = GetOuterBounds();
-	Bounds curBounds;
+	Bounds outerBounds = GetOuterBounds(IsNonClient());
+	Bounds curBounds(0,0,0,0);
 	int selectionborder = 7;
 	switch (borderType)
 	{
 	case EBorderType::Top:
 		curBounds.Pos.x = borderWidth + selectionborder;
-		curBounds.Pos.y = 0;
+		curBounds.Pos.y = outerBounds.Pos.y;
 		curBounds.Size.x = outerBounds.Size.x - (borderWidth + selectionborder) * 2;
 		curBounds.Size.y = borderWidth + selectionborder;
 		break;

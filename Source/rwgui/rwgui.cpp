@@ -8,6 +8,10 @@
 
 int Application::Run(HINSTANCE hInstance)
 {
+#ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
 	appInstance = hInstance;
 	WNDCLASSEX windowClass;
 	ZeroMemory(&windowClass, sizeof(WNDCLASSEX));
@@ -23,7 +27,7 @@ int Application::Run(HINSTANCE hInstance)
 	Bounds bounds = GetDefaultWindowBounds();
 	RECT rect = { bounds.Pos.x, bounds.Pos.y, bounds.Size.x, bounds.Size.y};
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-	WindowHandler = CreateWindow(GetWindowClassName(), GetApplicationTitle(), WS_POPUP, bounds.Pos.x, bounds.Pos.y, rect.right-rect.left, rect.bottom-rect.top, 0, 0, hInstance, 0);
+	WindowHandler = CreateWindow(GetWindowClassName(), GetApplicationTitle(), WS_POPUP, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top, 0, 0, hInstance, 0);
 	if (!WindowHandler) return 1;
 	LONG lStyle = GetWindowLong(WindowHandler, GWL_STYLE);
 	lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
@@ -38,6 +42,7 @@ int Application::Run(HINSTANCE hInstance)
 	if (!Renderer || !Renderer->Init(this)) return 1;
 
 	BuildPages();
+	for (auto p : Pages) p->Init();
 	OnInit();
 	
 
@@ -78,6 +83,13 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	RECT rc;
 	LPRECT rect;
 	UINT width, height;
+
+#ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
+	_CrtMemState UpdateMemState;
+	_CrtMemState UpdateMemState2;
+	_CrtMemState ComparsionState;
+#endif
+
 	switch (uMsg)
 	{
 	case WM_KEYDOWN:
@@ -112,17 +124,9 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		GetWindowRect(this->GetWindowHandler(), &rc);
 		pt.x = pt.x - rc.left;
 		pt.y = pt.y - rc.top;
-		/* Debug */
-		/*
-		Renderer->GetRenderTarget()->BeginDraw();
-		if (solidBrush == nullptr)
-		{
-			Renderer->GetRenderTarget()->CreateSolidColorBrush(Color(1.0f, 0, 0).ToD2D1ColorF(), &solidBrush);
-		}
-		Renderer->GetRenderTarget()->FillRectangle(Bounds(pt, Vector2D(32, 32)).ToD2DRect(), solidBrush);
-		Renderer->GetRenderTarget()->EndDraw();
-		*/
 		drawable = GetDrawableAtPosition(pt);
+		if (currentHoveredDrawable != nullptr && drawable != currentHoveredDrawable) currentHoveredDrawable->OnMouseLeave();
+		if (drawable != nullptr && drawable != currentHoveredDrawable) drawable->OnMouseEnter();
 		currentHoveredDrawable = drawable;
 		if (drawable) return drawable->GetDrawableNCObjectType();
 		return HTCLIENT;
@@ -132,27 +136,38 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		else SetCursor(LoadCursor(nullptr, IDC_ARROW));
 		return 0;
 	case WM_SIZING:
-		if (UpdateMinimalWindowSize()) return 0;
 		rect = (LPRECT)lparam;
-		if (Renderer)
-		{
-			Renderer->Resize(rect->right - rect->left, rect->bottom - rect->top);
-		}
+		if (Renderer) Renderer->Resize(rect->right - rect->left, rect->bottom - rect->top);
 		return DefWindowProc(WindowHandler, uMsg, wparam, lparam);
+	case WM_GETMINMAXINFO:
+	{
+		LPMINMAXINFO lpMMI = (LPMINMAXINFO)lparam;
+		lpMMI->ptMinTrackSize.x = GetMinimalWindowSize().x;
+		lpMMI->ptMinTrackSize.y = GetMinimalWindowSize().y;
+	}
 	case WM_SIZE:
-		if (UpdateMinimalWindowSize()) return 0;
-		width = LOWORD(lparam); 
-		height = HIWORD(lparam); 
-		if (Renderer)
-		{
-			Renderer->Resize(width, height);
-		}
 		return DefWindowProc(WindowHandler,uMsg,wparam,lparam);
 	case WM_ERASEBKGND:
 		return 0;
 	case WM_PAINT:
-		InternalUpdate(0);
+#ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
+		_CrtMemCheckpoint(&UpdateMemState);
+#endif
+		using namespace std::chrono;
+		milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+		milliseconds delta = currentTime - lastUpdateTime;
+		lastUpdateTime = currentTime;
+		InternalUpdate(((float)delta.count()/1000.0f));
 		if (Renderer) Renderer->Update();
+
+#ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
+		_CrtMemCheckpoint(&UpdateMemState2);
+
+		if (_CrtMemDifference(&ComparsionState, &UpdateMemState, &UpdateMemState2))
+		{
+			_CrtDumpMemoryLeaks();
+		}
+#endif
 		return 0;
 	case WM_DESTROY:
 		Stop();
@@ -184,6 +199,7 @@ void Application::AddPage(ApplicationPage* appPage)
 	appPage->SetApp(this);
 	appPage->BuildPage();
 	Pages.push_back(appPage);
+	appPage->Init();
 }
 
 void Application::OnKeyPressed(char key)
@@ -210,7 +226,7 @@ void Application::OnKeyReleased(char key)
 			currentPressedDrawable->OnMouseClick();
 			currentPressedDrawable = nullptr;
 		}
-		if (currentHoveredDrawable != nullptr) currentHoveredDrawable->OnMousePress();
+		if (currentHoveredDrawable != nullptr) currentHoveredDrawable->OnMouseRelease();
 	}
 }
 
@@ -276,19 +292,6 @@ Bounds Application::GetCurrentWindowBounds()
 void Application::SetMinimalWindowSize(Vector2D minSize)
 {
 	MinWindowSize = minSize;
-	UpdateMinimalWindowSize();
-}
-
-bool Application::UpdateMinimalWindowSize()
-{
-	bool bResult = false;
-	Vector2D minSize = GetMinimalWindowSize();
-	RECT rc;
-	GetWindowRect(WindowHandler, &rc);
-	if (rc.right - rc.left < minSize.x) { rc.right = rc.left + minSize.x; bResult = true; }
-	if (rc.bottom - rc.top < minSize.y) { rc.bottom = rc.top + minSize.y; bResult = true; }
-	MoveWindow(WindowHandler, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top, true);
-	return bResult;
 }
 
 Vector2D Application::GetMinimalWindowSize()

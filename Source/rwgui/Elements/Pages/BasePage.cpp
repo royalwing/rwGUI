@@ -1,14 +1,12 @@
 #include "BasePage.h"
-#include <Elements/Drawables/Background.h>
-#include <Elements/Drawables/Border.h>
-#include <Elements/Drawables/Button.h>
-#include <Elements/Drawables/Header.h>
 
 void BasePage::BuildPage()
 {	
 
-	Background* background = new Background("Background", backgroundColor);
-	background->SetBackgroundImage(backgroundPath);
+	background = new Background("Background", backgroundColor);
+	background->SetBackgroundColor(Color(0.3f, 0.3f, 0.3f, 1.0f));
+	background->bIsNonClient = true;
+	background->zOrder = -5;
 	AddElement(background);
 	AddElement(new Border("TopBorder", EBorderType::Top, borderColor, borderWidth));
 	AddElement(new Border("BottomBorder", EBorderType::Bottom, borderColor, borderWidth));
@@ -20,7 +18,6 @@ void BasePage::BuildPage()
 	AddElement(new Border("BottomLeftBorder", EBorderType::BottomLeft, borderColor, borderWidth));
 	header = new Header("Header", GetTitle());
 	header->SetTextColor(Color(1.0f, 1.0f, 1.0f));
-	Bounds pageBounds = GetBounds();
 
 	class CloseButton : public Button
 	{
@@ -28,7 +25,7 @@ void BasePage::BuildPage()
 		CloseButton(char* name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
 		virtual void Update(float DeltaTime)
 		{
-			SetPosition(GetOuterBounds().Size.x - 18 - 12, 8);
+			SetPosition(GetOuterBounds(IsNonClient()).Size.x - 18 - 12, 8);
 			SetSize(18, 18);
 		}
 	};
@@ -36,14 +33,30 @@ void BasePage::BuildPage()
 	CloseButton* closeButton = new  CloseButton("CloseButton", [](Application* app) {
 		app->Stop();
 	});
+	closeButton->bIsNonClient = true;
+	closeButton->zOrder = -1;
 	closeButton->SetBackgroundColor(Color(0.0f,0.0f,0.0f,0.0f));
 	closeButton->SetBackgroundImage(closeBtnPath);
 	AddElement(closeButton);
 	AddElement(header);
+
+}
+
+void BasePage::OnInit()
+{
 }
 
 void BasePage::SetTitle(char * newtitle)
 {
 	ApplicationPage::SetTitle(newtitle);
 	if (header) header->SetText(newtitle);
+}
+
+
+Bounds BasePage::GetClientBounds()
+{
+	Bounds bounds(0,0,0,0);
+	bounds.Pos.y += 35;
+	bounds.Size.y -= 35;
+	return bounds;
 }

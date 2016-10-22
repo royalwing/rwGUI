@@ -21,6 +21,7 @@ public:
 	Vector2D operator/(float val) { return Vector2D(x / val, y / val); };
 	Vector2D operator*(float val) { return Vector2D(x * val, y * val); };
 	Vector2D& operator+=(Vector2D b) { x += b.x; y+=b.y; return *this; };
+	Vector2D& operator-=(Vector2D b) { x -= b.x; y -= b.y; return *this; }
 };
 
 class Bounds
@@ -32,7 +33,8 @@ public:
 	Bounds() : Pos(Vector2D(0,0)),Size(Vector2D(0,0)) {};
 	Bounds(Vector2D inPos, Vector2D inSize) : Pos(inPos),Size(inSize) {};
 	Bounds(float posx, float posy, float sizex, float sizey) : Pos(Vector2D(posx,posy)),Size(Vector2D(sizex,sizey)) {};
-	Bounds operator+(Bounds b) { return Bounds(Pos+b.Pos,Vector2D(Size.x,Size.y)); };
+	Bounds operator+(Bounds b) { return Bounds(Pos+b.Pos,Size+b.Size); };
+	Bounds operator-(Bounds b) { return Bounds(Pos-b.Pos,Size-b.Size); };
 	Bounds& operator+=(Bounds b) { Pos = Pos + b.Pos; return *this; };
 	Bounds operator/(float val) { return Bounds(Pos.x/val,Pos.y / val,Size.x /val,Size.y / val); };
 	bool IsInBound(Vector2D b) {

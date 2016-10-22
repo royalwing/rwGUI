@@ -5,6 +5,7 @@
 #pragma comment(lib,"d2d1.lib")
 #include <d2d1.h>
 #include <dwrite.h>
+#include<Common/rwmath.h>
 #include <wincodec.h>
 
 class Application;
@@ -21,7 +22,7 @@ class RWD2D
 public:
 
 
-	RWD2D() : factory(nullptr),renderTarget(nullptr) { };
+	RWD2D() : factory(nullptr), renderTarget(nullptr) { internal_ClearColor = Color(0, 0, 0).ToD2D1ColorF(); };
 	~RWD2D() {
 		if (factory) factory->Release();
 		if (renderTarget) renderTarget->Release();
@@ -38,6 +39,8 @@ public:
 	ID2D1HwndRenderTarget* GetRenderTarget() { return renderTarget; };
 
 	bool Update();
+private:
+	D2D1_COLOR_F internal_ClearColor;
 };
 
 #endif

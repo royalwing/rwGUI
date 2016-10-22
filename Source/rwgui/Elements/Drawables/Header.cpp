@@ -5,13 +5,15 @@ Header::Header(char* name, char* title)
 	: Drawable(name)
 {
 	bInteractive = true;
+	bIsNonClient = true;
 	headerTitle = title;
+	zOrder = -1;
 }
 
 void Header::Update(float DeltaTime)
 {
 	SetPosition(0, 0);
-	SetSize(GetOuterBounds().Size.x, 35);
+	SetSize(GetOuterBounds(IsNonClient()).Size.x, 35);
 }
 
 void Header::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)

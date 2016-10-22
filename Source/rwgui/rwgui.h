@@ -17,6 +17,7 @@ class Drawable;
 #include <Elements/Drawables/Drawable.h>
 #include <rwd2d.h>
 #include <wincodec.h>
+#include <chrono>
 
 
 
@@ -32,6 +33,7 @@ private:
 	Drawable* currentHoveredDrawable = nullptr;
 	Drawable* currentPressedDrawable = nullptr;
 	Vector2D MinWindowSize;
+	std::chrono::milliseconds lastUpdateTime;
 	bool Input[0x100] = { 0 };
 public:
 
@@ -72,7 +74,6 @@ public:
 	Bounds GetCurrentWindowBounds();
 
 	void SetMinimalWindowSize(Vector2D minSize);
-	bool UpdateMinimalWindowSize();
 	Vector2D GetMinimalWindowSize();
 
 	void InternalProcessCommandLine(char* cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument

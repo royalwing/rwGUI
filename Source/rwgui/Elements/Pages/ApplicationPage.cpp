@@ -1,5 +1,5 @@
 #include "ApplicationPage.h"
-
+#include <algorithm>
 
 ApplicationPage::ApplicationPage()
 {
@@ -17,9 +17,15 @@ void ApplicationPage::AddElement(Drawable * inElement)
 	Elements.push_back(inElement);
 }
 
-Bounds ApplicationPage::GetBounds()
+Bounds ApplicationPage::GetBounds(bool bNonClient)
 {
-	return App->GetCurrentWindowBounds();
+	if (bNonClient)
+	{
+		return App->GetCurrentWindowBounds();
+	}
+	Bounds ClientBounds = App->GetCurrentWindowBounds();
+	ClientBounds = ClientBounds + GetClientBounds();
+	return ClientBounds;
 }
 
 Application* ApplicationPage::GetApplication()
@@ -31,10 +37,10 @@ Drawable * ApplicationPage::GetDrawableAtPosition(Vector2D Position)
 {
 	for (int i = 0; i < Elements.size(); i++)
 	{
-		Bounds outerElem = Elements[i]->GetOuterBounds();
+		Bounds outerElem = Elements[i]->GetOuterBounds(Elements[i]->IsNonClient());
 		Bounds elemBounds = Elements[i]->GetSelectionBounds();
-		elemBounds.Pos.x += outerElem.Pos.x;
-		elemBounds.Pos.y += outerElem.Pos.y;
+		//elemBounds.Pos.x += outerElem.Pos.x;
+		//elemBounds.Pos.y += outerElem.Pos.y;
 		if (Elements[i]->IsInteractive()
 			&& elemBounds.IsInBound(Position))
 		{
@@ -42,6 +48,15 @@ Drawable * ApplicationPage::GetDrawableAtPosition(Vector2D Position)
 		}
 	}
 	return nullptr;
+}
+
+void ApplicationPage::Init()
+{
+	OnInit();
+	for (auto e : Elements)
+	{
+		e->InternalInit();
+	}
 }
 
 void ApplicationPage::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
@@ -52,8 +67,12 @@ void ApplicationPage::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 	}
 }
 
+
+int sort(Drawable* a, Drawable* b) { return a->zOrder < b->zOrder ? 1 : 0; };
+
 void ApplicationPage::InternalUpdate(float DeltaTime)
 {
+	std::sort(std::begin(Elements), std::end(Elements),sort);
 	for (Drawable* element : Elements)
 	{
 		element->InternalUpdate(DeltaTime);

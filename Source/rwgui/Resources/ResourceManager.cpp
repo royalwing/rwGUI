@@ -5,8 +5,7 @@ ID2D1Brush * ResourceManager::MakeBrush(Color color)
 	ID2D1SolidColorBrush* brush = nullptr;
 	if (ResourceManager::Get()->renderTarget != nullptr)
 	{
-		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
-		for (auto resource : Resources)
+		for (auto resource : ResourceManager::Get()->Resources)
 		{
 			if (resource == nullptr) continue;
 			Resource_SolidBrush* sBrush = dynamic_cast<Resource_SolidBrush*>(resource);
@@ -26,19 +25,19 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 	IDWriteTextFormat* format = nullptr;
 	if (ResourceManager::Get()->writeFactory != nullptr)
 	{
+		ResourceManager* RM = ResourceManager::Get();
 		std::wstring fontFamily(strlen(aFontFamily), L'#');
 		mbstowcs(&fontFamily[0], aFontFamily, strlen(aFontFamily));
-		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
-		for (auto resource : Resources)
+		for (auto resource : RM->Resources)
 		{
 			if (resource == nullptr) continue;
 			Resource_TextFormat* sTextFormat = dynamic_cast<Resource_TextFormat*>(resource);
 			if (sTextFormat != nullptr)
 			{
-				WCHAR* familyName = new WCHAR[sTextFormat->value->GetFontFamilyNameLength()];
-				int familyNameLength = 0;
-				HRESULT result = sTextFormat->value->GetFontFamilyName(familyName, familyNameLength);
-				if (result == S_OK)
+				UINT32 familyNameLength = sTextFormat->value->GetFontFamilyNameLength();
+				WCHAR* familyName = new WCHAR[familyNameLength+1];
+				ZeroMemory(familyName, familyNameLength);
+				if (sTextFormat->value->GetFontFamilyName(familyName, familyNameLength+1) == S_OK)
 				{
 					if (lstrcmpW(familyName, fontFamily.c_str()) == 0
 						&& sTextFormat->value->GetFontSize() == fontSize
@@ -47,12 +46,15 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 						&& sTextFormat->value->GetFontWeight() == weight
 						)
 					{
+						delete[] familyName;
 						return sTextFormat->GetValue();
 					}
 				}
+				delete[] familyName;
 			}
 		}
-	ResourceManager::Get()->writeFactory->CreateTextFormat(fontFamily.c_str(), nullptr, weight, style, stretch, fontSize, L"", &format);
+		RM->writeFactory->CreateTextFormat(fontFamily.c_str(), nullptr, weight, style, stretch, fontSize, L"", &format);
+		new Resource_TextFormat(format);
 	}
 	return format;
 }
@@ -62,8 +64,7 @@ ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
 	ID2D1Bitmap* bitmap = nullptr;
 	if (ResourceManager::Get()->renderTarget != nullptr)
 	{
-		std::vector<ResourceBase*> Resources = ResourceManager::Get()->Resources;
-		for (auto resource : Resources)
+		for (auto resource : ResourceManager::Get()->Resources)
 		{
 			if (resource == nullptr) continue;
 			// TODO : Исправить вылет при поиске битмапа 

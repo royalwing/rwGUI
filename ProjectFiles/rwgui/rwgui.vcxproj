@@ -34,6 +34,7 @@
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Drawable.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Drawable.cpp" />

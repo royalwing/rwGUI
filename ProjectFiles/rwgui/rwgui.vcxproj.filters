@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\Types.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.h">
+      <Filter>Elements\Drawables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
@@ -78,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.cpp">
       <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.cpp">
+      <Filter>Elements\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
