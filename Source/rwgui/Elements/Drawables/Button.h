@@ -14,6 +14,13 @@ private:
 	ID2D1Bitmap* background = nullptr;
 	bool bPressed = false;
 public:
+	enum EBackgroundAlignment
+	{
+		BA_AsIs = 0,
+		BA_StretchToFit,
+		BA_ScaleToFit
+	} BackgroundAlignment = BA_AsIs;
+
 	Button(char* name, OnButtonPressedDelegate btnPressed = nullptr);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual void OnMousePress() { bPressed = true; };
@@ -26,6 +33,7 @@ public:
 	
 	void SetBackgroundColor(Color bgColor);
 	void SetBackgroundImage(char* bgImagePath);
+	void SetBackgroundImage(int ResourceID);
 	void SetCaption(char* caption);
 
 };

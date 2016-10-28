@@ -2,17 +2,20 @@
 #include <iostream>
 #include <windowsx.h>
 #include <string>
+#include <direct.h>
 #include <d2d1.h>
+#include <Common/DebugHelpers.h>
 
 #pragma warning(disable : 4244 4311 4312 4838 4244 4251)
+
 
 int Application::Run(HINSTANCE hInstance)
 {
 #ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-
 	appInstance = hInstance;
+	ApplicationGetter::Get()->SetApplication(this);
 	WNDCLASSEX windowClass;
 	ZeroMemory(&windowClass, sizeof(WNDCLASSEX));
 	windowClass.cbSize = sizeof(WNDCLASSEX);
@@ -21,12 +24,14 @@ int Application::Run(HINSTANCE hInstance)
 	windowClass.lpfnWndProc = (WNDPROC)OnWindowProcStatic;
 	windowClass.lpszClassName = GetWindowClassName();
 	windowClass.style = CS_HREDRAW | CS_VREDRAW;
+	RW_LOG("Registering window class..");
 	RegisterClassEx(&windowClass);
-
+	
 
 	Bounds bounds = GetDefaultWindowBounds();
 	RECT rect = { bounds.Pos.x, bounds.Pos.y, bounds.Size.x, bounds.Size.y};
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+	RW_LOG("Creating window..");
 	WindowHandler = CreateWindow(GetWindowClassName(), GetApplicationTitle(), WS_POPUP, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top, 0, 0, hInstance, 0);
 	if (!WindowHandler) return 1;
 	LONG lStyle = GetWindowLong(WindowHandler, GWL_STYLE);
@@ -35,18 +40,29 @@ int Application::Run(HINSTANCE hInstance)
 	LONG lExStyle = GetWindowLong(WindowHandler, GWL_EXSTYLE);
 	lExStyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_STATICEDGE);
 	SetWindowLong(WindowHandler, GWL_EXSTYLE, lExStyle);
+	RW_LOG("Showing window..");
 	ShowWindow(WindowHandler, SW_SHOW);
+	RW_LOG("Setting pointer for WNDPROC to receive..");
 	int result = SetWindowLongPtr(WindowHandler, GWLP_USERDATA, (LONG_PTR)this);
 
+	RW_LOG("Creating new RWD2D instance..");
 	Renderer = new RWD2D();
-	if (!Renderer || !Renderer->Init(this)) return 1;
+	RW_LOG("Initializing RWD2D...");
+	if (!Renderer || !Renderer->Init(this))
+	{
+		RW_ERROR("Failed to initialize renderer");
+	}
 
+	RW_LOG("Building pages...");
 	BuildPages();
+	RW_LOG("Initializing pages...");
 	for (auto p : Pages) p->Init();
+	RW_LOG("Initializing app...");
 	OnInit();
 	
 
 
+	RW_LOG("Entring application loop...");
 	MSG msg;
 	while (!bShouldExit)
 	{
@@ -63,6 +79,7 @@ int Application::Run(HINSTANCE hInstance)
 
 void Application::Stop()
 {
+	RW_LOG("Shutting down application.");
 	OnStop();
 	bShouldExit = true;
 }
@@ -83,6 +100,7 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	RECT rc;
 	LPRECT rect;
 	UINT width, height;
+
 
 #ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
 	_CrtMemState UpdateMemState;
@@ -170,6 +188,7 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 #endif
 		return 0;
 	case WM_DESTROY:
+		RW_LOG("Received WM_DESTROY...");
 		Stop();
 		PostQuitMessage(0);
 		return 0;
@@ -196,6 +215,8 @@ void Application::OnDraw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 void Application::AddPage(ApplicationPage* appPage)
 {
 	if (appPage == nullptr) return;
+	RW_LOG("Adding new page :");
+	RW_LOG(appPage->pageTitle);
 	appPage->SetApp(this);
 	appPage->BuildPage();
 	Pages.push_back(appPage);
@@ -297,4 +318,17 @@ void Application::SetMinimalWindowSize(Vector2D minSize)
 Vector2D Application::GetMinimalWindowSize()
 {
 	return MinWindowSize;
+}
+
+char * Application::GetApplicationFolder()
+{
+	char* str = new char[FILENAME_MAX];
+	_getcwd(str, FILENAME_MAX);
+	int len = strlen(str);
+	if (str[len - 1] != '\\')
+	{
+		str[len] = '\\';
+		str[len + 1] = '\0';
+	}
+	return str;
 }

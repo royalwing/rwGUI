@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\DebugHelpers.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\rwmath.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\Types.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.h" />
@@ -35,18 +36,25 @@
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Drawable.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\TextLabel.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.h" />
+    <ClInclude Include="..\..\Source\rwgui\rwresources.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwapi.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.h" />
     <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\DebugHelpers.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Source.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.cpp" />
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\TextLabel.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Drawable.cpp" />
@@ -54,6 +62,13 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="D:\Images\close_3.ico" />
+    <Image Include="D:\Images\close_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C2B62DCF-4EE5-40EB-836F-CBF551FF0EB7}</ProjectGuid>

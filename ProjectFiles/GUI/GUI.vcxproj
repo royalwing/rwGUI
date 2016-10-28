@@ -29,6 +29,16 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="D:\Images\close_3.png" />
+    <Image Include="D:\Images\flat_avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\GUI\resources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\GUI.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A293C2B2-7CE1-4729-AC7E-1829123723A4}</ProjectGuid>
     <RootNamespace>GUI</RootNamespace>

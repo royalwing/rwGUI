@@ -52,10 +52,14 @@ class Resource_Bitmap : public Resource<ID2D1Bitmap>
 {
 public:
 	char* bitmapPath;
+	int ResourceID;
 	Resource_Bitmap(char* nBitmapPath, ID2D1Bitmap* nVal) : Resource(nVal) { bitmapPath = nBitmapPath; };
+	Resource_Bitmap(int resID, ID2D1Bitmap* nVal) : Resource(nVal) { ResourceID = resID; };
 	virtual void Release() override { if (value != nullptr) value->Release(); };
 
 };
+
+class Application;
 
 class ResourceManager
 {
@@ -66,6 +70,7 @@ private:
 	ID2D1RenderTarget* renderTarget = nullptr;
 	IDWriteFactory* writeFactory = nullptr;
 	IWICImagingFactory* imageFactory = nullptr;
+	Application* App;
 public:
 	std::vector<ResourceBase*> Resources;
 
@@ -74,12 +79,15 @@ public:
 	void SetReferenceRenderTarget(ID2D1RenderTarget* rt) { renderTarget = rt; };
 	void SetReferenceDirectWriteFactory(IDWriteFactory* factory) { writeFactory = factory; };
 	void SetReferenceImageFactory(IWICImagingFactory* imgfactory) { imageFactory = imgfactory; };
+	void SetApplication(Application* newApp) { App = newApp; };
+	Application* GetApp() { return App; };
 
 	void RegisterResource(ResourceBase* resource) { Resources.push_back(resource); };
 
 	static ID2D1Brush* MakeBrush(Color color);
 	static IDWriteTextFormat* MakeTextFormat(char* aFontFamily, float fontSize, DWRITE_FONT_WEIGHT weight = DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE style = DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL);
 	static ID2D1Bitmap* MakeBitmap(char* bitmapPath);
+	static ID2D1Bitmap* MakeBitmap(int ResourceID);
 };
 
 #define MAKEBRUSH ResourceManager::MakeBrush

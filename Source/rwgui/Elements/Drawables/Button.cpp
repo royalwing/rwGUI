@@ -33,6 +33,12 @@ void Button::SetBackgroundImage(char * bgImagePath)
 	background = MAKEBITMAP(bgImagePath);
 }
 
+void Button::SetBackgroundImage(int ResourceID)
+{
+	if (ResourceID == 0) return;
+	background = MAKEBITMAP(ResourceID);
+}
+
 void Button::SetCaption(char* caption)
 {
 	int captionLen = strlen(caption);
@@ -49,11 +55,39 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	if (result != S_OK) return;
 	DWRITE_TEXT_METRICS metrics;
 	textLayout->GetMetrics(&metrics);
+
+	Bounds bgBounds;
+	if (background != nullptr)
+	{
+		bgBounds = Bounds(0, 0, background->GetSize().width, background->GetSize().height);
+		float width = background->GetSize().width;
+		float height = background->GetSize().height;
+		switch (BackgroundAlignment)
+		{
+		case BA_AsIs:
+			bgBounds = Bounds(0, 0, GetBounds().Size.x - width, GetBounds().Size.y - height);
+			break;
+		case BA_StretchToFit:
+			bgBounds = Bounds(0, 0, width, height);
+			break;
+		case BA_ScaleToFit:
+			{
+				float dilator = GetBounds().Size.y / height;
+				
+				bgBounds = Bounds(width/2*dilator-GetBounds().Size.x/2, 0, GetBounds().Size.x/dilator, height);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+
 	Drawable* curHovered = GetApplication()->GetCurrentHoveredDrawable();
 	if (bPressed)
 	{
 		renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.87f));
-		if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f,D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0,0,background->GetSize().width, background->GetSize().height).ToD2DRect());
+		if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, bgBounds.ToD2DRect());
 		renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.6f));
 		renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(GetBounds().Pos.x + GetBounds().Size.x / 2 - metrics.width / 2, GetBounds().Pos.y + GetBounds().Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(0.0f, 0.0f, 0.0f)));
 	}
@@ -62,14 +96,14 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 		if (curHovered != nullptr &&  curHovered == this)
 		{
 			renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.8f));
-			if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 0.9f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0, 0, background->GetSize().width, background->GetSize().height).ToD2DRect());
+			if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 0.9f, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, bgBounds.ToD2DRect());
 			renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor));
 			renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(GetBounds().Pos.x + GetBounds().Size.x / 2 - metrics.width / 2, GetBounds().Pos.y + GetBounds().Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
 		}
 		else
 		{
 			renderTarget->FillRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor*0.7f));
-			if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, Bounds(0, 0, background->GetSize().width, background->GetSize().height).ToD2DRect());
+			if (background != nullptr) renderTarget->DrawBitmap(background, GetBounds().ToD2DRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, bgBounds.ToD2DRect());
 			renderTarget->DrawRectangle(GetBounds().ToD2DRect(), MAKEBRUSH(BackgroundColor));
 			renderTarget->DrawText(Caption, wcslen(Caption), textFormat, Bounds(GetBounds().Pos.x + GetBounds().Size.x / 2 - metrics.width / 2, GetBounds().Pos.y + GetBounds().Size.y / 2 - metrics.height / 2, metrics.width, metrics.height).ToD2DRect(), MAKEBRUSH(Color(1.0f, 1.0f, 1.0f)));
 		}
@@ -78,4 +112,6 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	{
 		textLayout->Release();
 	}
+
+	Drawable::Draw(d2d, renderTarget);
 }

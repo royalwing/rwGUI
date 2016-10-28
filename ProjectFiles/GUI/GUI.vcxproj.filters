@@ -3,4 +3,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="D:\Images\close_3.png" />
+    <Image Include="D:\Images\flat_avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\GUI\resources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\GUI.rc" />
+  </ItemGroup>
 </Project>

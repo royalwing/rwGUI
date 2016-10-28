@@ -70,14 +70,38 @@ public:
 	virtual Bounds GetDefaultWindowBounds();
 
 	HWND GetWindowHandler();
+	HINSTANCE GetInstance() { return appInstance; };
 	char* GetWindowClassName();
 	Bounds GetCurrentWindowBounds();
 
 	void SetMinimalWindowSize(Vector2D minSize);
 	Vector2D GetMinimalWindowSize();
 
+	char* GetApplicationFolder();
+
 	void InternalProcessCommandLine(char* cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument
 };
+
+class ApplicationGetter
+{
+private:
+	ApplicationGetter() {};
+	~ApplicationGetter() {};
+	Application* AppInstance = nullptr;
+public:
+	static ApplicationGetter* Get() { static ApplicationGetter instance; return &instance; };
+
+	void SetApplication(Application* Instance)
+	{
+		AppInstance = Instance;
+	};
+	Application* GetApplication() {
+		return AppInstance;
+	};
+
+};
+
+#define GApplication ApplicationGetter::Get()->GetApplication()
 
 #define RUN_APPLICATION(AppClass)\
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR cmd,int nCmdShow)\

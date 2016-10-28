@@ -22,3 +22,5 @@
 		#define new DBG_NEW
 	#endif
 #endif
+
+#include <rwresources.h>

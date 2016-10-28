@@ -19,6 +19,7 @@ private:
 public:
 	bool bInteractive;
 	bool bIsNonClient;
+	float LayoutScale = 1.0f;
 	int zOrder = 0;
 	std::vector<Drawable*> Elements; // Dont touch this array directly. Use AddChild() instead.
 

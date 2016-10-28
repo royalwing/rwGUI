@@ -27,6 +27,7 @@ void BasePage::BuildPage()
 		{
 			SetPosition(GetOuterBounds(IsNonClient()).Size.x - 18 - 12, 8);
 			SetSize(18, 18);
+			BackgroundAlignment = BA_StretchToFit;
 		}
 	};
 
@@ -36,7 +37,7 @@ void BasePage::BuildPage()
 	closeButton->bIsNonClient = true;
 	closeButton->zOrder = -1;
 	closeButton->SetBackgroundColor(Color(0.0f,0.0f,0.0f,0.0f));
-	closeButton->SetBackgroundImage(closeBtnPath);
+	closeButton->SetBackgroundImage(IDB_CLOSEBTN);
 	AddElement(closeButton);
 	AddElement(header);
 

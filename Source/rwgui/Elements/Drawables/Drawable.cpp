@@ -75,8 +75,8 @@ Bounds Drawable::GetBounds(bool bNonClient)
 	outerBounds.Size = Size;
 	outerBounds.Pos.x += Padding.left;
 	outerBounds.Pos.y += Padding.top;
-	outerBounds.Size.x -= Padding.right;
-	outerBounds.Size.y -= Padding.bottom;
+	outerBounds.Size.x -= (Padding.right+Padding.left);
+	outerBounds.Size.y -= (Padding.bottom+Padding.top);
 	return outerBounds;
 }
 
