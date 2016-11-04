@@ -3,6 +3,8 @@
 
 #include <d2d1.h>
 
+#pragma warning (disable : 4251)
+
 class Vector2D
 {
 public:

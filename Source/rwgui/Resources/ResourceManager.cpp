@@ -55,6 +55,7 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 			}
 		}
 		RM->writeFactory->CreateTextFormat(fontFamily.c_str(), nullptr, weight, style, stretch, fontSize, L"", &format);
+		format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING);
 		new Resource_TextFormat(format);
 	}
 	return format;

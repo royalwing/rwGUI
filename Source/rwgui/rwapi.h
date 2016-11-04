@@ -6,6 +6,8 @@
 #undef CreateWindow
 #endif
 
+#pragma warning ( disable : 4267 4244 4390 4101 )
+
 #ifdef _DEBUG
 	//#define ENABLE_CRT_MEMORYLEAK_DEBUG
 #endif

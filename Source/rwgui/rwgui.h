@@ -30,6 +30,7 @@ private:
 	RWD2D* Renderer;
 	std::vector<ApplicationPage*> Pages;
 	int activePage = 0;
+	int previousPage = -1;
 	Drawable* currentHoveredDrawable = nullptr;
 	Drawable* currentPressedDrawable = nullptr;
 	Vector2D MinWindowSize;
@@ -62,7 +63,9 @@ public:
 	Drawable* GetCurrentHoveredDrawable() { return currentHoveredDrawable; };
 
 	void SetActivePage(int pageId);
+	void NavigateBackward();
 	int GetActivePageID();
+	int GetPreviousPageID();
 	ApplicationPage* GetActivePage();
 
 	virtual char* GetApplicationName() = 0;

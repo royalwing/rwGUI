@@ -12,6 +12,7 @@ private:
 	wchar_t* Caption = L"";
 	OnButtonPressedDelegate OnButtonPressed = nullptr;
 	ID2D1Bitmap* background = nullptr;
+	int fontSize = 16;
 	bool bPressed = false;
 public:
 	enum EBackgroundAlignment
@@ -35,7 +36,8 @@ public:
 	void SetBackgroundImage(char* bgImagePath);
 	void SetBackgroundImage(int ResourceID);
 	void SetCaption(char* caption);
-
+	void SetFontSize(int nFontSize) { fontSize = nFontSize; };
+	int GetFontSize() { return fontSize; };
 };
 
 

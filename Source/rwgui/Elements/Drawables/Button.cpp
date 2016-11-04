@@ -49,7 +49,7 @@ void Button::SetCaption(char* caption)
 
 void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 {
-	IDWriteTextFormat* textFormat = MAKETEXTFORMAT("Arial", 16, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_EXTRA_EXPANDED);
+	IDWriteTextFormat* textFormat = MAKETEXTFORMAT("Arial", fontSize, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_EXTRA_EXPANDED);
 	IDWriteTextLayout* textLayout = nullptr;
 	HRESULT result = d2d->GetWriteFactory()->CreateTextLayout(Caption, wcslen(Caption), textFormat, GetBounds().Size.x, GetBounds().Size.y, &textLayout);
 	if (result != S_OK) return;
@@ -75,6 +75,11 @@ void Button::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 				float dilator = GetBounds().Size.y / height;
 				
 				bgBounds = Bounds(width/2*dilator-GetBounds().Size.x/2, 0, GetBounds().Size.x/dilator, height);
+				if (GetBounds().Size.x > GetBounds().Size.y)
+				{
+					dilator = GetBounds().Size.x / width;
+					bgBounds = Bounds(0, height / 2 * dilator - GetBounds().Size.y / 2, width, GetBounds().Size.y / dilator);
+				}
 			}
 			break;
 		default:

@@ -30,11 +30,13 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="D:\aboutme_btn_bg.png" />
     <Image Include="D:\Images\close_3.png" />
     <Image Include="D:\Images\flat_avatar.png" />
+    <Image Include="D:\MyApps_Btn.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\GUI\resources.h" />
+    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\GUI\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\GUI.rc" />

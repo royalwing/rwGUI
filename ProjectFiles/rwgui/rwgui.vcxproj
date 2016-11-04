@@ -52,7 +52,6 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Source.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\TextLabel.cpp" />
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
@@ -64,7 +63,7 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D:\Images\close_3.ico" />
+    <Image Include="D:\BackButton.png" />
     <Image Include="D:\Images\close_3.png" />
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,6 @@ private:
 	Color borderColor = Color(0.6f, 0.6f, 0.6f);
 	Color backgroundColor = Color(0.9f, 0.9f, 0.9f);
 	int borderWidth = 1;
-	char* closeBtnPath = "D:\\Images\\close_3.png";
 	Header* header = nullptr;
 	Background* background = nullptr;
 public:
@@ -24,6 +23,7 @@ public:
 	virtual void OnInit() override;
 	virtual void SetTitle(char* newtitle) override;
 	virtual Bounds GetClientBounds() override;
+
 };
 
 

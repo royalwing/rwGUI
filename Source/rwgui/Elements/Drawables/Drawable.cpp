@@ -13,12 +13,15 @@ Drawable::Drawable(char * newname)
 	if (name == nullptr) name = "UnnamedElement";
 }
 
-void Drawable::AddChild(Drawable* child)
+void Drawable::AddChild(Drawable* child, bool bAddToBeginning)
 {
 	if (child == nullptr) return;
 	child->appPage = this->appPage;
 	child->Outer = this;
-	Elements.push_back(child);
+	if (bAddToBeginning)
+		Elements.insert(Elements.begin(), child);
+	else
+		Elements.push_back(child);
 }
 
 void Drawable::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)

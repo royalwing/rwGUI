@@ -20,8 +20,29 @@ void TextLabel::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 	if (result != S_OK) return;
 	DWRITE_TEXT_METRICS metrics;
 	textLayout->GetMetrics(&metrics);
+	
+	Bounds drawBounds = GetBounds();
+	switch (textVerticalAlignment)
+	{
+	case ETextVerticalAlignment::TVA_MIDDLE:
+		drawBounds.Pos.y += drawBounds.Size.y / 2 - metrics.height / 2;
+		break;
+	case ETextVerticalAlignment::TVA_BOTTOM:
+		drawBounds.Pos.y += drawBounds.Size.y - metrics.height;
+		break;
+	}
 
-	renderTarget->DrawText(Value, wcslen(Value), textFormat, GetBounds().ToD2DRect(), MAKEBRUSH(textColor));
+	switch (textHorizontalAlignment)
+	{
+	case ETextHorizontalAlignment::THA_MIDDLE:
+		drawBounds.Pos.x += drawBounds.Size.x / 2 - metrics.width / 2;
+		break;
+	case ETextHorizontalAlignment::THA_RIGHT:
+		drawBounds.Pos.x += drawBounds.Size.x - metrics.width;
+		break;
+	}
+
+	renderTarget->DrawText(Value, wcslen(Value), textFormat, drawBounds.ToD2DRect(), MAKEBRUSH(textColor));
 
 }
 

@@ -65,13 +65,25 @@ void Layout::Update(float DeltaTime)
 		switch (LayoutType)
 		{
 		case LayoutType_HORIZONTAL:
-			CurrentSize.x = bounds.Size.x*CurrentScale-contentPadding.left-contentPadding.right;
-			CurrentSize.y = bounds.Size.y - contentPadding.top - contentPadding.bottom;
+			if (!Elements[i]->bIgnoreLayoutScaling)
+			{
+				CurrentSize.x = bounds.Size.x*CurrentScale - contentPadding.left - contentPadding.right;
+				CurrentSize.y = bounds.Size.y - contentPadding.top - contentPadding.bottom;
+			}
+			else {
+				CurrentSize = Elements[i]->GetBounds().Size;
+			}
 			CurrentLocation.x = LastSize.x + LastPosition.x + contentPadding.right;
 			break;
 		case LayoutType_VERTICAL:
-			CurrentSize.x = bounds.Size.x - contentPadding.left - contentPadding.right;
-			CurrentSize.y = bounds.Size.y*CurrentScale - contentPadding.top - contentPadding.bottom;
+			if (!Elements[i]->bIgnoreLayoutScaling)
+			{
+				CurrentSize.x = bounds.Size.x - contentPadding.left - contentPadding.right;
+				CurrentSize.y = bounds.Size.y*CurrentScale - contentPadding.top - contentPadding.bottom;
+			}
+			else {
+				CurrentSize = Elements[i]->GetBounds().Size;
+			}
 			CurrentLocation.y = LastSize.y + contentPadding.top + LastPosition.y + contentPadding.bottom;
 			break;
 		}

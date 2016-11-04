@@ -10,6 +10,20 @@ enum ETextStyle
 	TS_Italic
 };
 
+enum ETextHorizontalAlignment
+{
+	THA_LEFT = 0,
+	THA_MIDDLE,
+	THA_RIGHT
+};
+
+enum ETextVerticalAlignment
+{
+	TVA_TOP = 0,
+	TVA_MIDDLE,
+	TVA_BOTTOM
+};
+
 class RWGUI_API TextLabel : public Drawable
 {
 private:
@@ -18,6 +32,8 @@ private:
 	char* textFontFamily = "Arial";
 	int textFontSize = 16;
 	ETextStyle textFontStyle = TS_Regular;
+	ETextVerticalAlignment textVerticalAlignment = TVA_TOP;
+	ETextHorizontalAlignment textHorizontalAlignment = THA_LEFT;
 public:
 	TextLabel(char* newname, char* value);
 
@@ -37,6 +53,9 @@ public:
 
 	void SetFontStyle(ETextStyle textStyle);
 	ETextStyle GetFontStyle();
+
+	void SetVerticalAlignment(ETextVerticalAlignment Alignment) { textVerticalAlignment = Alignment; };
+	void SetHorizontalAlignment(ETextHorizontalAlignment Alignment) { textHorizontalAlignment = Alignment; };
 };
 
 #endif // TEXTLABEL_H

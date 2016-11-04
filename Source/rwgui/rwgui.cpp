@@ -267,12 +267,26 @@ Drawable * Application::GetDrawableAtPosition(Vector2D Position)
 
 void Application::SetActivePage(int pageId)
 {
-	if (pageId < Pages.size()) activePage = pageId;
+	if (pageId < Pages.size())
+	{
+		previousPage = activePage;
+		activePage = pageId;
+	}
+}
+
+void Application::NavigateBackward()
+{
+	if (GetPreviousPageID()>-1) SetActivePage(GetPreviousPageID());
 }
 
 int Application::GetActivePageID()
 {
 	return activePage;
+}
+
+int Application::GetPreviousPageID()
+{
+	return previousPage;
 }
 
 char * Application::GetApplicationTitle()

@@ -24,7 +24,7 @@ class Resource : public ResourceBase
 public:
 	T* value;
 	Resource(T* nVal) { value = nVal; ResourceManager::Get()->RegisterResource(this); };
-	~Resource() { HCURSOR cursor; };
+	~Resource() { if (value != nullptr) value->Release(); };
 	T* GetValue() { return value; };
 };
 

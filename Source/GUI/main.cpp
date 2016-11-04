@@ -6,7 +6,7 @@
 #include <Elements/Drawables/Spacer.h>
 #include <Elements/Pages/BasePage.h>
 #include <Common/DebugHelpers.h>
-#include "resources.h"
+#include "resource.h"
 
 class UpdaterGUIApp : public Application
 {
@@ -20,13 +20,12 @@ public:
 	Bounds GetDefaultWindowBounds() { return Bounds(200, 200,1280,720); };
 	virtual void OnInit() override
 	{
-		GetActivePage()->SetTitle("RoyalWing's Updater");
 		SetMinimalWindowSize(Vector2D(680,360));
 	}
 	virtual void BuildPages() {
-		ApplicationPage* appPage = new BasePage();
+		BasePage* MainPage = new BasePage();
 		Layout* MainLayout = new Layout("MainLayout", LayoutType_HORIZONTAL);
-		appPage->AddElement(MainLayout);
+		MainPage->AddElement(MainLayout);
 		MainLayout->SetPadding({0,0,0,0});
 		MainLayout->SetContentPadding(0,4,4,8);
 
@@ -34,7 +33,7 @@ public:
 		// AboutMe button
 		{
 			Button* AboutMeBtn = new Button("AboutMeBtn", [](Application* app) {
-				RW_WARNING("Test");
+				app->SetActivePage(1);
 			});
 			AboutMeBtn->SetBackgroundImage(IDB_BACKGROUND_ABOUT);
 			AboutMeBtn->BackgroundAlignment = Button::EBackgroundAlignment::BA_ScaleToFit;
@@ -51,21 +50,62 @@ public:
 			AboutMeBtnLayout->AddChild(AboutMeBtnSpacer);
 
 			TextLabel* AboutMeBtnCaption = new TextLabel("AboutMeBtnCaption", "About Me");
+			AboutMeBtnCaption->SetHorizontalAlignment(ETextHorizontalAlignment::THA_LEFT);
 			AboutMeBtnCaption->SetFontStyle(ETextStyle::TS_Bold);
 			AboutMeBtnCaption->LayoutScale = 0.2f;
 			AboutMeBtnLayout->AddChild(AboutMeBtnCaption);
 
 			TextLabel* AboutMeBtnDescription = new TextLabel("AboutMeBtnDescription", "Here you can check all the information about my skills and how to contact me.");
 			AboutMeBtnDescription->SetFontSize(12);
+			AboutMeBtnDescription->SetHorizontalAlignment(ETextHorizontalAlignment::THA_LEFT);
 			AboutMeBtnDescription->SetFontStyle(ETextStyle::TS_Italic);
 			AboutMeBtnDescription->LayoutScale = 0.35f;
 			AboutMeBtnLayout->AddChild(AboutMeBtnDescription);
 		}
 		
 		
+		// AppsBtn button
+		{
+			Button* Apps_Btn = new Button("AppsBtn");
+			Apps_Btn->SetBackgroundImage(IDB_BACKGROUND_APPS);
+			Apps_Btn->BackgroundAlignment = Button::EBackgroundAlignment::BA_ScaleToFit;
+			MainLayout->AddChild(Apps_Btn);
 
-		Button* ToolsBtn2 = new Button("ToolsBtn2");
-		MainLayout->AddChild(ToolsBtn2);
+			Layout* AppsBtnLayout = new Layout("AppsBtnLayout", ELayoutType::LayoutType_VERTICAL);
+			AppsBtnLayout->SetPadding(15, 15, 15, 15);
+			AppsBtnLayout->SetContentPadding(0, 0, 0, 0);
+			AppsBtnLayout->SetContentVerticalAlignment(LVCA_Bottom);
+			Apps_Btn->AddChild(AppsBtnLayout);
+
+			TextLabel* AppsBtnCaption = new TextLabel("AppsBtnCaption", "My Software");
+			AppsBtnCaption->SetFontStyle(ETextStyle::TS_Bold);
+			AppsBtnCaption->SetVerticalAlignment(ETextVerticalAlignment::TVA_TOP);
+			AppsBtnCaption->SetHorizontalAlignment(ETextHorizontalAlignment::THA_RIGHT);
+			AppsBtnCaption->LayoutScale = 0.2f;
+			AppsBtnLayout->AddChild(AppsBtnCaption);
+
+			TextLabel* AppsBtnDescription = new TextLabel("AppsBtnDescription", "This section dedicated to observing and downloading apps i'm making. You can update, download, launch and remove them within this section.");
+			AppsBtnDescription->SetFontSize(12);
+			AppsBtnDescription->SetFontStyle(ETextStyle::TS_Italic);
+			AppsBtnDescription->SetVerticalAlignment(ETextVerticalAlignment::TVA_TOP);
+			AppsBtnDescription->SetHorizontalAlignment(ETextHorizontalAlignment::THA_RIGHT);
+			AppsBtnDescription->LayoutScale = 0.35f;
+			AppsBtnLayout->AddChild(AppsBtnDescription);
+
+			Spacer* AppsBtnSpacer = new Spacer("AboutMeBtnSpacer");
+			AppsBtnSpacer->LayoutScale = 3.0f;
+			AppsBtnLayout->AddChild(AppsBtnSpacer);
+
+			TextLabel* AppsCountBtnDescription = new TextLabel("AppsCountBtnDescription", "Current entries : 0");
+			AppsCountBtnDescription->SetFontSize(18);
+			AppsCountBtnDescription->SetTextColor(Color(0.0f,0.0f,0.0f));
+			AppsCountBtnDescription->SetFontStyle(ETextStyle::TS_Bold);
+			AppsCountBtnDescription->SetHorizontalAlignment(ETextHorizontalAlignment::THA_LEFT);
+			AppsCountBtnDescription->SetVerticalAlignment(ETextVerticalAlignment::TVA_BOTTOM);
+			AppsCountBtnDescription->LayoutScale = 0.35f;
+			AppsBtnLayout->AddChild(AppsCountBtnDescription);
+
+		}
 
 		Layout* SecondaryLayout = new Layout("AnotherLayout", LayoutType_VERTICAL);
 		MainLayout->AddChild(SecondaryLayout);
@@ -94,9 +134,15 @@ public:
 
 
 		MainLayout->zOrder = 0;
+		
+		MainPage->SetTitle("RoyalWing's Updater");
+		AddPage(MainPage); // # 0 - Main Page
 
-		appPage->SetTitle(GetApplicationName());
-		AddPage(appPage);
+		BasePage* AboutMePage = new BasePage();
+		AboutMePage->SetTitle("About Me");
+
+		AddPage(AboutMePage); // # 1 - About me page
+
 	};
 };
 

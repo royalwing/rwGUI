@@ -101,14 +101,13 @@
     <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\DebugHelpers.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Source.cpp">
+    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.cpp">
       <Filter>Elements\Drawables</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D:\Images\close_3.png" />
-    <Image Include="D:\Images\close_3.ico" />
+    <Image Include="D:\BackButton.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.rc" />

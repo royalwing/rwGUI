@@ -15,16 +15,18 @@ private:
 	RECT Padding;
 	ApplicationPage* appPage;
 	Drawable* Outer;
+	int DefaultHTResponse = HTCLIENT;
 	char* name;
 public:
 	bool bInteractive;
 	bool bIsNonClient;
 	float LayoutScale = 1.0f;
+	bool bIgnoreLayoutScaling = false;
 	int zOrder = 0;
 	std::vector<Drawable*> Elements; // Dont touch this array directly. Use AddChild() instead.
 
 	Drawable(char* newname);
-	void AddChild(Drawable* child);
+	void AddChild(Drawable* child, bool bAddToBeginning = false);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget);
 	virtual Drawable* GetOuter();
 	void InternalInit();
@@ -35,7 +37,7 @@ public:
 	virtual Bounds GetBounds(bool bNonClient = false);
 	virtual Bounds GetSelectionBounds();
 	virtual Bounds GetOuterBounds(bool bNonClient = false);
-	virtual int GetDrawableNCObjectType() { return HTCLIENT; };
+	virtual int GetDrawableNCObjectType() { return DefaultHTResponse; };
 	Drawable* GetDrawableAtPosition(Vector2D Position);
 	virtual void OnMouseEnter() {};
 	virtual void OnMouseLeave() {};
@@ -46,6 +48,8 @@ public:
 	virtual HCURSOR GetCursor() { return LoadCursor(nullptr, IDC_ARROW); };
 	bool IsInteractive() { return bInteractive; };
 	bool IsNonClient() { return bIsNonClient; };
+
+	void OverrideHTResponse(int newResponse) { DefaultHTResponse = newResponse; };
 
 	void SetPosition(float x, float y) { Position.x = x; Position.y = y; };
 	void SetSize(float x, float y) { Size.x = x; Size.y = y; };
