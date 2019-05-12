@@ -35,7 +35,7 @@ public:
 			Button* AboutMeBtn = new Button("AboutMeBtn", [](Application* app) {
 				app->SetActivePage(1);
 			});
-			AboutMeBtn->SetBackgroundImage(IDB_BACKGROUND_ABOUT);
+			//AboutMeBtn->SetBackgroundImage(IDB_BACKGROUND_ABOUT);
 			AboutMeBtn->BackgroundAlignment = Button::EBackgroundAlignment::BA_ScaleToFit;
 			MainLayout->AddChild(AboutMeBtn);
 
@@ -67,7 +67,7 @@ public:
 		// AppsBtn button
 		{
 			Button* Apps_Btn = new Button("AppsBtn");
-			Apps_Btn->SetBackgroundImage(IDB_BACKGROUND_APPS);
+			//Apps_Btn->SetBackgroundImage(IDB_BACKGROUND_APPS);
 			Apps_Btn->BackgroundAlignment = Button::EBackgroundAlignment::BA_ScaleToFit;
 			MainLayout->AddChild(Apps_Btn);
 

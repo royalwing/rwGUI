@@ -92,7 +92,7 @@ JSONObject& JSONObject::operator[](const std::string name)
 JSONObject& JSONObject::operator[](const int id)
 {
 	this->ValueType = VT_ARRAY;
-	if ((size_t)(id) > -1 && id < this->values.size()) return *this->values[id];
+	if ((size_t)(id) > -1 && (size_t)id < this->values.size()) return *this->values[id];
 	while (this->values.size() < (size_t)(id+1))
 	{
 		this->values.push_back(new JSONObject());

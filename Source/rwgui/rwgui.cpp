@@ -208,7 +208,7 @@ void Application::Update(float DeltaTime)
 
 void Application::OnDraw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 {
-	if (activePage < Pages.size()) Pages[activePage]->Draw(d2d, renderTarget);
+	if ((size_t)activePage < Pages.size()) Pages[activePage]->Draw(d2d, renderTarget);
 }
 
 
@@ -267,7 +267,7 @@ Drawable * Application::GetDrawableAtPosition(Vector2D Position)
 
 void Application::SetActivePage(int pageId)
 {
-	if (pageId < Pages.size())
+	if ((size_t)pageId < Pages.size())
 	{
 		previousPage = activePage;
 		activePage = pageId;
@@ -297,7 +297,7 @@ char * Application::GetApplicationTitle()
 
 ApplicationPage * Application::GetActivePage()
 {
-	if (activePage < Pages.size()) return Pages[activePage];
+	if ((size_t)activePage < Pages.size()) return Pages[activePage];
 	return nullptr;
 }
 

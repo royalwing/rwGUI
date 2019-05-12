@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,60 +27,60 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\json.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\rwupd.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\sha256.cpp" />
+    <ClCompile Include="..\..\Source\rwupd\json.cpp" />
+    <ClCompile Include="..\..\Source\rwupd\rwupd.cpp" />
+    <ClCompile Include="..\..\Source\rwupd\sha256.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\rwupd.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\sha256.h" />
+    <ClInclude Include="..\..\Source\rwupd\rwupd.h" />
+    <ClInclude Include="..\..\Source\rwupd\sha256.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\RoyalWing%27s Updater\Source\rwupd\errorlist.txt" />
+    <None Include="..\..\Source\rwupd\errorlist.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2EA8E209-8B5C-4ED3-A058-3FCCF8302C6C}</ProjectGuid>
     <RootNamespace>rwupd</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -110,8 +110,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
-    <LibraryPath>C:\Projects\wincurl\third-party\libcurl\lib\dll-debug-x64;C:\Projects\RoyalWing%27s Updater\Client;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
+    <LibraryPath>D:\SDK\curl\lib;C:\Projects\RoyalWing%27s Updater\Client;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SDK\curl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
@@ -134,8 +134,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Binaries\</OutDir>
-    <LibraryPath>C:\Projects\RoyalWing%27s Updater\Client;C:\Projects\wincurl\third-party\libcurl\lib\dll-debug-x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Projects\wincurl\third-party\libcurl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
+    <LibraryPath>C:\Projects\RoyalWing%27s Updater\Client;D:\SDK\curl\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SDK\curl\include;$(IncludePath);$(SolutionDir)Source\rwupd</IncludePath>
     <IntDir>..\Temp\$(ProjectName)\</IntDir>
     <SourcePath>$(SolutionDir)Source\$(ProjectName)\</SourcePath>
     <TargetName>$(ProjectName)_$(PlatformTarget)</TargetName>
@@ -165,8 +165,9 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Projects\wincurl\third-party\libcurl\lib\static-debug-x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcurl_a_debug.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcurl.a;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
+      <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -177,9 +178,9 @@
       <PreprocessorDefinitions>CURL_STATICLIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);_x64</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Projects\wincurl\third-party\libcurl\lib\static-debug-x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcurl_a_debug.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Normaliz.lib;Wldap32.lib;Crypt32.lib;Ws2_32.lib;libcurl_a.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

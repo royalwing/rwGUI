@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,91 +27,91 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\DebugHelpers.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\rwmath.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\Types.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Drawable.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\TextLabel.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\DebugHelpers.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\rwmath.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\Types.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Background.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Border.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Button.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Drawable.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Header.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Layout.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Spacer.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\TextLabel.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Pages\ApplicationPage.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Pages\BasePage.h" />
     <ClInclude Include="..\..\Source\rwgui\rwresources.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwapi.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.h" />
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.h" />
+    <ClInclude Include="..\..\Source\rwgui\Resources\ResourceManager.h" />
+    <ClInclude Include="..\..\Source\rwgui\rwapi.h" />
+    <ClInclude Include="..\..\Source\rwgui\rwd2d.h" />
+    <ClInclude Include="..\..\Source\rwgui\rwgui.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Common\DebugHelpers.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Background.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Border.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Button.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Layout.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Spacer.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\TextLabel.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Common\DebugHelpers.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Background.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Border.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Button.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Layout.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Spacer.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\TextLabel.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Resources\ResourceManager.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Drawable.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Drawables\Header.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\Elements\Pages\BasePage.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwd2d.cpp" />
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Header.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Pages\BasePage.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\rwd2d.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\rwgui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D:\BackButton.png" />
     <Image Include="D:\Images\close_3.png" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\rwgui\rwgui.rc" />
+    <ResourceCompile Include="..\..\Source\rwgui\rwgui.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C2B62DCF-4EE5-40EB-836F-CBF551FF0EB7}</ProjectGuid>
     <RootNamespace>rwgui</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

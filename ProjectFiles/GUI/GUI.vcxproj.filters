@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\main.cpp" />
+    <ClCompile Include="..\..\Source\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="D:\Images\close_3.png" />
@@ -10,9 +10,9 @@
     <Image Include="D:\MyApps_Btn.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\RoyalWing%27s Updater\Source\GUI\resource.h" />
+    <ClInclude Include="..\..\Source\GUI\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\RoyalWing%27s Updater\Source\GUI\GUI.rc" />
+    <ResourceCompile Include="..\..\Source\GUI\GUI.rc" />
   </ItemGroup>
 </Project>

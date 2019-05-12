@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\RoyalWing%27s Updater\Source\BatchBuilder\main.cpp">
+    <ClCompile Include="..\..\Source\BatchBuilder\main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
