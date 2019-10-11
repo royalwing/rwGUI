@@ -14,6 +14,9 @@ int Application::Run(HINSTANCE hInstance)
 #ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
+
+	String WindowClass = GetWindowClassName();
+
 	appInstance = hInstance;
 	ApplicationGetter::Get()->SetApplication(this);
 	WNDCLASSEX windowClass;
@@ -22,7 +25,7 @@ int Application::Run(HINSTANCE hInstance)
 	windowClass.hbrBackground = (HBRUSH) COLOR_WINDOW;
 	windowClass.hInstance = hInstance;
 	windowClass.lpfnWndProc = (WNDPROC)OnWindowProcStatic;
-	windowClass.lpszClassName = GetWindowClassName();
+	windowClass.lpszClassName = WindowClass;
 	windowClass.style = CS_HREDRAW | CS_VREDRAW;
 	RW_LOG("Registering window class..");
 	RegisterClassEx(&windowClass);
@@ -32,7 +35,7 @@ int Application::Run(HINSTANCE hInstance)
 	RECT rect = { bounds.Pos.x, bounds.Pos.y, bounds.Size.x, bounds.Size.y};
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 	RW_LOG("Creating window..");
-	WindowHandler = CreateWindow(GetWindowClassName(), GetApplicationTitle(), WS_POPUP, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top, 0, 0, hInstance, 0);
+	WindowHandler = CreateWindow(WindowClass, GetApplicationTitle(), WS_POPUP, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top, 0, 0, hInstance, 0);
 	if (!WindowHandler) return 1;
 	LONG lStyle = GetWindowLong(WindowHandler, GWL_STYLE);
 	lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
@@ -289,7 +292,7 @@ int Application::GetPreviousPageID()
 	return previousPage;
 }
 
-char * Application::GetApplicationTitle()
+String Application::GetApplicationTitle() const
 {
 	return GetApplicationName();
 }
@@ -312,7 +315,7 @@ HWND Application::GetWindowHandler()
 	return this->WindowHandler;
 }
 
-char * Application::GetWindowClassName()
+String Application::GetWindowClassName() const
 {
 	return GetApplicationName();
 }
@@ -334,15 +337,15 @@ Vector2D Application::GetMinimalWindowSize()
 	return MinWindowSize;
 }
 
-char * Application::GetApplicationFolder()
+String Application::GetApplicationFolder()
 {
-	char* str = new char[FILENAME_MAX];
-	_getcwd(str, FILENAME_MAX);
-	int len = strlen(str);
-	if (str[len - 1] != '\\')
+	char buf[FILENAME_MAX];
+	_getcwd(buf, FILENAME_MAX);
+	int len = strlen(buf);
+	if (buf[len - 1] != '\\')
 	{
-		str[len] = '\\';
-		str[len + 1] = '\0';
+		buf[len] = '\\';
+		buf[len + 1] = '\0';
 	}
-	return str;
+	return String(buf);
 }

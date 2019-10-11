@@ -6,7 +6,7 @@
 class RWGUI_API Spacer : public Drawable
 {
 public:
-	Spacer(char* name);
+	Spacer(String name);
 };
 
 

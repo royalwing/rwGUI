@@ -34,7 +34,7 @@ private:
 	ELayoutVertialContentAlignment contentVerticalAlignment = LVCA_Default;
 	ELayoutHorizontalContentAlignment contentHorizontalAlignment = LHCA_Default;
 public:
-	Layout(char* name, ELayoutType Type);
+	Layout(String name, ELayoutType Type);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual void Update(float DeltaTime) override;
 	void SetContentPadding(RECT nPadding);

@@ -1,7 +1,7 @@
 #include "Drawable.h"
 
 
-Drawable::Drawable(char * newname)
+Drawable::Drawable(String newname)
 	: Outer(nullptr)
 {
 	Padding.left = 0;
@@ -10,7 +10,7 @@ Drawable::Drawable(char * newname)
 	Padding.top = 0;
 	bIsNonClient = false;
 	name = newname;
-	if (name == nullptr) name = "UnnamedElement";
+	if (name.IsEmpty()) name = "UnnamedElement";
 }
 
 void Drawable::AddChild(Drawable* child, bool bAddToBeginning)
@@ -66,7 +66,7 @@ void Drawable::InternalUpdate(float DeltaTime)
 	Update(DeltaTime);
 }
 
-char* Drawable::GetName()
+String Drawable::GetName()
 {
 	return name;
 }

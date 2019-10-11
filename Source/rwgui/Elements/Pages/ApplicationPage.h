@@ -8,7 +8,7 @@ class RWGUI_API ApplicationPage
 {
 private:
 	Application* App;
-	char* pageTitle = "";
+	String pageTitle;
 public:
 	std::vector<Drawable*> Elements;
 	ApplicationPage();
@@ -24,9 +24,9 @@ public:
 	void InternalUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime);
 	void SetApp(Application* nApp);
-	virtual void SetTitle(char* newtitle);
+	virtual void SetTitle(String newtitle);
 
-	char* GetTitle();
+	String GetTitle();
 
 	virtual void BuildPage() {};
 

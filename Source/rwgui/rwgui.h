@@ -45,7 +45,7 @@ public:
 	static LRESULT CALLBACK OnWindowProcStatic(HWND pWindowHandler, UINT uMsg, WPARAM wparam, LPARAM lparam);
 	LRESULT CALLBACK OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam, LPARAM lparam);
 
-	virtual void OnCommandLineArgument(char* arg,char* value) {};
+	virtual void OnCommandLineArgument(String arg,String value) {};
 	virtual void OnStop() {};
 	void InternalUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime);
@@ -68,21 +68,21 @@ public:
 	int GetPreviousPageID();
 	ApplicationPage* GetActivePage();
 
-	virtual char* GetApplicationName() = 0;
-	virtual char* GetApplicationTitle();
+	virtual String GetApplicationName() const = 0;
+	virtual String GetApplicationTitle() const;
 	virtual Bounds GetDefaultWindowBounds();
 
 	HWND GetWindowHandler();
 	HINSTANCE GetInstance() { return appInstance; };
-	char* GetWindowClassName();
+	String GetWindowClassName() const;
 	Bounds GetCurrentWindowBounds();
 
 	void SetMinimalWindowSize(Vector2D minSize);
 	Vector2D GetMinimalWindowSize();
 
-	char* GetApplicationFolder();
+	String GetApplicationFolder();
 
-	void InternalProcessCommandLine(char* cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument
+	void InternalProcessCommandLine(String cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument
 };
 
 class ApplicationGetter

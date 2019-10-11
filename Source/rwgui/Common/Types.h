@@ -1,3 +1,5 @@
+#pragma once
+
 enum EGlobalEvent
 {
 	NONE = 0,

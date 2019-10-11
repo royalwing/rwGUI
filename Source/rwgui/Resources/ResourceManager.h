@@ -7,6 +7,8 @@
 #include <wincodec.h>
 #include <vector>
 #include <Common/rwmath.h>
+#include "Common/Containers.h"
+#include "Common/String.h"
 
 class ResourceManager;
 
@@ -51,9 +53,9 @@ public:
 class Resource_Bitmap : public Resource<ID2D1Bitmap>
 {
 public:
-	char* bitmapPath;
+	String bitmapPath;
 	int ResourceID;
-	Resource_Bitmap(char* nBitmapPath, ID2D1Bitmap* nVal) : Resource(nVal) { bitmapPath = nBitmapPath; };
+	Resource_Bitmap(String nBitmapPath, ID2D1Bitmap* nVal) : Resource(nVal) { bitmapPath = nBitmapPath; };
 	Resource_Bitmap(int resID, ID2D1Bitmap* nVal) : Resource(nVal) { ResourceID = resID; };
 	virtual void Release() override { if (value != nullptr) value->Release(); };
 
@@ -85,8 +87,8 @@ public:
 	void RegisterResource(ResourceBase* resource) { Resources.push_back(resource); };
 
 	static ID2D1Brush* MakeBrush(Color color);
-	static IDWriteTextFormat* MakeTextFormat(char* aFontFamily, float fontSize, DWRITE_FONT_WEIGHT weight = DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE style = DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL);
-	static ID2D1Bitmap* MakeBitmap(char* bitmapPath);
+	static IDWriteTextFormat* MakeTextFormat(String aFontFamily, float fontSize, DWRITE_FONT_WEIGHT weight = DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE style = DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH stretch = DWRITE_FONT_STRETCH_NORMAL);
+	static ID2D1Bitmap* MakeBitmap(String bitmapPath);
 	static ID2D1Bitmap* MakeBitmap(int ResourceID);
 };
 

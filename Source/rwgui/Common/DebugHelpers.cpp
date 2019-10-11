@@ -7,28 +7,28 @@
 #include <iomanip>
 #include <Windows.h>
 
-void DebugHelpers::Logger::Log(char * LogText)
+void DebugHelpers::Logger::Log(String LogText)
 {
 	PerformLog(ELogVerbosity::LV_Log, LogText);
 }
 
-void DebugHelpers::Logger::Warning(char * LogText)
+void DebugHelpers::Logger::Warning(String LogText)
 {
 	PerformLog(ELogVerbosity::LV_Warning,LogText);
 }
 
-void DebugHelpers::Logger::Error(char * LogText)
+void DebugHelpers::Logger::Error(String LogText)
 {
 	PerformLog(ELogVerbosity::LV_Error, LogText);
 }
 
-void DebugHelpers::Logger::PerformLog(ELogVerbosity logVerbosity, char * LogText)
+void DebugHelpers::Logger::PerformLog(ELogVerbosity logVerbosity,String LogText)
 {
-	char* logTypeText = "";
+	String logTypeText;
 	switch (logVerbosity)
 	{
 	case ELogVerbosity::LV_Log:
-		logTypeText = "Log";
+		logTypeText = "Log"; 
 		break;
 	case ELogVerbosity::LV_Warning:
 		logTypeText = "Warning";
@@ -46,8 +46,7 @@ void DebugHelpers::Logger::PerformLog(ELogVerbosity logVerbosity, char * LogText
 	std::stringstream ss;
 	ss << std::put_time(std::localtime(&in_time_t), "%Y %B %e %H:%M:%S");
 	const std::string tmp = ss.str();
-	const char*	timeText = tmp.c_str();
-
+	const String timeText = tmp.c_str();
 
 
 	char msg[1024];
@@ -55,23 +54,22 @@ void DebugHelpers::Logger::PerformLog(ELogVerbosity logVerbosity, char * LogText
 
 	if (logVerbosity == ELogVerbosity::LV_Error)
 	{
-		sprintf(msg, "[%s] %s [%i] : %s\n ", timeText, logTypeText, GetLastError(), LogText);
-	}
-	else {
-		sprintf(msg, "[%s] %s : %s\n", timeText, logTypeText, LogText);
+		sprintf(msg, String("[%s] %s [%i] : %s\n "), timeText, logTypeText, GetLastError(), LogText);
+	} else {
+		sprintf(msg, String("[%s] %s : %s\n"), timeText, logTypeText, LogText);
 	}
 		
 	char log_filepath[FILENAME_MAX];
 	ZeroMemory(log_filepath, FILENAME_MAX);
-	sprintf(log_filepath, "%s\\%s.log", GApplication->GetApplicationFolder(), GApplication->GetApplicationName());
+	sprintf(log_filepath, String("%s\\%s.log"), GApplication->GetApplicationFolder(), GApplication->GetApplicationName());
 	FILE* logFile = fopen(log_filepath, "a+");
 	if (logFile)
 	{
 		fputs(msg, logFile);
 		fseek(logFile, 0, SEEK_END);
 		fflush(logFile);
+		fclose(logFile);
 	}
-	fclose(logFile);
 
 	OutputDebugString(msg);
 

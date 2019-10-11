@@ -21,14 +21,13 @@ ID2D1Brush * ResourceManager::MakeBrush(Color color)
 	return brush;
 }
 
-IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fontSize,DWRITE_FONT_WEIGHT weight,DWRITE_FONT_STYLE style, DWRITE_FONT_STRETCH stretch)
+IDWriteTextFormat * ResourceManager::MakeTextFormat(String aFontFamily, float fontSize,DWRITE_FONT_WEIGHT weight,DWRITE_FONT_STYLE style, DWRITE_FONT_STRETCH stretch)
 {
 	IDWriteTextFormat* format = nullptr;
 	if (ResourceManager::Get()->writeFactory != nullptr)
 	{
 		ResourceManager* RM = ResourceManager::Get();
-		std::wstring fontFamily(strlen(aFontFamily), L'#');
-		mbstowcs(&fontFamily[0], aFontFamily, strlen(aFontFamily));
+		WideString fontFamily(aFontFamily.ToWideString());
 		for (auto resource : RM->Resources)
 		{
 			if (resource == nullptr) continue;
@@ -36,32 +35,29 @@ IDWriteTextFormat * ResourceManager::MakeTextFormat(char* aFontFamily, float fon
 			if (sTextFormat != nullptr)
 			{
 				UINT32 familyNameLength = sTextFormat->value->GetFontFamilyNameLength();
-				WCHAR* familyName = new WCHAR[familyNameLength+1];
-				ZeroMemory(familyName, familyNameLength);
+				WideString familyName(familyNameLength);
 				if (sTextFormat->value->GetFontFamilyName(familyName, familyNameLength+1) == S_OK)
 				{
-					if (lstrcmpW(familyName, fontFamily.c_str()) == 0
+					if (familyName == fontFamily
 						&& sTextFormat->value->GetFontSize() == fontSize
 						&& sTextFormat->value->GetFontStretch() == stretch
 						&& sTextFormat->value->GetFontStyle() == style
 						&& sTextFormat->value->GetFontWeight() == weight
 						)
 					{
-						delete[] familyName;
 						return sTextFormat->GetValue();
 					}
 				}
-				delete[] familyName;
 			}
 		}
-		RM->writeFactory->CreateTextFormat(fontFamily.c_str(), nullptr, weight, style, stretch, fontSize, L"", &format);
+		RM->writeFactory->CreateTextFormat(fontFamily, nullptr, weight, style, stretch, fontSize, L"", &format);
 		format->SetTextAlignment(DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING);
 		new Resource_TextFormat(format);
 	}
 	return format;
 }
 
-ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
+ID2D1Bitmap * ResourceManager::MakeBitmap(String bitmapPath)
 {
 	ID2D1Bitmap* bitmap = nullptr;
 	if (ResourceManager::Get()->renderTarget != nullptr)
@@ -70,7 +66,7 @@ ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
 		{
 			if (resource == nullptr) continue;
 			Resource_Bitmap* sBitmap = dynamic_cast<Resource_Bitmap*>(resource);
-			if (sBitmap != nullptr && strcmp(sBitmap->bitmapPath,bitmapPath)==0)
+			if (sBitmap != nullptr && sBitmap->bitmapPath == bitmapPath)
 			{
 				return sBitmap->GetValue();
 			}
@@ -82,10 +78,7 @@ ID2D1Bitmap * ResourceManager::MakeBitmap(char * bitmapPath)
 			IWICFormatConverter* pConverter = nullptr;
 
 
-			std::wstring wBitmapPath(strlen(bitmapPath), L'#');
-			mbstowcs(&wBitmapPath[0], bitmapPath, strlen(bitmapPath));
-
-			HRESULT result = ResourceManager::Get()->imageFactory->CreateDecoderFromFilename(wBitmapPath.c_str(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
+			HRESULT result = ResourceManager::Get()->imageFactory->CreateDecoderFromFilename(bitmapPath.ToWideString(), nullptr, GENERIC_READ, WICDecodeMetadataCacheOnLoad, &pDecoder);
 			if (result == S_OK)
 			{
 				result = pDecoder->GetFrame(0, &pSource);

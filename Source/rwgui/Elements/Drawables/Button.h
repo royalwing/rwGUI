@@ -9,7 +9,7 @@ public:
 	typedef void(*OnButtonPressedDelegate)(Application* app);
 private:
 	Color BackgroundColor;
-	wchar_t* Caption = L"";
+	String Caption;
 	OnButtonPressedDelegate OnButtonPressed = nullptr;
 	ID2D1Bitmap* background = nullptr;
 	int fontSize = 16;
@@ -22,7 +22,7 @@ public:
 		BA_ScaleToFit
 	} BackgroundAlignment = BA_AsIs;
 
-	Button(char* name, OnButtonPressedDelegate btnPressed = nullptr);
+	Button(String name, OnButtonPressedDelegate btnPressed = nullptr);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual void OnMousePress() { bPressed = true; };
 	virtual void OnMouseRelease() { bPressed = false; };
@@ -33,9 +33,9 @@ public:
 	virtual HCURSOR GetCursor() override;
 	
 	void SetBackgroundColor(Color bgColor);
-	void SetBackgroundImage(char* bgImagePath);
+	void SetBackgroundImage(String bgImagePath);
 	void SetBackgroundImage(int ResourceID);
-	void SetCaption(char* caption);
+	void SetCaption(String caption);
 	void SetFontSize(int nFontSize) { fontSize = nFontSize; };
 	int GetFontSize() { return fontSize; };
 };

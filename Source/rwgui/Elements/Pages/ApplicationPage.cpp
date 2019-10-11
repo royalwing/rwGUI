@@ -92,13 +92,12 @@ void ApplicationPage::SetApp(Application* nApp)
 
 
 
-void ApplicationPage::SetTitle(char * newtitle)
+void ApplicationPage::SetTitle(String newtitle)
 {
-	if (newtitle == nullptr) pageTitle = "";
-	else pageTitle = newtitle;
+	pageTitle = newtitle;
 }
 
-char * ApplicationPage::GetTitle()
+String ApplicationPage::GetTitle()
 {
 	return pageTitle;
 }

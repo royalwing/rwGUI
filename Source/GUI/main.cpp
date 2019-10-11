@@ -7,22 +7,38 @@
 #include <Elements/Pages/BasePage.h>
 #include <Common/DebugHelpers.h>
 #include "resource.h"
+#include "Common/Containers.h"
 
 class UpdaterGUIApp : public Application
 {
 public:
 	int r = 0;
 
-	char* GetApplicationName() { return "GUI"; };
+	String GetApplicationName() const override { return "GUI"; };
 	void Update(float DeltaTime) override {
 		
 	};
-	Bounds GetDefaultWindowBounds() { return Bounds(200, 200,1280,720); };
+	Bounds GetDefaultWindowBounds() override { return {200, 200,1280,720}; };
 	virtual void OnInit() override
 	{
 		SetMinimalWindowSize(Vector2D(680,360));
 	}
-	virtual void BuildPages() {
+	virtual void BuildPages() override
+	{
+
+		List<int> TestArray;
+		TestArray.Insert(32, 0);
+		TestArray.Insert(12, 0);
+		TestArray.Insert(49, 0);
+		TestArray.Insert(81, 1);
+
+		TestArray.RemoveAt(1);
+
+		for(int i : TestArray)
+		{
+			RW_LOG(std::to_string(i).c_str());
+		}
+
 		BasePage* MainPage = new BasePage();
 		Layout* MainLayout = new Layout("MainLayout", LayoutType_HORIZONTAL);
 		MainPage->AddElement(MainLayout);
@@ -139,11 +155,14 @@ public:
 		AddPage(MainPage); // # 0 - Main Page
 
 		BasePage* AboutMePage = new BasePage();
+		AboutMePage->SetBackgroundColor((Colors::Green + (Colors::Yellow-Colors::Green)*0.4f)*0.3f);
 		AboutMePage->SetTitle("About Me");
 
 		AddPage(AboutMePage); // # 1 - About me page
 
 	};
 };
+
+
 
 RUN_APPLICATION(UpdaterGUIApp);

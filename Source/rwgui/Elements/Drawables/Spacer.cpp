@@ -1,6 +1,6 @@
 #include "Spacer.h"
 
-Spacer::Spacer(char * name)
+Spacer::Spacer(String name)
 	: Drawable(name)
 {
 	bInteractive = false;

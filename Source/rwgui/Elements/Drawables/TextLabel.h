@@ -2,6 +2,7 @@
 #define TEXTLABEL_H
 
 #include <Elements/Drawables/Drawable.h>
+#include "Common/Containers.h"
 
 enum ETextStyle
 {
@@ -27,20 +28,20 @@ enum ETextVerticalAlignment
 class RWGUI_API TextLabel : public Drawable
 {
 private:
-	wchar_t* Value = L"";
+	String Value;
 	Color textColor = Color(1.0f, 1.0f, 1.0f, 1.0f);
-	char* textFontFamily = "Arial";
+	String textFontFamily = "Arial";
 	int textFontSize = 16;
 	ETextStyle textFontStyle = TS_Regular;
 	ETextVerticalAlignment textVerticalAlignment = TVA_TOP;
 	ETextHorizontalAlignment textHorizontalAlignment = THA_LEFT;
 public:
-	TextLabel(char* newname, char* value);
+	TextLabel(String newname, String value);
 
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	
-	void SetText(char* Text);
-	char* GetText();
+	void SetText(String Text);
+	String GetText();
 
 	void SetTextColor(Color color);
 	Color GetTextColor();
@@ -48,8 +49,8 @@ public:
 	void SetFontSize(int fontSize = 12);
 	int GetFontSize();
 
-	void SetFontFamily(char* fontFamilyName = "Arial");
-	char* GetFontFamily();
+	void SetFontFamily(String fontFamilyName = "Arial");
+	String GetFontFamily();
 
 	void SetFontStyle(ETextStyle textStyle);
 	ETextStyle GetFontStyle();

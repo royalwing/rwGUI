@@ -1,6 +1,6 @@
 #include "Border.h"
 
-Border::Border(char* name, EBorderType type, Color color, int width)
+Border::Border(String name, EBorderType type, Color color, int width)
 	: Drawable(name)
 	, borderType(type)
 	, borderColor(color)

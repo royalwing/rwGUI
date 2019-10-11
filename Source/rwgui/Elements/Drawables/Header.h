@@ -19,15 +19,15 @@ private:
 	Layout* HeaderLayout = nullptr;
 	Button* BackButton = nullptr;
 	TextLabel* HeaderText = nullptr;
-	char* headerTitle = "";
+	String headerTitle = "";
 public:
-	Header(char* name, char* title);
+	Header(String name, String title);
 	virtual void Init();
 	virtual void Update(float DeltaTime) override;
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual int GetDrawableNCObjectType() { return HTCAPTION; };
 	void SetTextColor(Color tColor) { textColor = tColor; if (textBrush != nullptr) { textBrush->Release(); textBrush = nullptr; } };
-	void SetText(char* newTitle) { headerTitle = newTitle; };
+	void SetText(String newTitle) { headerTitle = newTitle; };
 };
 
 

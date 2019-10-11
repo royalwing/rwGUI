@@ -1,5 +1,6 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
+#include "Common/Containers.h"
 
 class RWD2D;
 class Application;
@@ -16,7 +17,7 @@ private:
 	ApplicationPage* appPage;
 	Drawable* Outer;
 	int DefaultHTResponse = HTCLIENT;
-	char* name;
+	String name;
 public:
 	bool bInteractive;
 	bool bIsNonClient;
@@ -25,7 +26,7 @@ public:
 	int zOrder = 0;
 	std::vector<Drawable*> Elements; // Dont touch this array directly. Use AddChild() instead.
 
-	Drawable(char* newname);
+	Drawable(String newname);
 	void AddChild(Drawable* child, bool bAddToBeginning = false);
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget);
 	virtual Drawable* GetOuter();
@@ -33,7 +34,7 @@ public:
 	virtual void Init() {};
 	virtual void InternalUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime) {};
-	char* GetName();
+	String GetName();
 	virtual Bounds GetBounds(bool bNonClient = false);
 	virtual Bounds GetSelectionBounds();
 	virtual Bounds GetOuterBounds(bool bNonClient = false);

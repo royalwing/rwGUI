@@ -1,6 +1,6 @@
 #include "Layout.h"
 
-Layout::Layout(char * name, ELayoutType Type)
+Layout::Layout(String name, ELayoutType Type)
 	: Drawable(name)
 {
 	LayoutType = Type;

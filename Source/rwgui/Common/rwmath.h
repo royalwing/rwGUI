@@ -67,7 +67,92 @@ public:
 	Color(float inr, float ing, float inb, float ina = 1.0f) : r(inr), g(ing), b(inb), a(ina) {};
 	D2D1_COLOR_F ToD2D1ColorF() { return D2D1::ColorF(r,g,b,a); };
 	bool operator==(Color bc) { return (r == bc.r && g == bc.g && b == bc.b && a == bc.a); };
-	Color operator*(float val) { return Color(r*val, g*val, b*val, a*val); };
+
+	Color(const float& F)
+		: r(F), g(F), b(F), a(1.0f)
+	{
+		
+	}
+
+	Color operator+(const Color& Other) const
+	{
+		Color result;
+		result.r = r + Other.r;
+		result.b = b + Other.b;
+		result.g = g + Other.g;
+		return result;
+	};
+
+	Color operator-(const Color& Other) const
+	{
+		Color result;
+		result.r = r - Other.r;
+		result.b = b - Other.b;
+		result.g = g - Other.g;
+		return result;
+	};
+
+	Color operator*(const Color& Other) const
+	{
+		Color result;
+		result.r = r * Other.r;
+		result.b = b * Other.b;
+		result.g = g * Other.g;
+		return result;
+	};
+
+	Color operator/(const Color& Other) const
+	{
+		Color result;
+		result.r = r / Other.r;
+		result.b = b / Other.b;
+		result.g = g / Other.g;
+		return result;
+	};
+
+	Color operator+(const float& Other) const
+	{
+		Color result;
+		result.r = r + Other;
+		result.g = g + Other;
+		result.b = b + Other;
+		return result;
+	}
+
+	Color operator-(const float& Other) const
+	{
+		Color result;
+		result.r = r - Other;
+		result.g = g - Other;
+		result.b = b - Other;
+		return result;
+	}
+
+	Color operator*(const float& Other) const
+	{
+		Color result;
+		result.r = r * Other;
+		result.g = g * Other;
+		result.b = b * Other;
+		return result;
+	}
+
+	Color operator/(const float& Other) const
+	{
+		Color result;
+		result.r = r / Other;
+		result.g = g / Other;
+		result.b = b / Other;
+		return result;
+	}
 };
+
+namespace Colors
+{
+	const Color Red = Color(1.0f, 0.0f, 0.0f);
+	const Color Green = Color(0.0f, 1.0f, 0.0f);
+	const Color Blue = Color(0.0f, 0.0f, 1.0f);
+	const Color Yellow = Color(1.0f, 1.0f, 0.0f);
+}
 
 #endif

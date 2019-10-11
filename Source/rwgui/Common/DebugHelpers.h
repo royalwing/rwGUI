@@ -3,6 +3,8 @@
 
 #include <rwapi.h>
 
+class String;
+
 namespace DebugHelpers
 {
 	class RWGUI_API Logger
@@ -20,10 +22,10 @@ namespace DebugHelpers
 			LV_Error
 		};
 
-		void Log(char* LogText);
-		void Warning(char* LogText);
-		void Error(char* LogText);
-		void PerformLog(ELogVerbosity logVerbosity, char* LogText);
+		void Log(String LogText);
+		void Warning(String LogText);
+		void Error(String LogText);
+		void PerformLog(ELogVerbosity logVerbosity,String LogText);
 	};
 }
 

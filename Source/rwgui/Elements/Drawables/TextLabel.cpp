@@ -1,6 +1,6 @@
 #include "TextLabel.h"
 
-TextLabel::TextLabel(char * newname, char * value)
+TextLabel::TextLabel(String newname, String value)
 	: Drawable(newname)
 {
 	bInteractive = false;
@@ -16,7 +16,7 @@ void TextLabel::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 
 	IDWriteTextFormat* textFormat = MAKETEXTFORMAT(textFontFamily, textFontSize, weight, style, DWRITE_FONT_STRETCH_EXTRA_EXPANDED);
 	IDWriteTextLayout* textLayout = nullptr;
-	HRESULT result = d2d->GetWriteFactory()->CreateTextLayout(Value, wcslen(Value), textFormat, GetBounds().Size.x, GetBounds().Size.y, &textLayout);
+	HRESULT result = d2d->GetWriteFactory()->CreateTextLayout(Value.ToWideString(), Value.Length(), textFormat, GetBounds().Size.x, GetBounds().Size.y, &textLayout);
 	if (result != S_OK) return;
 	DWRITE_TEXT_METRICS metrics;
 	textLayout->GetMetrics(&metrics);
@@ -42,24 +42,20 @@ void TextLabel::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 		break;
 	}
 
-	renderTarget->DrawText(Value, wcslen(Value), textFormat, drawBounds.ToD2DRect(), MAKEBRUSH(textColor));
+	renderTarget->DrawText(Value.ToWideString(), Value.Length(), textFormat, drawBounds.ToD2DRect(), MAKEBRUSH(textColor));
 
+	if (textLayout != nullptr)
+		textLayout->Release();
 }
 
-void TextLabel::SetText(char * Text)
+void TextLabel::SetText(String Text)
 {
-	int captionLen = strlen(Text);
-	Value = new wchar_t[captionLen];
-	Value[captionLen] = '\0';
-	mbstowcs(Value, Text, strlen(Text));
+	Value = Text;
 }
 
-char * TextLabel::GetText()
+String TextLabel::GetText()
 {
-	int captionLen = wcslen(Value);
-	char* result = new char[captionLen];
-	wcstombs(result, Value, captionLen);
-	return result;
+	return Value;
 }
 
 void TextLabel::SetTextColor(Color color)
@@ -83,12 +79,12 @@ int TextLabel::GetFontSize()
 	return textFontSize;
 }
 
-void TextLabel::SetFontFamily(char * fontFamilyName)
+void TextLabel::SetFontFamily(String fontFamilyName)
 {
 	textFontFamily = fontFamilyName;
 }
 
-char * TextLabel::GetFontFamily()
+String TextLabel::GetFontFamily()
 {
 	return textFontFamily;
 }

@@ -4,7 +4,7 @@ void BasePage::BuildPage()
 {	
 
 	background = new Background("Background", backgroundColor);
-	background->SetBackgroundColor(Color(0.3f, 0.3f, 0.3f, 1.0f));
+	background->SetBackgroundColor(backgroundColor);
 	background->bIsNonClient = true;
 	background->zOrder = -5;
 	AddElement(background);
@@ -22,7 +22,7 @@ void BasePage::BuildPage()
 	class CloseButton : public Button
 	{
 	public:
-		CloseButton(char* name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
+		CloseButton(String name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
 		virtual void Update(float DeltaTime)
 		{
 			SetPosition(GetOuterBounds(IsNonClient()).Size.x - 18 - 12, 8);
@@ -47,7 +47,7 @@ void BasePage::OnInit()
 {
 }
 
-void BasePage::SetTitle(char * newtitle)
+void BasePage::SetTitle(String newtitle)
 {
 	ApplicationPage::SetTitle(newtitle);
 	if (header) header->SetText(newtitle);
@@ -60,4 +60,18 @@ Bounds BasePage::GetClientBounds()
 	bounds.Pos.y += 35;
 	bounds.Size.y -= 35;
 	return bounds;
+}
+
+void BasePage::SetBackgroundColor(Color color)
+{
+	if(background)
+		background->SetBackgroundColor(color);
+	backgroundColor = color;
+}
+
+Color BasePage::GetBackgroundColor() const
+{
+	if(background)
+		return background->GetBackgroundColor();
+	return backgroundColor;
 }

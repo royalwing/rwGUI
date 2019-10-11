@@ -1,6 +1,6 @@
 #include "Background.h"
 
-Background::Background(char* name, Color inColor)
+Background::Background(String name, Color inColor)
 	: Drawable(name)
 	, color(inColor)
 {
@@ -25,16 +25,20 @@ void Background::Update(float DeltaTime)
 	SetSize(GetOuterBounds(IsNonClient()).Size.x, GetOuterBounds(IsNonClient()).Size.y);
 }
 
-void Background::SetBackgroundImage(char * backgroundImagePath)
+void Background::SetBackgroundImage(String backgroundImagePath)
 {
-	if (strlen(backgroundImagePath) == 0) backgroundImage = nullptr;
+	if (backgroundImagePath.IsEmpty())
+		backgroundImage = nullptr;
 	else
-	{
 		backgroundImage = MAKEBITMAP(backgroundImagePath);
-	}
 }
 
 void Background::SetBackgroundColor(Color BackgroundColor)
 {
 	color = BackgroundColor;
+}
+
+Color Background::GetBackgroundColor() const
+{
+	return color;
 }

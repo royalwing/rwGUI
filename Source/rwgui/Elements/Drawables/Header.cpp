@@ -1,7 +1,7 @@
 #include "Header.h"
 
 
-Header::Header(char* name, char* title)
+Header::Header(String name, String title)
 	: Drawable(name)
 {
 	bInteractive = true;
