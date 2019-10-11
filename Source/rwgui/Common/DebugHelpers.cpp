@@ -54,14 +54,16 @@ void DebugHelpers::Logger::PerformLog(ELogVerbosity logVerbosity,String LogText)
 
 	if (logVerbosity == ELogVerbosity::LV_Error)
 	{
-		sprintf(msg, String("[%s] %s [%i] : %s\n "), timeText, logTypeText, GetLastError(), LogText);
+		sprintf(msg, String("[%s] %s [%i] : %s\n "), (char*)timeText, (char*)logTypeText, GetLastError(), (char*)LogText);
 	} else {
-		sprintf(msg, String("[%s] %s : %s\n"), timeText, logTypeText, LogText);
+		sprintf(msg, String("[%s] %s : %s\n"), (char*)timeText, (char*)logTypeText, (char*)LogText);
 	}
 		
 	char log_filepath[FILENAME_MAX];
 	ZeroMemory(log_filepath, FILENAME_MAX);
-	sprintf(log_filepath, String("%s\\%s.log"), GApplication->GetApplicationFolder(), GApplication->GetApplicationName());
+	String AppFolder = GApplication->GetApplicationFolder();
+	String AppName = GApplication->GetApplicationName();
+	sprintf(log_filepath, "%s%s.log", (char*)AppFolder, (char*)AppName);
 	FILE* logFile = fopen(log_filepath, "a+");
 	if (logFile)
 	{

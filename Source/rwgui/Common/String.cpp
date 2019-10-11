@@ -1,4 +1,3 @@
-#define DLLEXPORT
 #include "String.h"
 #include <cstdlib>
 

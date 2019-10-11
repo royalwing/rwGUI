@@ -1,11 +1,6 @@
 #pragma once
 #include "Containers.h"
-
-#ifndef DLLEXPORT
-#define DLLAPI __declspec(dllimport)
-#else
-#define DLLAPI __declspec(dllexport)
-#endif
+#include "rwapi.h"
 
 namespace rw
 {
@@ -16,13 +11,15 @@ namespace rw
 	void memset(void* dest, const char& content, size_t size);
 }
 
-class DLLAPI String : public List<char>
+class RWGUI_API String : public List<char>
 {
 public:
 	String();
 	String(const char* charArray);
 	String(const String& Other);
 	String(const size_t Length);
+
+	explicit operator const char * const () const { return Data; };
 
 	size_t Length() const;
 	bool IsEmpty() const;
@@ -32,7 +29,7 @@ public:
 	class WideString ToWideString() const;
 };
 
-class DLLAPI WideString : public List<wchar_t>
+class RWGUI_API WideString : public List<wchar_t>
 {
 public:
 	WideString();

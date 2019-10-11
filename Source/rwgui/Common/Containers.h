@@ -117,7 +117,7 @@ public:
 
 	void Add(const T& inData)
 	{
-		Insert(Count, inData);
+		Insert(inData, Count);
 	};
 
 	void Append(const List& List)
