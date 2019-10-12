@@ -1,4 +1,6 @@
-﻿#include <rwupd.h>
+﻿
+#include "resource.h"
+#include <rwupd.h>
 #include <rwgui.h>
 #include <Elements/Drawables/Layout.h>
 #include <Elements/Drawables/Button.h>
@@ -6,7 +8,6 @@
 #include <Elements/Drawables/Spacer.h>
 #include <Elements/Pages/BasePage.h>
 #include <Common/DebugHelpers.h>
-#include "resource.h"
 #include "Common/Containers.h"
 
 class UpdaterGUIApp : public Application
@@ -25,20 +26,6 @@ public:
 	}
 	virtual void BuildPages() override
 	{
-
-		List<int> TestArray;
-		TestArray.Insert(32, 0);
-		TestArray.Insert(12, 0);
-		TestArray.Insert(49, 0);
-		TestArray.Insert(81, 1);
-
-		TestArray.RemoveAt(1);
-
-		for(int i : TestArray)
-		{
-			RW_LOG(std::to_string(i).c_str());
-		}
-
 		BasePage* MainPage = new BasePage();
 		Layout* MainLayout = new Layout("MainLayout", LayoutType_HORIZONTAL);
 		MainPage->AddElement(MainLayout);

@@ -10,7 +10,7 @@ private:
 	Application* App;
 	String pageTitle;
 public:
-	std::vector<Drawable*> Elements;
+	List<Drawable*> Elements;
 	ApplicationPage();
 	~ApplicationPage();
 	void AddElement(Drawable* inElement);

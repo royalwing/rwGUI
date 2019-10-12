@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\SimpleGame\SimpleGameMain.h" />
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{8f480149-4aeb-42fe-9c7f-8d038de834ae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

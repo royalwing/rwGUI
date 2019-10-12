@@ -14,7 +14,7 @@ void ApplicationPage::AddElement(Drawable * inElement)
 	if (inElement == nullptr) return;
 	inElement->appPage = this;
 	inElement->Outer = nullptr;
-	Elements.push_back(inElement);
+	Elements.Add(inElement);
 }
 
 Bounds ApplicationPage::GetBounds(bool bNonClient)
@@ -35,7 +35,7 @@ Application* ApplicationPage::GetApplication()
 
 Drawable * ApplicationPage::GetDrawableAtPosition(Vector2D Position)
 {
-	for (int i = 0; i < Elements.size(); i++)
+	for (int i = 0; i < Elements.Size(); i++)
 	{
 		Bounds outerElem = Elements[i]->GetOuterBounds(Elements[i]->IsNonClient());
 		Bounds elemBounds = Elements[i]->GetSelectionBounds();
@@ -67,12 +67,12 @@ void ApplicationPage::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 	}
 }
 
-
-int sort(Drawable* a, Drawable* b) { return a->zOrder < b->zOrder ? 1 : 0; };
-
 void ApplicationPage::InternalUpdate(float DeltaTime)
 {
-	std::sort(std::begin(Elements), std::end(Elements),sort);
+	Elements.Sort([](Drawable* const& A,Drawable* const& B)
+	{
+		return A->zOrder > B->zOrder;
+	});
 	for (Drawable* element : Elements)
 	{
 		element->InternalUpdate(DeltaTime);

@@ -1,5 +1,6 @@
 #pragma once
 
+
 template<typename T>
 class List
 {
@@ -7,6 +8,9 @@ protected:
 	size_t Count = 0;
 	T* Data;
 public:
+
+	typedef bool(*SortFunc)(T const & A, T const & B);
+
 	List()
 	{
 		Data = nullptr;
@@ -94,6 +98,20 @@ public:
 		return Position;
 	};
 
+	bool Remove(const T& Target)
+	{
+		bool bRemovedSomething = false;
+		for(signed int pos = Size()-1;pos>-1;pos--)
+		{
+			if(Data[pos]==Target)
+			{
+				RemoveAt(pos);
+				bRemovedSomething = true;
+			}
+		}
+		return bRemovedSomething;
+	}
+
 	bool RemoveAt(size_t Position)
 	{
 		if (Position > Count-1) return false;
@@ -157,4 +175,33 @@ public:
 	{
 		return Data == Other;
 	}
+
+	bool IsValidIndex(signed int Index) const
+	{
+		return Index > -1 && Index < Size();
+	}
+
+	void Swap(size_t From, size_t To)
+	{
+		if (!IsValidIndex(From) && !IsValidIndex(To)) return;
+		T* buffer = new T;
+		*buffer = Data[To];
+		Data[To] = Data[From];
+		Data[From] = *buffer;
+		delete buffer;
+	}
+
+	void Sort(SortFunc Predicate)
+	{
+		for(size_t pos = 0;pos<Size();pos++)
+		{
+			size_t startpos = pos;
+			while(IsValidIndex(startpos + 1) && Predicate(Data[startpos], Data[startpos + 1]))
+			{
+				Swap(startpos, startpos + 1);
+				startpos++;
+			}
+		}
+	}
 };
+

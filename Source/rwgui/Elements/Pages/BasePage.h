@@ -26,6 +26,9 @@ public:
 
 	void SetBackgroundColor(Color color);
 	Color GetBackgroundColor() const;
+
+	void SetBorderColor(Color color);
+	Color GetBorderColor() const;
 };
 
 

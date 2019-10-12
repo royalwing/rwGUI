@@ -75,3 +75,20 @@ Color BasePage::GetBackgroundColor() const
 		return background->GetBackgroundColor();
 	return backgroundColor;
 }
+
+void BasePage::SetBorderColor(Color color)
+{
+	for(Drawable* el : Elements)
+	{
+		if(Border* brdr = dynamic_cast<Border*>(el))
+		{
+			brdr->borderColor = color;
+		}
+	}
+	borderColor = color;
+}
+
+Color BasePage::GetBorderColor() const
+{
+	return borderColor;
+}

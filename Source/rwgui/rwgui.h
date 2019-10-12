@@ -8,13 +8,13 @@ class Drawable;
 
 // External includes
 #include <Windows.h>
-#include <vector>
 
 // Internal includes
 #include <Common/Types.h>
 #include <Common/rwmath.h>
 #include <Elements/Pages/ApplicationPage.h>
 #include <Elements/Drawables/Drawable.h>
+#include "Common/Containers.h"
 #include <rwd2d.h>
 #include <wincodec.h>
 #include <chrono>
@@ -37,6 +37,7 @@ private:
 	std::chrono::milliseconds lastUpdateTime;
 	bool Input[0x100] = { 0 };
 public:
+	RWD2D* GetRenderer() const { return Renderer; };
 
 	int Run(HINSTANCE hInstance);
 	void Stop();

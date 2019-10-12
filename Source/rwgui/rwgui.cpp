@@ -56,13 +56,13 @@ int Application::Run(HINSTANCE hInstance)
 		RW_ERROR("Failed to initialize renderer");
 	}
 
-	RW_LOG("Building pages...");
-	BuildPages();
 	RW_LOG("Initializing pages...");
 	for (auto p : Pages) p->Init();
 	RW_LOG("Initializing app...");
 	OnInit();
-	
+
+	RW_LOG("Building pages...");
+	BuildPages();
 
 
 	RW_LOG("Entring application loop...");
@@ -201,7 +201,8 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 
 void Application::InternalUpdate(float DeltaTime)
 {
-	GetActivePage()->InternalUpdate(DeltaTime);
+	if(ApplicationPage* CurrentActivePage = GetActivePage())
+		CurrentActivePage->InternalUpdate(DeltaTime);
 	Update(DeltaTime);
 }
 
@@ -256,9 +257,14 @@ void Application::OnKeyReleased(char key)
 
 void Application::GlobalEvent(EGlobalEvent eventType)
 {
-	for (auto element : GetActivePage()->Elements)
+	if(ApplicationPage* CurrentActivePage = GetActivePage())
 	{
-		element->OnGlobalEvent(eventType);
+		for (auto element : GetActivePage()->Elements)
+		{
+			element->OnGlobalEvent(eventType);
+		}
+	} else {
+		RW_WARNING("Looks like there is no active page while global event was occured.");
 	}
 }
 
