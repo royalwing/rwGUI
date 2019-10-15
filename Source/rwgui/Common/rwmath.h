@@ -56,6 +56,48 @@ public:
 	};
 };
 
+class Transform2D
+{
+public:
+	Vector2D Position = Vector2D(0.0f, 0.0f);
+	float Rotation = 0.0f;
+	Vector2D Scale = Vector2D(1.0f, 1.0f);
+
+	void SetPosition(Vector2D InPosition) { Position = InPosition; };
+	Vector2D GetPosition() const { return Position; };
+
+	Transform2D() {};
+	Transform2D(Vector2D inTranslation, float inRotation = 0.0f, Vector2D inScale = Vector2D(1.0f, 1.0f))
+		: Position(inTranslation), Rotation(inRotation), Scale(inScale)
+	{		
+	}
+
+	D2D1_MATRIX_3X2_F ToD2D1Matrix() const
+	{
+		D2D1_MATRIX_3X2_F pos = D2D1::Matrix3x2F::Translation(Position.x, Position.y);
+		D2D1_MATRIX_3X2_F rot = D2D1::Matrix3x2F::Rotation(Rotation);
+		D2D1_MATRIX_3X2_F scale = D2D1::Matrix3x2F::Scale(Scale.x, Scale.y);
+		return rot*pos*scale;
+	}
+
+	Transform2D Inverse() const
+	{
+		Transform2D Result;
+		Result.Position = Vector2D(-Position.x, -Position.y);
+		Result.Rotation = -Rotation;
+		Result.Scale = Vector2D(Scale.x != 0 ? 1/Scale.x : 0.0f, Scale.y != 0 ? 1/Scale.y : 0.0f);
+		return Result;
+	}
+
+	Transform2D operator*(const Transform2D& Other) const
+	{
+		D2D1_MATRIX_3X2_F A = ToD2D1Matrix();
+		D2D1_MATRIX_3X2_F B = Other.ToD2D1Matrix();
+		D2D1_MATRIX_3X2_F result = A * B;
+		return Transform2D(Vector2D(result._31, result._32), 0, Vector2D(result._11, result._22));
+	}
+};
+
 class Color
 {
 public:

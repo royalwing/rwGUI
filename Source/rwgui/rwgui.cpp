@@ -9,6 +9,21 @@
 #pragma warning(disable : 4244 4311 4312 4838 4244 4251)
 
 
+Application::Application()
+{
+	using namespace std::chrono;
+	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+	lastUpdateTime = currentTime;
+	startTime = currentTime;
+}
+
+float Application::GetRealTimeSeconds() const
+{
+	using namespace std::chrono;
+	milliseconds currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+	return float((currentTime - startTime).count())/1000.0f;
+}
+
 int Application::Run(HINSTANCE hInstance)
 {
 #ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
@@ -336,11 +351,41 @@ Bounds Application::GetCurrentWindowBounds()
 void Application::SetMinimalWindowSize(Vector2D minSize)
 {
 	MinWindowSize = minSize;
+	RECT rect;
+	if(::GetWindowRect(WindowHandler, &rect))
+	{
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+		bool bResize = false;
+		if(width < MinWindowSize.x)
+		{
+			bResize = true;
+			width = MinWindowSize.x;
+		}
+
+		if (height < MinWindowSize.y)
+		{
+			bResize = true;
+			height = MinWindowSize.y;
+		}
+
+		if(bResize)
+		{
+			SetWindowSize(Vector2D(width, height));
+		}
+	}
 }
 
 Vector2D Application::GetMinimalWindowSize()
 {
 	return MinWindowSize;
+}
+
+void Application::SetWindowSize(Vector2D windowSize)
+{
+	::SetWindowPos(WindowHandler, nullptr, 0, 0, windowSize.x, windowSize.y, SWP_NOMOVE | SWP_NOZORDER | SWP_DRAWFRAME | SWP_FRAMECHANGED);
+
+	if (Renderer) Renderer->Resize(windowSize.x, windowSize.y);
 }
 
 String Application::GetApplicationFolder()

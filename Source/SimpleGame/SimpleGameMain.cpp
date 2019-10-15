@@ -3,6 +3,7 @@
 #include "SimpleGameMain.h"
 #include "Elements/Pages/BasePage.h"
 #include "Engine/Engine.h"
+#include "Engine/Components/SpriteComponent.h"
 
 RUN_APPLICATION(SimpleGame);
 
@@ -11,11 +12,25 @@ void SimpleGame::OnInit()
 	SetMinimalWindowSize(Vector2D(800, 600));
 
 	if(pWorld = Engine::Get()->CreateWorld())
-		pViewport = new Viewport("GameViewport", pWorld);	
+		pViewport = new Viewport("GameViewport", pWorld);
+
+
+	Entity* pEntity = pWorld->SpawnEntity<Entity>("SomeObject");
+	pEntity->RegisterComponent(new SpriteComponent("Sprite", pEntity, "D:/test.jpg"));
+
+	pEntity->TickDelegate = [](Object* Object, float DeltaTime)
+	{
+		if(Entity* pEntity = dynamic_cast<Entity*>(Object))
+		{
+			pEntity->SetPosition(pEntity->GetPosition()+Vector2D(cos(GApplication->GetRealTimeSeconds()), sin(GApplication->GetRealTimeSeconds())));
+		}
+	};
 }
 
 void SimpleGame::Update(float DeltaTime)
 {
+	pViewport->SetPosition(pViewport->GetPosition() + Vector2D(DeltaTime * 200.0f , 0));
+
 	Engine::Get()->Tick(DeltaTime);
 }
 

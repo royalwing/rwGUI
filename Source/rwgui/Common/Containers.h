@@ -6,7 +6,7 @@ class List
 {
 protected:
 	size_t Count = 0;
-	T* Data;
+	T* Data = nullptr;;
 public:
 
 	typedef bool(*SortFunc)(T const & A, T const & B);
@@ -26,7 +26,7 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return;
-		memcpy(Data, Other.Data, Count);
+		memcpy(Data, Other.Data, Count*sizeof(T));
 	};
 
 	List(const T* inData, size_t inSize)
@@ -40,7 +40,7 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return;
-		memmove(Data, Other.Data, Count);
+		memmove(Data, Other.Data, Count * sizeof(T));
 	}
 
 	~List()
@@ -54,7 +54,7 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return *this;
-		memcpy(Data, Other.Data, Count);
+		memcpy(Data, Other.Data, Count * sizeof(T));
 		return *this;
 	}
 
@@ -63,7 +63,7 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return *this;
-		memmove(Data, Other.Data, Count);
+		memmove(Data, Other.Data, Count * sizeof(T));
 		return *this;
 	}
 
@@ -144,17 +144,17 @@ public:
 		T* NewData = new T[Count + List.Count];
 		if(Data!=nullptr)
 		{
-			memcpy(NewData, Data, Count);
+			memcpy(NewData, Data, Count * sizeof(T));
 			delete[] Data;
 		}
-		memcpy(NewData + Count, List.Data, List.Count);
+		memcpy(NewData + Count, List.Data, List.Count * sizeof(T));
 		Data = NewData;
 	}
 
 	size_t Size() const { return Count; };
 
-	T* begin() const { return Data; };
-	T* end() const { return Data + Count; };
+	T* begin() const { return &Data[0]; };
+	T* end() const { return &Data[Count]; };
 
 	T& operator[](size_t Position) const { return Data[Position]; };
 

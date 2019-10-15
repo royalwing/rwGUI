@@ -9,12 +9,46 @@ World::World(Engine* pEngine)
 
 World::~World()
 {
+	for (Entity* pEntity : Entities)
+	{
+		delete pEntity;
+	}
 	GetEngine()->RemoveWorld(this);
 }
 
 void World::Tick(float DeltaTime)
 {
+	for (Entity* pEntity : Entities)
+	{
+		pEntity->Tick(DeltaTime);
+		for (Component* pComp : pEntity->GetComponents())
+		{
+			if (VisualComponent * visComp = dynamic_cast<VisualComponent*>(pComp))
+			{
+				visComp->Tick(DeltaTime);
+			}
+		}
+	}
+}
 
+void World::Draw(ID2D1BitmapRenderTarget* RenderTarget)
+{
+	RenderTarget->Clear();
+	D2D1_MATRIX_3X2_F ViewTransform;
+	RenderTarget->GetTransform(&ViewTransform);
+	for(Entity* pEntity : Entities)
+	{
+		for(Component* pComp : pEntity->GetComponents())
+		{
+			if(VisualComponent* visComp = dynamic_cast<VisualComponent*>(pComp))
+			{
+				D2D1_MATRIX_3X2_F WorldMatrix = ViewTransform * visComp->GetWorldTransform().ToD2D1Matrix();
+				RenderTarget->SetTransform(WorldMatrix);
+				visComp->Draw(RenderTarget);
+			}
+		}
+	}
+	RenderTarget->SetTransform(ViewTransform);
 }
 
 World* Engine::CreateWorld()
@@ -68,6 +102,9 @@ void Viewport::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 	ID2D1Bitmap* Bitmap = nullptr;
 	viewportRT->BeginDraw();
 	viewportRT->Clear(Color(0.05f, 0.05f, 0.05f,1.0f).ToD2D1ColorF());
+	viewportRT->SetTransform(Transform.Inverse().ToD2D1Matrix());
+	if (GetWorld() != nullptr)
+		GetWorld()->Draw(viewportRT);
 	viewportRT->GetBitmap(&Bitmap);
 	viewportRT->EndDraw();
 	renderTarget->DrawBitmap(Bitmap, GetBounds().ToD2DRect());

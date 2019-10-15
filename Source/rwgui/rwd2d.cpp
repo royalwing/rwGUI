@@ -7,12 +7,17 @@ bool RWD2D::Init(Application * app)
 {
 	application = app;
 	ResourceManager::Get()->SetApplication(app);
+
+
 	HRESULT result = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 	if (result != S_OK)
 	{
 		RW_ERROR("Failed to create D2D1Factory.");
 		return false;
 	}
+
+
+
 
 	RECT rect;
 	GetClientRect(application->GetWindowHandler(), &rect);
@@ -38,7 +43,7 @@ bool RWD2D::Init(Application * app)
 		return false;
 	}
 	ResourceManager::Get()->SetReferenceDirectWriteFactory(writeFactory);
-	result = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)&imageFactory);
+	result = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, (LPVOID*)&imagefactory);
 	if (result != S_OK)
 	{
 		switch (result)
@@ -61,7 +66,15 @@ bool RWD2D::Init(Application * app)
 		}
 		return false;
 	}
-	ResourceManager::Get()->SetReferenceImageFactory(imageFactory);
+
+	result = imagefactory->CreateFormatConverter(&formatConverter);
+	if (result != S_OK)
+	{
+		RW_ERROR("Failed to create d2d format converter.");
+		return false;
+	}
+
+	ResourceManager::Get()->SetReferenceImageFactory(imagefactory);
 	bInitialized = true;
 	return true;
 }

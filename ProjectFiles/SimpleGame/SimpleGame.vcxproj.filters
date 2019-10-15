@@ -5,16 +5,31 @@
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Object.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Object.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
       <UniqueIdentifier>{8f480149-4aeb-42fe-9c7f-8d038de834ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Components">
+      <UniqueIdentifier>{94133089-5721-4cbc-a180-1c15b49a8f17}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

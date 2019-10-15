@@ -66,6 +66,8 @@
     <ClCompile Include="..\..\Source\rwgui\rwgui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\Resources\back.png" />
+    <Image Include="C:\Users\royal\Documents\close_btn.png" />
     <Image Include="D:\BackButton.png" />
     <Image Include="D:\Images\close_3.png" />
   </ItemGroup>

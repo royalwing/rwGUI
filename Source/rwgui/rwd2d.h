@@ -13,17 +13,20 @@ class Application;
 
 class RWD2D
 {
+	IWICImagingFactory* imagefactory;
 	ID2D1Factory* factory;
 	ID2D1HwndRenderTarget* renderTarget;
 	IDWriteFactory* writeFactory;
-	IWICImagingFactory* imageFactory;
+	IWICFormatConverter* formatConverter;
 	Application* application;
 	bool bInitialized;
 public:
 
-
-	RWD2D() : factory(nullptr), renderTarget(nullptr) { internal_ClearColor = Color(0, 0, 0).ToD2D1ColorF(); };
+	
+	RWD2D() : imagefactory(nullptr), factory(nullptr), renderTarget(nullptr), formatConverter(nullptr) { internal_ClearColor = Color(0, 0, 0).ToD2D1ColorF(); };
 	~RWD2D() {
+		if (formatConverter) formatConverter->Release();
+		if (imagefactory) imagefactory->Release();
 		if (factory) factory->Release();
 		if (renderTarget) renderTarget->Release();
 	};
@@ -33,7 +36,8 @@ public:
 	void EndDraw() { renderTarget->EndDraw(); };
 	void Resize(int x, int y);
 
-
+	IWICFormatConverter* GetFormatConverter() { return formatConverter; };
+	IWICImagingFactory* GetWICFactory() { return imagefactory; };
 	ID2D1Factory* GetFactory() { return factory; };
 	IDWriteFactory* GetWriteFactory() { return writeFactory; };
 	ID2D1HwndRenderTarget* GetRenderTarget() { return renderTarget; };

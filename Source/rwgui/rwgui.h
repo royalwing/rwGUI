@@ -1,5 +1,6 @@
 #ifndef RWGUI_H
 #define RWGUI_H
+#include "Common/DebugHelpers.h"
 
 class ApplicationPage;
 class Drawable;
@@ -35,9 +36,13 @@ private:
 	Drawable* currentPressedDrawable = nullptr;
 	Vector2D MinWindowSize;
 	std::chrono::milliseconds lastUpdateTime;
+	std::chrono::milliseconds startTime;
 	bool Input[0x100] = { 0 };
 public:
-	RWD2D* GetRenderer() const { return Renderer; };
+	Application();
+
+	RWD2D* GetRenderer() const { return Renderer; }
+	float GetRealTimeSeconds() const;;
 
 	int Run(HINSTANCE hInstance);
 	void Stop();
@@ -81,12 +86,14 @@ public:
 	void SetMinimalWindowSize(Vector2D minSize);
 	Vector2D GetMinimalWindowSize();
 
+	void SetWindowSize(Vector2D windowSize);
+
 	String GetApplicationFolder();
 
 	void InternalProcessCommandLine(String cmd) {}; // TODO : Implement per arg on cmd argument function call OnCommandLineArgument
 };
 
-class ApplicationGetter
+class RWGUI_API ApplicationGetter
 {
 private:
 	ApplicationGetter() {};

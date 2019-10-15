@@ -117,6 +117,8 @@
   <ItemGroup>
     <Image Include="D:\Images\close_3.png" />
     <Image Include="D:\BackButton.png" />
+    <Image Include="C:\Users\royal\Documents\close_btn.png" />
+    <Image Include="..\..\Resources\back.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\Source\rwgui\rwgui.rc" />
