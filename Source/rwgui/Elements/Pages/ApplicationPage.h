@@ -25,6 +25,7 @@ public:
 	virtual void Update(float DeltaTime);
 	void SetApp(Application* nApp);
 	virtual void SetTitle(String newtitle);
+	virtual void OnWindowResize(Vector2D inSize);
 
 	String GetTitle();
 

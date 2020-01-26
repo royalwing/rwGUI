@@ -43,6 +43,10 @@ void Layout::Update(float DeltaTime)
 	}
 
 
+	if(LayoutType==LayoutType_ASIS)
+	{
+		return;
+	}
 
 	Bounds bounds = GetBounds();
 
@@ -93,6 +97,11 @@ void Layout::Update(float DeltaTime)
 		LastSize = CurrentSize;
 	}
 
+}
+
+Bounds Layout::GetBounds(bool bNonClient)
+{
+	return GetOuterBounds(bNonClient);
 }
 
 void Layout::SetContentPadding(RECT nPadding)

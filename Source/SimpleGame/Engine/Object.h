@@ -39,11 +39,14 @@ class VisualComponent : public Component
 	using Component::Component;
 private:
 	Transform2D LocalTransform;
+	int SortOrder = 0;
 public:
 	Transform2D GetWorldTransform() const;
 
 	virtual void Draw(ID2D1BitmapRenderTarget* renderTarget) {};
 
+	void SetSortOrder(int inOrder) { SortOrder=inOrder; };
+	int GetSortOrder() const { return SortOrder; }
 };
 
 class Entity : public Object

@@ -97,6 +97,14 @@ void ApplicationPage::SetTitle(String newtitle)
 	pageTitle = newtitle;
 }
 
+void ApplicationPage::OnWindowResize(Vector2D inSize)
+{
+	for(Drawable* Element : Elements)
+	{
+		Element->OnWindowResize(inSize);
+	}
+}
+
 String ApplicationPage::GetTitle()
 {
 	return pageTitle;

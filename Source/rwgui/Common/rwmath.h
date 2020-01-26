@@ -24,6 +24,8 @@ public:
 	Vector2D operator*(float val) { return Vector2D(x * val, y * val); };
 	Vector2D& operator+=(Vector2D b) { x += b.x; y+=b.y; return *this; };
 	Vector2D& operator-=(Vector2D b) { x -= b.x; y -= b.y; return *this; }
+	bool operator==(const Vector2D& Other) const { return  x == Other.x || y == Other.y; };
+	bool operator!=(const Vector2D& Other) const { return !(*this==Other); };
 };
 
 class Bounds

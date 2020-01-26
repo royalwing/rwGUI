@@ -16,9 +16,6 @@ bool RWD2D::Init(Application * app)
 		return false;
 	}
 
-
-
-
 	RECT rect;
 	GetClientRect(application->GetWindowHandler(), &rect);
 
@@ -67,12 +64,6 @@ bool RWD2D::Init(Application * app)
 		return false;
 	}
 
-	result = imagefactory->CreateFormatConverter(&formatConverter);
-	if (result != S_OK)
-	{
-		RW_ERROR("Failed to create d2d format converter.");
-		return false;
-	}
 
 	ResourceManager::Get()->SetReferenceImageFactory(imagefactory);
 	bInitialized = true;

@@ -31,7 +31,8 @@ public:
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget);
 	virtual Drawable* GetOuter();
 	void InternalInit();
-	virtual void Init() {};
+	virtual void Init() {}
+	virtual void OnWindowResize(const Vector2D& inSize);
 	virtual void InternalUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime) {};
 	String GetName();
@@ -56,9 +57,12 @@ public:
 	void SetSize(float x, float y) { Size.x = x; Size.y = y; };
 	void SetPadding(RECT nPadding) { Padding = nPadding; };
 	void SetPadding(int top, int left, int bottom, int right) { Padding.left = left; Padding.right = right; Padding.bottom = bottom; Padding.top = top; };
+	Vector2D GetSize() const { return Size; };
+	Vector2D GetPosition() const { return Position; };
 
 	ApplicationPage* GetAppPage();
 	Application* GetApplication();
+
 
 	friend ApplicationPage;
 };

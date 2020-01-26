@@ -65,6 +65,9 @@ private:
 	class World* pWorld = nullptr;;
 	ID2D1BitmapRenderTarget* viewportRT = nullptr;
 	Transform2D Transform;
+	Color ClearColor;
+
+	void ResizeViewport(Vector2D inSize);
 public:
 
 	Viewport(String Name, World* inWorld);
@@ -73,14 +76,19 @@ public:
 	virtual void Update(float DeltaTime) override;
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 
+	virtual void OnWindowResize(const Vector2D& inSize) override;
+
 	class World* GetWorld() const { return pWorld; };
 
-	void SetPosition(Vector2D inPosition) { Transform.Position = inPosition; };
-	Vector2D GetPosition() const { return Transform.Position; };
+	void SetWorldPosition(Vector2D inPosition) { Transform.Position = inPosition; };
+	Vector2D GetWorldPosition() const { return Transform.Position; };
 
 	void SetRotation(float inRotation) { Transform.Rotation = inRotation; };
 	float GetRotation() const { return Transform.Rotation; };
 
 	void SetScale(Vector2D inScale) { Transform.Scale = inScale; };
 	Vector2D GetScale() const { return Transform.Scale; };
+
+	Color GetClearColor() const { return ClearColor; };
+	void SetClearColor(const Color& inColor) { ClearColor = inColor; };
 };

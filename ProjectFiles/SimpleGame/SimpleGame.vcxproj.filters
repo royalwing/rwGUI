@@ -11,6 +11,15 @@
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\PhysicsBodyComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.h">
+      <Filter>Game\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.h">
+      <Filter>Game\Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
@@ -23,6 +32,15 @@
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.cpp">
       <Filter>Engine\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\PhysicsBodyComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -30,6 +48,12 @@
     </Filter>
     <Filter Include="Engine\Components">
       <UniqueIdentifier>{94133089-5721-4cbc-a180-1c15b49a8f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{ea5e3f6d-8b91-4416-bc64-4f18e9a47210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Characters">
+      <UniqueIdentifier>{b98dde24-2b39-4fb9-b13b-5d8833dd608c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

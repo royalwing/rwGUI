@@ -53,6 +53,13 @@ void Drawable::InternalInit()
 	for (auto e : Elements) e->InternalInit();
 }
 
+
+void Drawable::OnWindowResize(const Vector2D& inSize)
+{
+	for (Drawable* Element : Elements)
+		Element->OnWindowResize(inSize);
+}
+
 void Drawable::InternalUpdate(float DeltaTime)
 {
 	for (int i = 0; i < Elements.size(); i++)

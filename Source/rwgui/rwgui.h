@@ -61,7 +61,7 @@ public:
 	void AddPage(ApplicationPage* appPage);
 	virtual void OnKeyPressed(char key);
 	virtual void OnKeyReleased(char key);
-
+	virtual void OnKeyStateChanged(char key, bool bPressed) {};
 
 	void GlobalEvent(EGlobalEvent eventType);
 
@@ -87,6 +87,7 @@ public:
 	Vector2D GetMinimalWindowSize();
 
 	void SetWindowSize(Vector2D windowSize);
+	virtual void OnResize(Vector2D inSize);
 
 	String GetApplicationFolder();
 

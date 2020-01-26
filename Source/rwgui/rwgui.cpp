@@ -174,6 +174,7 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	case WM_SIZING:
 		rect = (LPRECT)lparam;
 		if (Renderer) Renderer->Resize(rect->right - rect->left, rect->bottom - rect->top);
+		if (GApplication) GApplication->OnResize(Vector2D(rect->right - rect->left, rect->bottom - rect->top));
 		return DefWindowProc(WindowHandler, uMsg, wparam, lparam);
 	case WM_GETMINMAXINFO:
 	{
@@ -244,6 +245,8 @@ void Application::AddPage(ApplicationPage* appPage)
 
 void Application::OnKeyPressed(char key)
 {
+	if (!Input[key])
+		OnKeyStateChanged(key, true);
 	Input[key] = true;
 	if (key == VK_LBUTTON)
 	{
@@ -258,6 +261,8 @@ void Application::OnKeyPressed(char key)
 
 void Application::OnKeyReleased(char key)
 {
+	if(Input[key])
+		OnKeyStateChanged(key, false);
 	Input[key] = false;
 	if (key == VK_LBUTTON)
 	{
@@ -386,6 +391,17 @@ void Application::SetWindowSize(Vector2D windowSize)
 	::SetWindowPos(WindowHandler, nullptr, 0, 0, windowSize.x, windowSize.y, SWP_NOMOVE | SWP_NOZORDER | SWP_DRAWFRAME | SWP_FRAMECHANGED);
 
 	if (Renderer) Renderer->Resize(windowSize.x, windowSize.y);
+
+	
+	OnResize(windowSize);
+}
+
+void Application::OnResize(Vector2D inSize)
+{
+	for (int i = 0; i < Pages.size(); i++)
+	{
+		Pages[i]->OnWindowResize(inSize);
+	}
 }
 
 String Application::GetApplicationFolder()
