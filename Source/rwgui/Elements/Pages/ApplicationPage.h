@@ -15,7 +15,7 @@ public:
 	~ApplicationPage();
 	void AddElement(Drawable* inElement);
 	virtual Bounds GetBounds(bool bNonClient = false);
-	virtual Bounds GetClientBounds() { return GetBounds(); };
+	virtual Bounds GetClientBounds() { return Bounds(); };
 	Application* GetApplication();
 	Drawable* GetDrawableAtPosition(Vector2D Position);
 	void Init();

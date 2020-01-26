@@ -20,6 +20,12 @@
     <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.h">
       <Filter>Game\Characters</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Crosshair.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
@@ -40,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.cpp">
       <Filter>Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Crosshair.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.cpp">
+      <Filter>Engine\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

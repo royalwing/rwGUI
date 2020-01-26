@@ -61,7 +61,7 @@ Bounds Border::GetSelectionBounds()
 {
 	Bounds outerBounds = GetOuterBounds(IsNonClient());
 	Bounds curBounds(0,0,0,0);
-	int selectionborder = 7;
+	int selectionborder = 3;
 	switch (borderType)
 	{
 	case EBorderType::Top:

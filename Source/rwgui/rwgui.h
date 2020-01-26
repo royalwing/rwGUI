@@ -38,6 +38,7 @@ private:
 	std::chrono::milliseconds lastUpdateTime;
 	std::chrono::milliseconds startTime;
 	bool Input[0x100] = { 0 };
+	Vector2D LocalMousePosition;
 public:
 	Application();
 
@@ -59,6 +60,7 @@ public:
 	virtual void OnDraw(RWD2D* d2d,ID2D1HwndRenderTarget* renderTarget);
 	virtual void BuildPages() {};
 	void AddPage(ApplicationPage* appPage);
+	virtual void OnMouseMove(const Vector2D& Position);
 	virtual void OnKeyPressed(char key);
 	virtual void OnKeyReleased(char key);
 	virtual void OnKeyStateChanged(char key, bool bPressed) {};
@@ -88,6 +90,9 @@ public:
 
 	void SetWindowSize(Vector2D windowSize);
 	virtual void OnResize(Vector2D inSize);
+
+	void SetLocalMousePosition(const Vector2D& MousePosition);
+	Vector2D GetLocalMousePosition() const;
 
 	String GetApplicationFolder();
 

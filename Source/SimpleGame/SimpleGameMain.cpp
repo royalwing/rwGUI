@@ -5,12 +5,13 @@
 #include "Engine/Engine.h"
 #include "Game/Characters/PlayerCharacter.h"
 #include "Engine/Components/SpriteComponent.h"
+#include "Game/Crosshair.h"
 
 RUN_APPLICATION(SimpleGame);
 
 void SimpleGame::OnInit()
 {
-	SetMinimalWindowSize(Vector2D(800, 600));
+	SetMinimalWindowSize(Vector2D(1280, 720));
 
 	if(pWorld = Engine::Get()->CreateWorld())
 	{
@@ -24,12 +25,15 @@ void SimpleGame::OnInit()
 	Sprite->SetSpriteSize({512, 512});
 
 	LocalPlayerCharacter = pWorld->SpawnEntity<PlayerCharacter>("LocalPlayerCharacter");
+
+	Crosshair* pCrosshair = pWorld->SpawnEntity<Crosshair>("LocalPlayerChrosshair");
+	pCrosshair->SetOwningCharacter(LocalPlayerCharacter);
 }
 
 void SimpleGame::Update(float DeltaTime)
 {
 	Engine::Get()->Tick(DeltaTime);
-	pViewport->SetWorldPosition(pViewport->GetWorldPosition() + (LocalPlayerCharacter->GetPosition()- pViewport->GetWorldPosition())*3.0f*DeltaTime);
+	pViewport->SetWorldPosition(pViewport->GetWorldPosition() + (LocalPlayerCharacter->GetPosition()- pViewport->GetWorldPosition())*6.0f*DeltaTime);
 
 	LocalPlayerCharacter->SetMovementInput(Input);
 }

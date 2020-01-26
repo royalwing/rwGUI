@@ -36,11 +36,12 @@ public:
 	virtual void InternalUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime) {};
 	String GetName();
-	virtual Bounds GetBounds(bool bNonClient = false);
+	virtual Bounds GetBounds(bool bNonClient = false) ;
 	virtual Bounds GetSelectionBounds();
 	virtual Bounds GetOuterBounds(bool bNonClient = false);
 	virtual int GetDrawableNCObjectType() { return DefaultHTResponse; };
 	Drawable* GetDrawableAtPosition(Vector2D Position);
+	virtual void OnMouseMove(const Vector2D& Position);
 	virtual void OnMouseEnter() {};
 	virtual void OnMouseLeave() {};
 	virtual void OnMousePress() {};

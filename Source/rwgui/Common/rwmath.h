@@ -11,21 +11,26 @@ public:
 	float x;
 	float y;
 
+	Vector2D(const D2D1_SIZE_F& V) : x(V.width), y(V.height) { };
 	Vector2D() : x(0.0f), y(0.0f) {};
 	Vector2D(float in) : x(in), y(in) {};
 	Vector2D(float inX, float inY) : x(inX), y(inY) {};
-	Vector2D operator+(Vector2D b) { return Vector2D(x + b.x, y + b.y); };
-	Vector2D operator-(Vector2D b) { return Vector2D(x - b.x, y - b.y); };
-	Vector2D operator*(Vector2D b) { return Vector2D(x * b.x, y * b.y); };
-	Vector2D operator/(Vector2D b) { return Vector2D(x / b.x, y / b.y); };
-	Vector2D operator+(float val) { return Vector2D(x + val, y + val); };
-	Vector2D operator-(float val) { return Vector2D(x - val, y - val); };
-	Vector2D operator/(float val) { return Vector2D(x / val, y / val); };
-	Vector2D operator*(float val) { return Vector2D(x * val, y * val); };
-	Vector2D& operator+=(Vector2D b) { x += b.x; y+=b.y; return *this; };
-	Vector2D& operator-=(Vector2D b) { x -= b.x; y -= b.y; return *this; }
+	Vector2D operator+(const Vector2D& b) const { return Vector2D(x + b.x, y + b.y); };
+	Vector2D operator-(const Vector2D& b) const { return Vector2D(x - b.x, y - b.y); };
+	Vector2D operator*(const Vector2D& b) const { return Vector2D(x * b.x, y * b.y); };
+	Vector2D operator/(const Vector2D& b) const { return Vector2D(x / b.x, y / b.y); };
+	Vector2D operator+(const float& val) const { return Vector2D(x + val, y + val); };
+	Vector2D operator-(const float& val) const { return Vector2D(x - val, y - val); };
+	Vector2D operator/(const float& val) const { return Vector2D(x / val, y / val); };
+	Vector2D operator*(const float& val) const { return Vector2D(x * val, y * val); };
+	Vector2D& operator+=(const Vector2D& b) { x += b.x; y+=b.y; return *this; };
+	Vector2D& operator-=(const Vector2D& b) { x -= b.x; y -= b.y; return *this; }
+	Vector2D& operator*=(const Vector2D& b) { x *= b.x; y *= b.y; return *this; };
 	bool operator==(const Vector2D& Other) const { return  x == Other.x || y == Other.y; };
 	bool operator!=(const Vector2D& Other) const { return !(*this==Other); };
+	operator D2D1_SIZE_F() const { return D2D1::SizeF(x, y); };
+	operator D2D1_POINT_2F() const { return D2D1::Point2F(x, y); };
+
 };
 
 class Bounds

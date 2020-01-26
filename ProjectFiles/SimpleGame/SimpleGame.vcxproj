@@ -133,21 +133,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\PhysicsBodyComponent.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Engine.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Object.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.h" />
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Crosshair.h" />
     <ClInclude Include="..\..\Source\SimpleGame\SimpleGameMain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\PhysicsBodyComponent.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\SpriteComponent.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Engine.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Object.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.cpp" />
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Crosshair.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

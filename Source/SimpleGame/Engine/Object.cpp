@@ -1,6 +1,7 @@
 #include "Object.h"
 
 Object::Object(String inName, World* inWorld)
+	: Name(inName), OuterWorld(inWorld)
 {
 
 }

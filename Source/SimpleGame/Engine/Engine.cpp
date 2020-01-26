@@ -18,6 +18,7 @@ World::~World()
 
 void World::Tick(float DeltaTime)
 {
+	CurrentDeltaSeconds = DeltaTime;
 	for (Entity* pEntity : Entities)
 	{
 		pEntity->Tick(DeltaTime);
@@ -97,6 +98,7 @@ void Viewport::ResizeViewport(Vector2D InSize)
 Viewport::Viewport(String Name, World* inWorld)
 	: Drawable(Name), pWorld(inWorld)
 {
+	bInteractive = true;
 	SetPadding(2, 2, 2, 2);
 	ClearColor = Color(0.05f, 0.05f, 0.05f, 1.0f);
 }
@@ -105,7 +107,7 @@ void Viewport::Init()
 {
 	D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties();
 	D2D1_SIZE_F size;
-	Vector2D Size = GetOuterBounds(true).Size;
+	Vector2D Size = GetOuterBounds(false).Size;
 	size.height = Size.y;
 	size.width = Size.x;
 	ResizeViewport(Size);
@@ -139,4 +141,42 @@ void Viewport::OnWindowResize(const Vector2D& inSize)
 {
 	Drawable::OnWindowResize(inSize);
 	ResizeViewport(inSize);
+}
+
+void Viewport::OnMouseMove(const Vector2D& Position)
+{
+	Vector2D Pos = Position;
+	LocalMousePosition = Pos;
+}
+
+Vector2D Viewport::GetLocalCursorPosition() const
+{
+	return LocalMousePosition;
+}
+
+Vector2D Viewport::GetWorldCursorPosition()
+{
+	Vector2D Local = GetLocalCursorPosition();
+	return ScreenToWorld(Local);
+}
+
+Vector2D Viewport::ScreenToWorld(Vector2D WorldPosition)
+{
+	WorldPosition -= GetBounds(true).Size / 2;
+	WorldPosition.y *= -1;
+	WorldPosition += GetWorldPosition();
+	return WorldPosition;
+}
+
+Vector2D Viewport::WorldToScreen(Vector2D ScreenPosition)
+{
+	ScreenPosition -= GetWorldPosition();
+	ScreenPosition.y *= -1;
+	ScreenPosition += GetBounds(true).Size / 2;
+	return ScreenPosition;
+}
+
+HCURSOR Viewport::GetCursor()
+{
+	return nullptr;
 }

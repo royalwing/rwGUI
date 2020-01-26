@@ -118,6 +118,7 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	RECT rc;
 	LPRECT rect;
 	UINT width, height;
+	POINT winpt;
 
 
 #ifdef ENABLE_CRT_MEMORYLEAK_DEBUG
@@ -128,6 +129,11 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 
 	switch (uMsg)
 	{
+	case WM_MOUSEMOVE:
+		pt = Vector2D(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+		OnMouseMove(pt);
+		GApplication->SetLocalMousePosition(pt);
+		return 0;
 	case WM_KEYDOWN:
 		OnKeyPressed(wparam & 0xFF);
 		return DefWindowProc(pWindowHandler,uMsg,wparam,lparam);
@@ -241,6 +247,20 @@ void Application::AddPage(ApplicationPage* appPage)
 	appPage->BuildPage();
 	Pages.push_back(appPage);
 	appPage->Init();
+}
+
+void Application::OnMouseMove(const Vector2D& Position)
+{
+	if (ApplicationPage * CurrentActivePage = GetActivePage())
+	{
+		Bounds ClientBounds = CurrentActivePage->GetClientBounds();
+		for (auto element : GetActivePage()->Elements)
+		{
+			Vector2D FilteredPosition = Position;
+			FilteredPosition -= ClientBounds.Pos;
+			element ->OnMouseMove(FilteredPosition);
+		}
+	}
 }
 
 void Application::OnKeyPressed(char key)
@@ -402,6 +422,16 @@ void Application::OnResize(Vector2D inSize)
 	{
 		Pages[i]->OnWindowResize(inSize);
 	}
+}
+
+void Application::SetLocalMousePosition(const Vector2D& MousePosition)
+{
+	LocalMousePosition = MousePosition;
+}
+
+Vector2D Application::GetLocalMousePosition() const
+{
+	return LocalMousePosition;
 }
 
 String Application::GetApplicationFolder()

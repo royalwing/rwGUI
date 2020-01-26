@@ -116,3 +116,11 @@ Drawable* Drawable::GetDrawableAtPosition(Vector2D Position)
 	return this;
 }
 
+void Drawable::OnMouseMove(const Vector2D& Position)
+{
+	for (Drawable* elem : Elements)
+	{
+		elem->OnMouseMove(Position);
+	}
+}
+
