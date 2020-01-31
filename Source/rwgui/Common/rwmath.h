@@ -2,8 +2,11 @@
 #define RWMATH_H
 
 #include <d2d1.h>
+#include "math.h"
 
 #pragma warning (disable : 4251)
+
+	
 
 class Vector2D
 {
@@ -31,6 +34,8 @@ public:
 	operator D2D1_SIZE_F() const { return D2D1::SizeF(x, y); };
 	operator D2D1_POINT_2F() const { return D2D1::Point2F(x, y); };
 
+	double Length() const { return sqrt(pow(x,2)+pow(y,2)); };
+	Vector2D GetNormalized() const { return x == 0 && y == 0 ? 0 : *this/float(Length()); };
 };
 
 class Bounds
@@ -70,7 +75,7 @@ public:
 	float Rotation = 0.0f;
 	Vector2D Scale = Vector2D(1.0f, 1.0f);
 
-	void SetPosition(Vector2D InPosition) { Position = InPosition; };
+	void SetPosition(const Vector2D& InPosition) { Position = InPosition; };
 	Vector2D GetPosition() const { return Position; };
 
 	Transform2D() {};

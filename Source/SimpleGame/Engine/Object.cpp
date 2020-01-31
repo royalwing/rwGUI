@@ -26,7 +26,7 @@ Transform2D VisualComponent::GetWorldTransform() const
 
 void Entity::RegisterComponent(Component* inComponent)
 {
-	Components.Add(inComponent);
+	Components.Push(inComponent);
 }
 
 void Entity::UnregisterComponent(Component* inComponent)

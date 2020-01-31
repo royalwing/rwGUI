@@ -21,7 +21,7 @@ private:
 
 	void Tick(float DeltaTime);
 
-	List<class Entity*> Entities;
+	LinkedList<class Entity*> Entities;
 
 	friend class Engine;
 public:
@@ -34,7 +34,7 @@ public:
 	T* SpawnEntity(String Name)
 	{
 		T* Result = new T(Name, this);
-		Entities.Add(Result);
+		Entities.Push(Result);
 		return Result;
 	}
 

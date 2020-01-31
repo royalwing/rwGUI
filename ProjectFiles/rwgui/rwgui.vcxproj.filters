@@ -70,6 +70,9 @@
     <ClInclude Include="..\..\Source\rwgui\Common\String.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\rwgui\Common\Threading.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\rwgui\rwd2d.cpp" />
@@ -113,6 +116,9 @@
     <ClCompile Include="..\..\Source\rwgui\Common\String.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\rwgui\Common\Threading.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="D:\Images\close_3.png" />
@@ -122,5 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\Source\rwgui\rwgui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NatvisFile.natvis" />
   </ItemGroup>
 </Project>

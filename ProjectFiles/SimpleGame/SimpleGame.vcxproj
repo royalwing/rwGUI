@@ -141,6 +141,7 @@
     <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.h" />
     <ClInclude Include="..\..\Source\SimpleGame\Game\Crosshair.h" />
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Projectile.h" />
     <ClInclude Include="..\..\Source\SimpleGame\SimpleGameMain.h" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\BaseCharacter.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Game\Characters\PlayerCharacter.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\Game\Crosshair.cpp" />
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Projectile.cpp" />
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

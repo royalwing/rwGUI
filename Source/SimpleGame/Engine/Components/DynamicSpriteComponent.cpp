@@ -37,7 +37,10 @@ void DynamicSpriteComponent::Draw(ID2D1BitmapRenderTarget* renderTarget)
 	RenderTarget->BeginDraw();
 	RenderTarget->Clear(Color(0,0,0,0).ToD2D1ColorF());
 	RenderTarget->SetTransform(Transform2D().ToD2D1Matrix());
-	OnDynamicDraw(RenderTarget);
+	if (DrawDelegate)
+		DrawDelegate(RenderTarget);
+	else
+		OnDynamicDraw(RenderTarget);
 	RenderTarget->GetBitmap(&Bitmap);
 	RenderTarget->EndDraw();
 	Bounds bounds = Bounds(-Size.x*0.5f, -Size.y*0.5f, Size.x, Size.y);

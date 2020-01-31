@@ -54,7 +54,7 @@ class Entity : public Object
 	using Object::Object;
 private:
 	Transform2D Transform;
-	List<Component*> Components;
+	LinkedList<Component*> Components;
 public:
 	template<typename T>
 	T* CreateComponent(String Name)
@@ -64,7 +64,7 @@ public:
 		return Result;
 	};
 
-	List<Component*> GetComponents() const { return Components; };
+	LinkedList<Component*>& GetComponents() { return Components; };
 
 
 	void RegisterComponent(class Component* inComponent);

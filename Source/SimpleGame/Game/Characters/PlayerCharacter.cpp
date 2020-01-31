@@ -2,6 +2,7 @@
 #include "rwgui.h"
 #include "SimpleGameMain.h"
 #include "Engine/Engine.h"
+#include "Game/Projectile.h"
 
 Vector2D PlayerCharacter::GetAimingLocation() const
 {
@@ -11,4 +12,19 @@ Vector2D PlayerCharacter::GetAimingLocation() const
 			return SimpleGameApp->pViewport->GetWorldCursorPosition();
 	}
 	return Vector2D();
+}
+
+void PlayerCharacter::OnTick(float DeltaTime)
+{
+	BaseCharacter::OnTick(DeltaTime);
+	TimeSinceLastFire += DeltaTime;
+	if (TimeSinceLastFire > (1.0f / FireRate) && bWantsToShoot)
+		Shoot();
+}
+
+void PlayerCharacter::Shoot()
+{
+	Projectile* _projectile = GetWorld()->SpawnEntity<Projectile>("Bullet");
+	_projectile->SetPosition(GetPosition() + (GetAimingLocation()-GetPosition()).GetNormalized()*48.0f);
+	_projectile->Direction = (GetAimingLocation() - GetPosition()).GetNormalized();
 }

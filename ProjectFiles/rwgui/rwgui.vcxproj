@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\Source\rwgui\Common\DebugHelpers.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\rwmath.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\String.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\Threading.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\Types.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Background.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Border.h" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\rwgui\Common\DebugHelpers.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Common\String.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Common\Threading.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Background.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Border.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Button.cpp" />
@@ -73,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\Source\rwgui\rwgui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NatvisFile.natvis" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C2B62DCF-4EE5-40EB-836F-CBF551FF0EB7}</ProjectGuid>

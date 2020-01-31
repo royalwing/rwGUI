@@ -9,9 +9,9 @@ World::World(Engine* pEngine)
 
 World::~World()
 {
-	for (Entity* pEntity : Entities)
+	for (auto Itr = Entities.Itr(); !Itr.IsFirst(); Itr = Itr.Next())
 	{
-		delete pEntity;
+		delete Itr.Get();
 	}
 	GetEngine()->RemoveWorld(this);
 }
@@ -19,15 +19,13 @@ World::~World()
 void World::Tick(float DeltaTime)
 {
 	CurrentDeltaSeconds = DeltaTime;
-	for (Entity* pEntity : Entities)
+	for (auto Itr = Entities.Itr(); !Itr.IsFirst(); Itr = Itr.Next())
 	{
-		pEntity->Tick(DeltaTime);
-		for (Component* pComp : pEntity->GetComponents())
+		if (!Itr.IsValid()) return;
+		Itr->Tick(DeltaTime);
+		for (auto CompItr = Itr->GetComponents().Itr(); !CompItr.IsFirst(); CompItr = CompItr.Next())
 		{
-			if (VisualComponent * visComp = dynamic_cast<VisualComponent*>(pComp))
-			{
-				visComp->Tick(DeltaTime);
-			}
+			CompItr->Tick(DeltaTime);
 		}
 	}
 }
@@ -37,13 +35,15 @@ void World::Draw(ID2D1BitmapRenderTarget* RenderTarget)
 	D2D1_MATRIX_3X2_F ViewTransform;
 	RenderTarget->GetTransform(&ViewTransform);
 	List<VisualComponent*> ComponentsToDraw;
-	for(Entity* pEntity : Entities)
+	for (auto Itr = Entities.Itr(); !Itr.IsFirst(); Itr = Itr.Next())
 	{
-		for(Component* pComp : pEntity->GetComponents())
+		if (!Itr.IsValid()) return;
+		for(auto CompItr = Itr->GetComponents().Itr(); !CompItr.IsFirst(); CompItr = CompItr.Next())
 		{
-			if(VisualComponent* visComp = dynamic_cast<VisualComponent*>(pComp))
+			if (!CompItr.IsValid()) return;
+			if (VisualComponent * VisComp = dynamic_cast<VisualComponent*>(CompItr.Get()))
 			{
-				ComponentsToDraw.Add(visComp);
+				ComponentsToDraw.Add(VisComp);
 			}
 		}
 	}

@@ -26,6 +26,9 @@
     <ClInclude Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.h">
       <Filter>Engine\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\SimpleGame\Game\Projectile.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\SimpleGame\SimpleGameMain.cpp" />
@@ -52,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\SimpleGame\Engine\Components\DynamicSpriteComponent.cpp">
       <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SimpleGame\Game\Projectile.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

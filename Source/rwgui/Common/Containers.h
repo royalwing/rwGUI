@@ -1,5 +1,6 @@
 #pragma once
-
+#include "Threading.h"
+#include "DebugHelpers.h"
 
 template<typename T>
 class List
@@ -158,7 +159,6 @@ public:
 
 	T& operator[](size_t Position) const { return Data[Position]; };
 
-
 	List& operator=(const T inData[])
 	{
 		Init(sizeof(inData));
@@ -203,5 +203,162 @@ public:
 			}
 		}
 	}
+
+	typedef void(*ElementIteratingFunc)(const T&);;
 };
 
+template<typename T>
+class LinkedList
+{
+public:
+	class Entry
+	{
+	private:
+		rw::threading::mutex mutex;
+		T Data;
+		Entry* next = nullptr;
+		Entry* prev = nullptr;
+		LinkedList* Container = nullptr;
+		friend class LinkedList;
+		Entry() = delete;
+		Entry(const Entry&) = delete;
+		Entry(LinkedList* inContainer, const T& inData, Entry* inPrev = nullptr, Entry* inNext = nullptr)
+			: Data(inData), next(inNext), prev(inPrev), Container(inContainer)
+		{
+			rw::threading::ScopeLock LockContainer(&(Container->mutex));
+			rw::threading::ScopeLock LockSelf(&mutex);
+
+			++Container->Count;
+
+
+			if (next == nullptr) next = this;
+			if (prev == nullptr) prev = this;
+
+			if (next != this)
+				next->mutex.Lock();
+
+			if (prev != this && prev!=next)
+				prev->mutex.Lock();
+
+			if (next) next->prev = this;
+			if (prev) prev->next = this;
+
+			if (next != this)
+				next->mutex.Release();
+
+			if (prev != this && prev!=next)
+				prev->mutex.Release();
+		};
+		~Entry()
+		{
+			rw::threading::ScopeLock LockContainer(&(Container->mutex));
+			--Container->Count;
+
+			if (next != this)
+				next->mutex.Lock();
+
+			if (prev != this)
+				prev->mutex.Lock();
+
+			if (next) next->prev = prev;
+			if (prev) prev->next = next;
+
+			if (next != this)
+				next->mutex.Release();
+
+			if (prev != this)
+				prev->mutex.Release();
+		}
+	};
+
+private:
+	rw::threading::mutex mutex;
+	size_t Count = 0;
+	Entry* First = nullptr;
+public:
+	void Push(const T& Data)
+	{
+		size_t inCount = 0;
+		{
+			rw::threading::ScopeLock Lock(&mutex);
+			inCount = Count;
+		}
+		if(inCount==0)
+		{
+			First = new Entry(this, Data);
+		} else {
+			new Entry(this, Data, First->prev, First);
+		}
+	}
+
+	T Pop()
+	{
+		rw::threading::ScopeLock Lock(&mutex);
+		T Data = First->Data;
+		if (First->next && First->next != First)
+			First = First->next;
+		else
+			First = nullptr;
+		delete First;
+		return Data;
+	}
+
+	void Remove(const T& Element)
+	{
+		mutex.Lock(); // Lock Container;
+		Entry* Itr = First;
+		mutex.Release();
+		do
+		{
+			Itr->mutex.Lock();
+			Entry* NextItr = Itr->next;
+			if(Itr->Data==Element)
+			{
+				Itr->mutex.Release();
+				delete Itr;
+			} else
+			{
+				Itr->mutex.Release();
+			}
+			Itr = NextItr;;
+		} while (Itr != First);
+	}
+
+	class Iterator
+	{
+	private:
+		LinkedList* Container = nullptr;
+		Entry* CurrentEntry = nullptr;
+		Iterator() {};
+		Iterator(LinkedList* inContainer, Entry* pEntry)
+			: Container(inContainer)
+			, CurrentEntry(pEntry)
+		{
+			
+		}
+		friend class LinkedList;
+	public:
+		Iterator(const Iterator& Other)
+			: Container(Other.Container)
+			, CurrentEntry(Other.CurrentEntry)
+		{
+
+		};
+		T& Get() const { return CurrentEntry->Data; };
+		operator T&() const { return Get(); };
+		T& operator->() const { return Get(); };
+		Iterator Next()
+		{
+			if (CurrentEntry == nullptr) return Iterator(Container, Container->First);
+			if (CurrentEntry->next == CurrentEntry) return *this;
+			return Iterator(Container, CurrentEntry->next);
+		};
+		bool IsValid() const { return CurrentEntry != nullptr; };
+		bool IsFirst() const { return Container && CurrentEntry ? Container->First == CurrentEntry : false; };
+	};
+
+	Iterator Itr()
+	{
+		return Iterator(this, First);
+	}
+};

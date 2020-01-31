@@ -50,6 +50,9 @@ void SimpleGame::OnKeyStateChanged(char key, bool bPressed)
 	{
 		switch(key)
 		{
+		case VK_LBUTTON:
+			LocalPlayerCharacter->StartShooting();
+			break;
 		case 'W':
 			Input.y += 1;
 			break;
@@ -69,6 +72,9 @@ void SimpleGame::OnKeyStateChanged(char key, bool bPressed)
 	{
 		switch (key)
 		{
+		case VK_LBUTTON:
+			LocalPlayerCharacter->StopShooting();
+			break;
 		case 'W':
 			Input.y -= 1;
 			break;
