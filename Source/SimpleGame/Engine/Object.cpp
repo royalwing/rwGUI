@@ -45,9 +45,9 @@ Entity::Entity(String inName, World* inWorld)
 
 Entity::~Entity()
 {
-	for (auto CompItr = GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next())
+	for (auto CompItr = GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next(false)) // Setting true causing entry skip
 	{
-		delete CompItr.Get();
+		delete CompItr.Get(); // if container has one item left after deletion inside iteration it crashes
 	}
 	GetWorld()->Entities.Remove(this);
 }

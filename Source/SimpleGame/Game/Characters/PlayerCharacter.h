@@ -5,7 +5,7 @@
 class PlayerCharacter : public BaseCharacter
 {
 	using BaseCharacter::BaseCharacter;
-	float FireRate = 60.0f;
+	float FireRate = 20.0f;
 	float TimeSinceLastFire = 0.0f;
 	bool bWantsToShoot = false;
 public:

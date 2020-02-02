@@ -18,10 +18,15 @@ void PhysicsBodyComponent::AddAcceleration(const Vector2D& Acceleration)
 	if (LinearAcceleration.Length() > MaxAcceleration) LinearAcceleration = LinearAcceleration.GetNormalized() * MaxAcceleration;
 }
 
+void PhysicsBodyComponent::SetVelocity(const Vector2D& newVelocity)
+{
+	LinearVelocity = newVelocity;
+}
+
 void PhysicsBodyComponent::OnTick(float DeltaTime)
 {
 	LinearVelocity += LinearAcceleration * DeltaTime;
-	LinearVelocity -= LinearVelocity.GetNormalized()*min(VelocityLoss*DeltaTime, LinearVelocity.Length());
 	GetOwner()->SetPosition(GetOwner()->GetPosition() + LinearVelocity * DeltaTime);
+	LinearVelocity -= LinearVelocity.GetNormalized()*min(VelocityLoss*DeltaTime, LinearVelocity.Length());
 	LinearAcceleration -= LinearAcceleration.GetNormalized()*min(Deceleration*DeltaTime, LinearAcceleration.Length());
 }

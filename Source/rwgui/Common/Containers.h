@@ -365,7 +365,11 @@ public:
 			} else {
 				Next = CurrentEntry->next;
 			}
-			if (Next == Container->First && !bLoop) return Iterator(Container, nullptr);
+			if (Next == Container->First)
+				if (!bLoop)
+					return Iterator(Container, nullptr);
+				else
+					return Iterator(Container, Container->First);
 			if (Next == CurrentEntry) return *this;
 			return Iterator(Container, Next);
 		};

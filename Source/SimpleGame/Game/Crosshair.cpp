@@ -4,10 +4,14 @@
 void CrosshairComponent::OnDynamicDraw(ID2D1BitmapRenderTarget* renderTarget)
 {
 	ID2D1SolidColorBrush* Brush;
-	renderTarget->CreateSolidColorBrush(Color(255, 0, 0, 255).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
+	renderTarget->CreateSolidColorBrush(Color(0, 0, 0, 255).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
 	Vector2D Size = renderTarget->GetSize();
-	D2D1_ELLIPSE ellipse = D2D1::Ellipse(Size/2, 16.0f, 16.0f);
-	renderTarget->DrawEllipse(&ellipse, Brush, 4.0f);
+	float CrosshairWidth = 2.0f;
+	renderTarget->DrawLine(Vector2D(Size.x / 2, 0), Vector2D(Size.x / 2, Size.y*0.4f), Brush, CrosshairWidth);
+	renderTarget->DrawLine(Vector2D(Size.x / 2, Size.y*0.6f), Vector2D(Size.x / 2, Size.y), Brush, CrosshairWidth);
+
+	renderTarget->DrawLine(Vector2D(0, Size.y / 2), Vector2D(Size.x*0.4f, Size.y / 2), Brush, CrosshairWidth);
+	renderTarget->DrawLine(Vector2D(Size.x*0.6f, Size.y / 2), Vector2D(Size.x, Size.y / 2), Brush, CrosshairWidth);
 	Brush->Release();
 }
 
@@ -16,7 +20,7 @@ Crosshair::Crosshair(String inName, World* inWorld)
 {
 	CrosshairComponent* CrosshairComp = CreateComponent<CrosshairComponent>("Crosshair");
 	CrosshairComp->SetSortOrder(999);
-	CrosshairComp->SetSize({ 128, 128 });
+	CrosshairComp->SetSize({ 24, 24 });
 }
 
 void Crosshair::OnTick(float DeltaTime)

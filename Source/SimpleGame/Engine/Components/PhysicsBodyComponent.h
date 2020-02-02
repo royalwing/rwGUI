@@ -44,6 +44,7 @@ public:
 	void SetSphereRadius(const float& inRadius);
 
 	void AddAcceleration(const Vector2D& Acceleration);
+	void SetVelocity(const Vector2D& newVelocity);
 
 	virtual void OnTick(float DeltaTime) override;
 };

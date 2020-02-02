@@ -30,5 +30,5 @@ void PlayerCharacter::Shoot()
 	Projectile* _projectile = GetWorld()->SpawnEntity<Projectile>("Bullet");
 	_projectile->SetPosition(GetPosition() + (GetAimingLocation()-GetPosition()).GetNormalized()*48.0f);
 	_projectile->Direction = (GetAimingLocation() - GetPosition()).GetNormalized();
-	_projectile->SetLifespan(0.3f);
+	_projectile->SetLifespan(1.3f);
 }
