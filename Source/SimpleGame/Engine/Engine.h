@@ -24,6 +24,7 @@ private:
 	LinkedList<class Entity*> Entities;
 
 	friend class Engine;
+	friend class Entity;
 public:
 	class Engine* GetEngine() const { return _engine; }
 
@@ -34,7 +35,6 @@ public:
 	T* SpawnEntity(String Name)
 	{
 		T* Result = new T(Name, this);
-		Entities.Push(Result);
 		return Result;
 	}
 

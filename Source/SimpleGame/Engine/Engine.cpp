@@ -19,11 +19,11 @@ World::~World()
 void World::Tick(float DeltaTime)
 {
 	CurrentDeltaSeconds = DeltaTime;
-	for (auto Itr = Entities.Itr(); !Itr.IsFirst(); Itr = Itr.Next())
+	for (auto Itr = Entities.Itr(); Itr.IsValid(); Itr = Itr.Next())
 	{
-		if (!Itr.IsValid()) return;
 		Itr->Tick(DeltaTime);
-		for (auto CompItr = Itr->GetComponents().Itr(); !CompItr.IsFirst(); CompItr = CompItr.Next())
+		if (!Itr.IsValid()) continue;// Entity may be deleted while tick
+		for (auto CompItr = Itr->GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next())
 		{
 			CompItr->Tick(DeltaTime);
 		}
@@ -35,12 +35,10 @@ void World::Draw(ID2D1BitmapRenderTarget* RenderTarget)
 	D2D1_MATRIX_3X2_F ViewTransform;
 	RenderTarget->GetTransform(&ViewTransform);
 	List<VisualComponent*> ComponentsToDraw;
-	for (auto Itr = Entities.Itr(); !Itr.IsFirst(); Itr = Itr.Next())
+	for (auto Itr = Entities.Itr(); Itr.IsValid(); Itr = Itr.Next())
 	{
-		if (!Itr.IsValid()) return;
-		for(auto CompItr = Itr->GetComponents().Itr(); !CompItr.IsFirst(); CompItr = CompItr.Next())
+		for(auto CompItr = Itr->GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next())
 		{
-			if (!CompItr.IsValid()) return;
 			if (VisualComponent * VisComp = dynamic_cast<VisualComponent*>(CompItr.Get()))
 			{
 				ComponentsToDraw.Add(VisComp);

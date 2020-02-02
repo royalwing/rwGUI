@@ -19,7 +19,10 @@ void PlayerCharacter::OnTick(float DeltaTime)
 	BaseCharacter::OnTick(DeltaTime);
 	TimeSinceLastFire += DeltaTime;
 	if (TimeSinceLastFire > (1.0f / FireRate) && bWantsToShoot)
+	{
 		Shoot();
+		TimeSinceLastFire = 0.0f;
+	}
 }
 
 void PlayerCharacter::Shoot()
@@ -27,4 +30,5 @@ void PlayerCharacter::Shoot()
 	Projectile* _projectile = GetWorld()->SpawnEntity<Projectile>("Bullet");
 	_projectile->SetPosition(GetPosition() + (GetAimingLocation()-GetPosition()).GetNormalized()*48.0f);
 	_projectile->Direction = (GetAimingLocation() - GetPosition()).GetNormalized();
+	_projectile->SetLifespan(0.3f);
 }

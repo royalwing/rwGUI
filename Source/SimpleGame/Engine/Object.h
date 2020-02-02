@@ -7,10 +7,12 @@ class Object
 private:
 	String Name;
 	class World* OuterWorld = nullptr;
-
+	float Lifespan = 0.0f;
+	float TimeSinceSpawn = 0.0f;
 	Object() = delete;
 public:
 	Object(String inName, class World* inWorld);
+	virtual ~Object() {};
 
 	typedef void(*OnTickDelegate)(Object* Object, float DeltaTime);
 	OnTickDelegate TickDelegate;
@@ -18,6 +20,8 @@ public:
 	virtual void OnTick(float DeltaTime) {};
 
 	class World* GetWorld() const { return OuterWorld; };
+	void SetLifespan(float inLifespan) { Lifespan = TimeSinceSpawn + inLifespan; };
+	String GetName() const { return Name; };
 protected:
 	void Tick(float DeltaTime);
 	friend class World;
@@ -29,7 +33,7 @@ private:
 	class Entity* Owner;
 public:
 	Component(String inName, class Entity* inOwner);
-	virtual ~Component() {};
+	~Component();
 
 	class Entity* GetOwner() const { return Owner; };
 };
@@ -47,6 +51,7 @@ public:
 
 	void SetSortOrder(int inOrder) { SortOrder=inOrder; };
 	int GetSortOrder() const { return SortOrder; }
+
 };
 
 class Entity : public Object
@@ -56,6 +61,10 @@ private:
 	Transform2D Transform;
 	LinkedList<Component*> Components;
 public:
+
+	Entity(String inName, World* inWorld);
+	virtual ~Entity();
+
 	template<typename T>
 	T* CreateComponent(String Name)
 	{
