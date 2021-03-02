@@ -28,6 +28,7 @@ public:
 	virtual int GetDrawableNCObjectType() { return HTCAPTION; };
 	void SetTextColor(Color tColor) { textColor = tColor; if (textBrush != nullptr) { textBrush->Release(); textBrush = nullptr; } };
 	void SetText(String newTitle) { headerTitle = newTitle; };
+
 };
 
 

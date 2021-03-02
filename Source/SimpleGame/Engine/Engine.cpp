@@ -141,7 +141,7 @@ void Viewport::OnWindowResize(const Vector2D& inSize)
 	ResizeViewport(inSize);
 }
 
-void Viewport::OnMouseMove(const Vector2D& Position)
+void Viewport::OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position)
 {
 	Vector2D Pos = Position;
 	LocalMousePosition = Pos;

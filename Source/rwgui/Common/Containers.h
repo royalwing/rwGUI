@@ -1,6 +1,7 @@
 #pragma once
 #include "Threading.h"
 #include "DebugHelpers.h"
+#include <Common/Memory.h>
 
 template<typename T>
 class List
@@ -27,21 +28,25 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return;
-		memcpy(Data, Other.Data, Count*sizeof(T));
+		rw::memcpy(Data, Other.Data, Count*sizeof(T));
 	};
 
 	List(const T* inData, size_t inSize)
 	{
 		Init(inSize);
 		if (Count == 0) return;
-		memcpy(Data, inData, inSize * sizeof(T));
+		rw::memcpy(Data, inData, inSize * sizeof(T));
 	};
 
 	List(const List&& Other) noexcept
 	{
 		Init(Other.Count);
 		if (Count == 0) return;
-		memmove(Data, Other.Data, Count * sizeof(T));
+		for (size_t id = 0; id < Count; id++)
+		{
+			Data[id] = Other.Data[id];
+		}
+		rw::memset(Other.Data, 0, Count * sizeof(T));
 	}
 
 	~List()
@@ -55,7 +60,10 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return *this;
-		memcpy(Data, Other.Data, Count * sizeof(T));
+		for(size_t id = 0;id<Count;id++)
+		{
+			Data[id] = Other.Data[id];
+		}
 		return *this;
 	}
 
@@ -64,7 +72,7 @@ public:
 	{
 		Init(Other.Count);
 		if (Count == 0) return *this;
-		memmove(Data, Other.Data, Count * sizeof(T));
+		rw::memmove(Data, Other.Data, Count * sizeof(T));
 		return *this;
 	}
 
@@ -79,19 +87,29 @@ public:
 			return;
 		}
 		Data = new T[Count];
-		memset(Data, 0, sizeof(T)*Count);
+		rw::memset(Data, 0, sizeof(T)*Count);
 	};
 
 	size_t Insert(const T& inData, size_t Position)
 	{
 		if (Position > Count) Position = Count;
-		T* NewData = new T[++Count];
+		Count++;
+		T* NewData = new T[Count];
 		if(Data!=nullptr)
 		{
-			memcpy(NewData, Data, Position*sizeof(T));
-			memcpy(NewData + Position + 1, Data + Position, (Count - Position)*sizeof(T));
+			for(size_t i = 0;i<Position;i++)
+			{
+				NewData[i] = Data[i];
+			}
+			for(size_t i = Position;i<Count-1;i++)
+			{
+				NewData[i + 1] = Data[i];
+			}
+			//rw::memcpy(NewData, Data, Position*sizeof(T));
+			//rw::memcpy(NewData + Position + 1, Data + Position, (Count - Position)*sizeof(T));
 		}
-		memcpy(NewData + Position, &inData, sizeof(T));
+		NewData[Position] = inData;
+		//rw::memcpy(NewData + Position, &inData, sizeof(T)); // We should not copy everything as is because copy logic will not work in this case
 		if(Data!=nullptr)
 			delete[] Data;
 
@@ -126,18 +144,38 @@ public:
 		T* NewData = new T[--Count];
 		if(Data!=nullptr)
 		{
-			if(Position>0) memcpy(NewData, Data, (Position) * sizeof(T));
-			memcpy(NewData + Position, Data + Position + 1, (Count - Position) * sizeof(T));
+			if(Position>0) rw::memcpy(NewData, Data, (Position) * sizeof(T));
+			rw::memcpy(NewData + Position, Data + Position + 1, (Count - Position) * sizeof(T));
 			delete[] Data;
 		}
 		Data = NewData;
 		return true;
 	};
 
-	void Add(const T& inData)
+	T& Add(const T& inData)
 	{
-		Insert(inData, Count);
+		return Data[Insert(inData, Count)];
 	};
+
+	T& FindOrAdd(const T& inData)
+	{
+		for (size_t id = 0; id < Size(); id++)
+		{
+			if (Data[id] == inData)
+				return Data[id];
+		}
+		return Add(inData);
+	}
+
+	bool AddUnique(const T& inData)
+	{
+		if(!Contains(inData))
+		{
+			Add(inData);
+			return true;
+		}
+		return false;
+	}
 
 	void Append(const List& List)
 	{
@@ -145,16 +183,17 @@ public:
 		T* NewData = new T[Count + List.Count];
 		if(Data!=nullptr)
 		{
-			memcpy(NewData, Data, Count * sizeof(T));
+			rw::memcpy(NewData, Data, Count * sizeof(T));
 			delete[] Data;
 		}
-		memcpy(NewData + Count, List.Data, List.Count * sizeof(T));
+		rw::memcpy(NewData + Count, List.Data, List.Count * sizeof(T));
 		Data = NewData;
+		Count = Count + List.Count;
 	}
 
 	size_t Size() const { return Count; };
 
-	T* begin() const { return &Data[0]; };
+	T*  begin() const { return &Data[0]; };
 	T* end() const { return &Data[Count]; };
 
 	T& operator[](size_t Position) const { return Data[Position]; };
@@ -162,7 +201,7 @@ public:
 	List& operator=(const T inData[])
 	{
 		Init(sizeof(inData));
-		memcpy(Data, inData, sizeof(inData));
+		rw::memcpy(Data, inData, sizeof(inData));
 		return *this;
 	};
 
@@ -203,6 +242,21 @@ public:
 			}
 		}
 	}
+
+	bool Contains(const T& Other) const
+	{
+		return FindIndex(Other) > -1;
+	}
+
+	size_t FindIndex(const T& Other) const
+	{
+		for(size_t id = 0; id < Size();id++)
+		{
+			if (Data[id] == Other)
+				return id;
+		}
+		return -1;
+	};
 
 	typedef void(*ElementIteratingFunc)(const T&);;
 };

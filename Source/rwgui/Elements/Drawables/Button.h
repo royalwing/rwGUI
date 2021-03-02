@@ -2,19 +2,19 @@
 #define BUTTON_H
 
 #include <Elements/Drawables/Drawable.h>
+#include <Common/Events.h>
 
 class RWGUI_API Button : public Drawable
 {
-public:
-	typedef void(*OnButtonPressedDelegate)(Application* app);
 private:
 	Color BackgroundColor;
 	String Caption;
-	OnButtonPressedDelegate OnButtonPressed = nullptr;
 	ID2D1Bitmap* background = nullptr;
 	int fontSize = 16;
 	bool bPressed = false;
 public:
+	MulticastEvent<Button*> OnButtonPressedEvent;
+
 	enum EBackgroundAlignment
 	{
 		BA_AsIs = 0,
@@ -22,7 +22,8 @@ public:
 		BA_ScaleToFit
 	} BackgroundAlignment = BA_AsIs;
 
-	Button(String name, OnButtonPressedDelegate btnPressed = nullptr);
+	Button(String name,std::function<void(Button*)> btnPressed = nullptr);
+
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 	virtual void OnMousePress() { bPressed = true; };
 	virtual void OnMouseRelease() { bPressed = false; };
@@ -32,7 +33,7 @@ public:
 	virtual int GetDrawableNCObjectType() { return HTCLIENT; };
 	virtual HCURSOR GetCursor() override;
 	
-	void SetBackgroundColor(Color bgColor);
+	void SetBackgroundColor(const Color& bgColor);
 	void SetBackgroundImage(String bgImagePath);
 	void SetBackgroundImage(int ResourceID);
 	void SetCaption(String caption);

@@ -29,8 +29,8 @@ void Header::Update(float DeltaTime)
 	if(GetApplication()->GetPreviousPageID()>-1 && GetApplication()->GetActivePageID()>0 && BackButton == nullptr && HeaderLayout)
 	{
 		BackButton = new Button("HeaderBackButton",
-		[](Application* app) {
-			app->NavigateBackward();
+		[&](Button* Target) {
+			GetApplication()->NavigateBackward();
 		});
 		BackButton->BackgroundAlignment = Button::EBackgroundAlignment::BA_StretchToFit;
 		BackButton->SetBackgroundColor(Color(0, 0, 0, 0));

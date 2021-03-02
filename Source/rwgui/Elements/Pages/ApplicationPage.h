@@ -13,7 +13,7 @@ public:
 	List<Drawable*> Elements;
 	ApplicationPage();
 	~ApplicationPage();
-	void AddElement(Drawable* inElement);
+	Drawable* AddElement(Drawable* inElement);
 	virtual Bounds GetBounds(bool bNonClient = false);
 	virtual Bounds GetClientBounds() { return Bounds(); };
 	Application* GetApplication();

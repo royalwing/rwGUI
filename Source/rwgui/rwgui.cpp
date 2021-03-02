@@ -1,4 +1,4 @@
-#include "rwgui.h"
+﻿#include "rwgui.h"
 #include <iostream>
 #include <windowsx.h>
 #include <string>
@@ -80,6 +80,8 @@ int Application::Run(HINSTANCE hInstance)
 	BuildPages();
 
 
+
+
 	RW_LOG("Entring application loop...");
 	MSG msg;
 	while (!bShouldExit)
@@ -131,7 +133,7 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 	{
 	case WM_MOUSEMOVE:
 		pt = Vector2D(GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
-		OnMouseMove(pt);
+		OnMouseMove(GApplication->GetLocalMousePosition(), pt);
 		GApplication->SetLocalMousePosition(pt);
 		return 0;
 	case WM_KEYDOWN:
@@ -158,6 +160,12 @@ LRESULT Application::OnWindowProc(HWND pWindowHandler, UINT uMsg, WPARAM wparam,
 		OnKeyReleased(VK_MBUTTON);
 		GlobalEvent(MOUSEBUTTONRELEASED);
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
+	case WM_MOUSEWHEEL:
+		{
+			float zDelta = float(GET_WHEEL_DELTA_WPARAM(wparam))/120.0;
+			OnMouseWheel(zDelta);
+			return 0;
+		}
 	case WM_KEYUP:
 		OnKeyReleased(wparam & 0xFF);
 		return DefWindowProc(pWindowHandler, uMsg, wparam, lparam);
@@ -249,7 +257,7 @@ void Application::AddPage(ApplicationPage* appPage)
 	appPage->Init();
 }
 
-void Application::OnMouseMove(const Vector2D& Position)
+void Application::OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position)
 {
 	if (ApplicationPage * CurrentActivePage = GetActivePage())
 	{
@@ -258,7 +266,21 @@ void Application::OnMouseMove(const Vector2D& Position)
 		{
 			Vector2D FilteredPosition = Position;
 			FilteredPosition -= ClientBounds.Pos;
-			element ->OnMouseMove(FilteredPosition);
+			Vector2D PrevFilteredPosition = PrevPosition;
+			PrevFilteredPosition -= ClientBounds.Pos;
+			element->OnMouseMove(PrevFilteredPosition, FilteredPosition);
+		}
+	}
+}
+
+void Application::OnMouseWheel(float Delta)
+{
+	if (ApplicationPage* CurrentActivePage = GetActivePage())
+	{
+		Bounds ClientBounds = CurrentActivePage->GetClientBounds();
+		for (auto element : GetActivePage()->Elements)
+		{;
+			element->OnMouseWheel(Delta);
 		}
 	}
 }
@@ -294,6 +316,11 @@ void Application::OnKeyReleased(char key)
 		if (currentHoveredDrawable != nullptr) currentHoveredDrawable->OnMouseRelease();
 	}
 }
+
+bool Application::IsKeyDown(char key) const
+{
+	return Input[key];
+};
 
 void Application::GlobalEvent(EGlobalEvent eventType)
 {
@@ -408,6 +435,8 @@ Vector2D Application::GetMinimalWindowSize()
 
 void Application::SetWindowSize(Vector2D windowSize)
 {
+
+
 	::SetWindowPos(WindowHandler, nullptr, 0, 0, windowSize.x, windowSize.y, SWP_NOMOVE | SWP_NOZORDER | SWP_DRAWFRAME | SWP_FRAMECHANGED);
 
 	if (Renderer) Renderer->Resize(windowSize.x, windowSize.y);
@@ -418,10 +447,45 @@ void Application::SetWindowSize(Vector2D windowSize)
 
 void Application::OnResize(Vector2D inSize)
 {
+
 	for (int i = 0; i < Pages.size(); i++)
 	{
 		Pages[i]->OnWindowResize(inSize);
 	}
+}
+
+void Application::Maximize()
+{
+	ShowWindow(WindowHandler, SW_MAXIMIZE);
+
+
+	RECT rect;
+	if (::GetWindowRect(WindowHandler, &rect))
+	{
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+
+		if (Renderer)
+		{
+			Renderer->Resize(width, height);
+			Renderer->Update();
+		}
+
+	}
+}
+
+bool Application::IsWindowMaximized() const
+{
+	WINDOWPLACEMENT placement;
+	placement.length = sizeof(WINDOWPLACEMENT);
+	if (::GetWindowPlacement(WindowHandler, &placement))
+	{
+		if (placement.showCmd == SW_MAXIMIZE)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void Application::SetLocalMousePosition(const Vector2D& MousePosition)

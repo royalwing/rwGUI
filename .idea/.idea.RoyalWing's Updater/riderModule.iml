@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/Documents" />
+    <content url="file://$MODULE_DIR$/../../../../" />
+    <content url="file://$MODULE_DIR$/../../../../BackButton.png" />
+    <content url="file://$MODULE_DIR$/../../../../Images" />
+    <content url="file://$MODULE_DIR$/../../../../MyApps_Btn.png" />
+    <content url="file://$MODULE_DIR$/../../.." />
+    <content url="file://$MODULE_DIR$/../../../../aboutme_btn_bg.png" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

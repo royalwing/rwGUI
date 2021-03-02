@@ -7,22 +7,31 @@ void BasePage::BuildPage()
 	background->SetBackgroundColor(backgroundColor);
 	background->bIsNonClient = true;
 	background->zOrder = -5;
+
+	auto BorderVisibility = [App=GetApplication()]()->bool {
+		return !App->IsWindowMaximized();
+	};
+
 	AddElement(background);
-	AddElement(new Border("TopBorder", EBorderType::Top, borderColor, borderWidth));
-	AddElement(new Border("BottomBorder", EBorderType::Bottom, borderColor, borderWidth));
-	AddElement(new Border("LeftBorder", EBorderType::Left, borderColor, borderWidth));
-	AddElement(new Border("RightBorder", EBorderType::Right, borderColor, borderWidth));
-	AddElement(new Border("TopLeftBorder", EBorderType::TopLeft, borderColor, borderWidth));
-	AddElement(new Border("TopRightBorder", EBorderType::TopRight, borderColor, borderWidth));
-	AddElement(new Border("BottomRightBorder", EBorderType::BottomRight, borderColor, borderWidth));
-	AddElement(new Border("BottomLeftBorder", EBorderType::BottomLeft, borderColor, borderWidth));
+	AddElement(new Border("TopBorder", EBorderType::Top, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("BottomBorder", EBorderType::Bottom, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("LeftBorder", EBorderType::Left, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("RightBorder", EBorderType::Right, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("TopLeftBorder", EBorderType::TopLeft, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("TopRightBorder", EBorderType::TopRight, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("BottomRightBorder", EBorderType::BottomRight, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
+	AddElement(new Border("BottomLeftBorder", EBorderType::BottomLeft, borderColor, borderWidth))->SetVisilityLambda(BorderVisibility);
 	header = new Header("Header", GetTitle());
 	header->SetTextColor(Color(1.0f, 1.0f, 1.0f));
 
 	class CloseButton : public Button
 	{
+		using Button::Button;
 	public:
-		CloseButton(String name, OnButtonPressedDelegate btnPressed = nullptr) : Button(name, btnPressed) {};
+		virtual void Init()
+		{
+			SetBackgroundColor(Color(0, 0, 0, 0));
+		};
 		virtual void Update(float DeltaTime)
 		{
 			SetPosition(GetOuterBounds(IsNonClient()).Size.x - 18 - 12, 8);
@@ -31,8 +40,8 @@ void BasePage::BuildPage()
 		}
 	};
 
-	CloseButton* closeButton = new  CloseButton("CloseButton", [](Application* app) {
-		app->Stop();
+	CloseButton* closeButton = new  CloseButton("CloseButton", [this](Button* Target) {
+		GetApplication()->Stop();
 	});
 	closeButton->bIsNonClient = true;
 	closeButton->zOrder = -1;

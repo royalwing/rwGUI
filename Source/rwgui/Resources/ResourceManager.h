@@ -63,7 +63,7 @@ public:
 
 class Application;
 
-class ResourceManager
+class RWGUI_API ResourceManager
 {
 private:
 	ResourceManager() {};

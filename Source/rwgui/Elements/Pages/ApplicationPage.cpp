@@ -9,12 +9,13 @@ ApplicationPage::~ApplicationPage()
 {
 }
 
-void ApplicationPage::AddElement(Drawable * inElement)
+Drawable* ApplicationPage::AddElement(Drawable * inElement)
 {
-	if (inElement == nullptr) return;
+	if (inElement == nullptr) return nullptr;
 	inElement->appPage = this;
 	inElement->Outer = nullptr;
 	Elements.Add(inElement);
+	return inElement;
 }
 
 Bounds ApplicationPage::GetBounds(bool bNonClient)
@@ -63,7 +64,8 @@ void ApplicationPage::Draw(RWD2D * d2d, ID2D1HwndRenderTarget * renderTarget)
 {
 	for (Drawable* elem : Elements)
 	{
-		elem->Draw(d2d, renderTarget);
+		if(elem->IsVisible())
+			elem->Draw(d2d, renderTarget);
 	}
 }
 

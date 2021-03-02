@@ -6,7 +6,13 @@
 
 #pragma warning (disable : 4251)
 
-	
+namespace rwMath
+{
+	inline double lerp(double a, double b, double alpha)
+	{
+		return a + (b - a) * alpha;
+	}
+}
 
 class Vector2D
 {
@@ -198,6 +204,16 @@ public:
 		result.g = g / Other;
 		result.b = b / Other;
 		return result;
+	}
+
+	bool operator==(const Color& Other) const
+	{
+		return this->a == Other.a && this->r == Other.r && this->g == Other.g && this->b == Other.b;
+	}
+
+	bool operator!=(const Color& Other) const
+	{
+		return !(Other==*this);
 	}
 };
 

@@ -23,6 +23,7 @@ Projectile::Projectile(String inName, World* inWorld)
 	Body->SetSphereRadius(10);
 	Body->MaxAcceleration = 15000.0f;
 	Body->Deceleration = 500.0f;
+	SetLifespan(1.0f);
 }
 
 void Projectile::OnTick(float DeltaTime)

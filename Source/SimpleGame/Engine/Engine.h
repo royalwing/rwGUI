@@ -80,7 +80,7 @@ public:
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget) override;
 
 	virtual void OnWindowResize(const Vector2D& inSize) override;
-	virtual void OnMouseMove(const Vector2D& Position) override;
+	virtual void OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position);
 
 	class World* GetWorld() const { return pWorld; };
 

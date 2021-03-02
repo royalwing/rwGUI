@@ -29,6 +29,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\rwgui\Common\Containers.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\DebugHelpers.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\Events.h" />
+    <ClInclude Include="..\..\Source\rwgui\Common\Memory.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\rwmath.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\String.h" />
     <ClInclude Include="..\..\Source\rwgui\Common\Threading.h" />
@@ -39,6 +41,7 @@
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Drawable.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Header.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Layout.h" />
+    <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Menu.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\Spacer.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Drawables\TextLabel.h" />
     <ClInclude Include="..\..\Source\rwgui\Elements\Pages\ApplicationPage.h" />
@@ -51,12 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\rwgui\Common\DebugHelpers.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Common\Memory.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Common\String.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Common\Threading.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Background.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Border.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Button.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Layout.cpp" />
+    <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Menu.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\Spacer.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Drawables\TextLabel.cpp" />
     <ClCompile Include="..\..\Source\rwgui\Elements\Pages\ApplicationPage.cpp" />
@@ -69,9 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Resources\back.png" />
-    <Image Include="C:\Users\royal\Documents\close_btn.png" />
-    <Image Include="D:\BackButton.png" />
-    <Image Include="D:\Images\close_3.png" />
+    <Image Include="C:\Users\royal\Documents\close.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\Source\rwgui\rwgui.rc" />

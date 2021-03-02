@@ -7,6 +7,9 @@ class Application;
 
 #include <Resources/ResourceManager.h>
 #include <Elements/Pages/ApplicationPage.h>
+#include <functional>
+
+
 
 class RWGUI_API Drawable
 {
@@ -18,6 +21,8 @@ private:
 	Drawable* Outer;
 	int DefaultHTResponse = HTCLIENT;
 	String name;
+	std::function<bool()> VisibilityLambda = nullptr;
+	Drawable() {};
 public:
 	bool bInteractive;
 	bool bIsNonClient;
@@ -28,6 +33,7 @@ public:
 
 	Drawable(String newname);
 	void AddChild(Drawable* child, bool bAddToBeginning = false);
+	void RemoveAllChildren();
 	virtual void Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget);
 	virtual Drawable* GetOuter();
 	void InternalInit();
@@ -41,7 +47,8 @@ public:
 	virtual Bounds GetOuterBounds(bool bNonClient = false);
 	virtual int GetDrawableNCObjectType() { return DefaultHTResponse; };
 	Drawable* GetDrawableAtPosition(Vector2D Position);
-	virtual void OnMouseMove(const Vector2D& Position);
+	virtual void OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position);
+	virtual void OnMouseWheel(float Delta);
 	virtual void OnMouseEnter() {};
 	virtual void OnMouseLeave() {};
 	virtual void OnMousePress() {};
@@ -49,8 +56,12 @@ public:
 	virtual void OnMouseClick() {};
 	virtual void OnGlobalEvent(EGlobalEvent eventType) {};
 	virtual HCURSOR GetCursor() { return LoadCursor(nullptr, IDC_ARROW); };
-	bool IsInteractive() { return bInteractive; };
+	bool IsInteractive() { return bInteractive && IsVisible(); };
 	bool IsNonClient() { return bIsNonClient; };
+
+
+	virtual bool IsVisible() { return true && (VisibilityLambda == nullptr || VisibilityLambda()); };
+	void SetVisilityLambda(std::function<bool()> InVisibilityLambda) { VisibilityLambda = InVisibilityLambda; };
 
 	void OverrideHTResponse(int newResponse) { DefaultHTResponse = newResponse; };
 

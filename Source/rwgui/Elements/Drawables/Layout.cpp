@@ -53,6 +53,7 @@ void Layout::Update(float DeltaTime)
 	float ScaleSumm = 0;
 	for (int i = 0; i < numChildren; i++)
 	{
+		if (!Elements[i]->IsVisible()) continue;
 		ScaleSumm += Elements[i]->LayoutScale;
 	}
 
@@ -63,6 +64,7 @@ void Layout::Update(float DeltaTime)
 	
 	for (int i = 0; i < numChildren;i++)
 	{
+		if (!Elements[i]->IsVisible()) continue;
 		float CurrentScale = 1.0f / ScaleSumm*Elements[i]->LayoutScale;
 		Vector2D CurrentLocation = LastPosition;
 		Vector2D CurrentSize = LastSize;

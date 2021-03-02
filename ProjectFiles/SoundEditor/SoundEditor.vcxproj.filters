@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\SoundEditor\main.cpp" />
+    <ClCompile Include="..\..\Source\SoundEditor\Components\Pages\MainPage.cpp">
+      <Filter>Components\Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundEditor\Core\Modifiers\Oscillator.cpp">
+      <Filter>Core\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundEditor\Components\Drawables\WaveSequenceGraph.cpp">
+      <Filter>Components\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundEditor\Core\SoundData.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundEditor\SoundEditorApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{cc29aa70-f64b-47d2-abfd-0295976fb627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Pages">
+      <UniqueIdentifier>{2bea5cd1-6bd6-48b7-aa63-def4ca06bcb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{96c9c9e0-1936-4233-b3c1-3c724c77343e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Modifiers">
+      <UniqueIdentifier>{23e351a5-75d2-4735-bb94-f6451a8c3c35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Drawables">
+      <UniqueIdentifier>{5357e675-cd66-49c1-a8a6-864e698b50eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\SoundEditor\Components\Pages\MainPage.h">
+      <Filter>Components\Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundEditor\SoundEditorApp.h" />
+    <ClInclude Include="..\..\Source\SoundEditor\Core\SoundData.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundEditor\Core\Modifiers\Oscillator.h">
+      <Filter>Core\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundEditor\Components\Drawables\WaveSequenceGraph.h">
+      <Filter>Components\Drawables</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

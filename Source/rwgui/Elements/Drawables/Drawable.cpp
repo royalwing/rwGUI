@@ -24,11 +24,23 @@ void Drawable::AddChild(Drawable* child, bool bAddToBeginning)
 		Elements.push_back(child);
 }
 
+void Drawable::RemoveAllChildren()
+{
+	for (Drawable* elem : Elements)
+	{
+		elem->RemoveAllChildren();
+		delete elem;
+	}
+
+	Elements.clear();
+}
+
 void Drawable::Draw(RWD2D* d2d, ID2D1HwndRenderTarget* renderTarget)
 {
 	for (Drawable* elem : Elements)
 	{
-		elem->Draw(d2d, renderTarget);
+		if (elem->IsVisible())
+			elem->Draw(d2d, renderTarget);
 	}
 }
 
@@ -116,11 +128,19 @@ Drawable* Drawable::GetDrawableAtPosition(Vector2D Position)
 	return this;
 }
 
-void Drawable::OnMouseMove(const Vector2D& Position)
+void Drawable::OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position)
 {
 	for (Drawable* elem : Elements)
 	{
-		elem->OnMouseMove(Position);
+		elem->OnMouseMove(PrevPosition, Position);
+	}
+}
+
+void Drawable::OnMouseWheel(float Delta)
+{
+	for (Drawable* elem : Elements)
+	{
+		elem->OnMouseWheel(Delta);
 	}
 }
 

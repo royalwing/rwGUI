@@ -60,10 +60,13 @@ public:
 	virtual void OnDraw(RWD2D* d2d,ID2D1HwndRenderTarget* renderTarget);
 	virtual void BuildPages() {};
 	void AddPage(ApplicationPage* appPage);
-	virtual void OnMouseMove(const Vector2D& Position);
+	virtual void OnMouseMove(const Vector2D& PrevPosition, const Vector2D& Position);
+	virtual void OnMouseWheel(float Delta);
 	virtual void OnKeyPressed(char key);
 	virtual void OnKeyReleased(char key);
 	virtual void OnKeyStateChanged(char key, bool bPressed) {};
+
+	bool IsKeyDown(char key) const;
 
 	void GlobalEvent(EGlobalEvent eventType);
 
@@ -91,6 +94,9 @@ public:
 	void SetWindowSize(Vector2D windowSize);
 	virtual void OnResize(Vector2D inSize);
 
+	void Maximize();
+	bool IsWindowMaximized() const;
+
 	void SetLocalMousePosition(const Vector2D& MousePosition);
 	Vector2D GetLocalMousePosition() const;
 
@@ -116,6 +122,43 @@ public:
 		return AppInstance;
 	};
 
+};
+
+// Container that holds various D2D resources till it will be destroyed and that releases it correctly
+template<typename ResourceType>
+struct rwD2DResourceContainer
+{
+public:
+	rwD2DResourceContainer() {
+		ResourcePtr = nullptr;
+	};
+
+	~rwD2DResourceContainer()
+	{
+		if (ResourcePtr != nullptr)
+		{
+			ResourcePtr->Release();
+			ResourcePtr = nullptr;
+		}
+	}
+
+	rwD2DResourceContainer& operator=(const ResourceType* Other)
+	{
+		if (ResourcePtr != Other)
+		{
+			Reset();
+		}
+		ResourcePtr = Other;
+		return *this;
+	}
+
+	operator ResourceType* () { return ResourcePtr; };
+	operator ResourceType** () { return &ResourcePtr; };
+
+	bool isSet() const { return ResourcePtr != nullptr; };
+	void Reset() { if (isSet()) { ResourcePtr->Release(); ResourcePtr = nullptr; } };
+private:
+	ResourceType* ResourcePtr = nullptr;
 };
 
 #define GApplication ApplicationGetter::Get()->GetApplication()
