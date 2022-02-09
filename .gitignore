@@ -29,8 +29,8 @@
 *.app
 *.exp
 /bin/*
-/bin
-/tmp
+**/bin/
+**/tmp/
 
 # Project files
 *.sdf
