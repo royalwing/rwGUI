@@ -1,0 +1,35 @@
+{
+    "sourcesDirectory": "Source",
+    "targets" : {
+        "GUI" : {
+            "outputPath": "bin/",
+            "compiler": "msvc",
+            "modules": [ "GUI", "rwgui" ],
+            "type" : "APPLICATION",
+            "forDebug": true
+        },
+        "SimpleGame" : {
+            "outputPath": "bin/",
+            "compiler": "msvc",
+            "modules": [ "SimpleGame" ],
+            "type" : "APPLICATION",
+            "forDebug": true
+        },
+        "rwgui" : {
+            "outputPath": "bin/",
+            "outputName": "rwgui",
+            "compiler" : "msvc",
+            "modules" : ["rwgui"],
+            "type": "DYNAMIC_LIBRARY",
+            "forDebug": false
+        },
+        "testdll" : {
+            "outputPath": "bin/default/",
+            "outputName": "testdll",
+            "compiler" : "msvc",
+            "modules" : ["testmodule"],
+            "type": "DYNAMIC_LIBRARY",
+            "forDebug": false
+        }
+    }
+}

@@ -33,7 +33,8 @@ void SoundEditorApp::BuildPages()
 	(*MenuPtr)["Quit"] = [this]() {
 		GApplication->Stop();
 	};
-	//(*MenuPtr)["Test"]["Do some test"];
+	(*MenuPtr)["Test"]["Do some test"];
 	MainPagePtr->AddElement(MenuPtr);
+
 	AddPage(MainPagePtr);
 }

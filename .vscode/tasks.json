@@ -1,0 +1,10 @@
+{
+    "tasks": [
+        {
+            "taskName": "Build",
+            "isShellCommand": true,
+            "command": "python D:\\Projects\\BuildingSystem\\Builder\\build.py SimpleGame",
+            "isBuildCommand": true
+        }
+    ]
+}
