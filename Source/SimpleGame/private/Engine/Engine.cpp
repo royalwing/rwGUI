@@ -21,10 +21,8 @@ void World::Tick(float DeltaTime)
 	CurrentDeltaSeconds = DeltaTime;
 	for (auto Itr = Entities.Itr(); Itr.IsValid(); Itr = Itr.Next())
 	{
-		if (!Itr.IsValid()) continue;// Entity may be deleted while tick
 		Itr->Tick(DeltaTime);
-		if (!Itr.IsValid()) continue;// Entity may be deleted while tick
-	
+		if (!Itr.IsValid()) continue;// Entity may be deleted while tick	
 		for (auto CompItr = Itr->GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next())
 		{
 			CompItr->Tick(DeltaTime);

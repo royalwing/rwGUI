@@ -43,6 +43,7 @@ public:
 		Entities.Remove(inEntity);
 		delete inEntity;
 	}
+	
 };
 
 class Engine

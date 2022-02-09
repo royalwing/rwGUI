@@ -37,3 +37,4 @@
 *.tlog
 *.log
 ProjectFiles/Temp/*
+tmp
