@@ -28,7 +28,9 @@
 *.out
 *.app
 *.exp
-/Binaries/*
+/bin/*
+/bin
+/tmp
 
 # Project files
 *.sdf
@@ -37,6 +39,3 @@
 *.pdb
 *.tlog
 *.log
-ProjectFiles/Temp/*
-tmp
-bin
