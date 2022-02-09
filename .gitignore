@@ -27,6 +27,7 @@
 *.exe
 *.out
 *.app
+*.exp
 /Binaries/*
 
 # Project files
@@ -38,3 +39,4 @@
 *.log
 ProjectFiles/Temp/*
 tmp
+bin
