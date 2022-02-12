@@ -440,3 +440,555 @@ private:
 	rw::threading::mutex iterators_mutex;
 	List<class LinkedList<T>::Iterator*> Iterators;
 };
+
+
+// TBinartyTree
+//	
+// This structure allow to keep data and identify it by any identifier that can be compared
+// by "more or less" rule. So it can be integer or pointer in example.
+//
+// For the following keys there is datagram that represents how it will look like.
+//		34, 58, 2, 89, 43, 122, 10, 54
+//                                                                                   
+//                                                                                   
+//                       [34]                                                   
+//                       /  \
+//                      /    \
+//                   [2]      [58]                                                    
+//                     \      /  \
+//                     [10]  /    \
+//                         [43]    [89]                                              
+//                            \      \
+//                             [54]   \
+//                                     [122]                                        
+//                                                                                   
+//
+//	This kind of structure allows to search elements faster than simple list O(n) by
+//  cutting off half of remaining elements on each stage of check O(log n).
+
+
+template<typename KEY, typename VALUE>
+class TBinaryTree
+{
+private:
+	class TBinaryTreeNode
+	{
+	public:
+		TBinaryTreeNode() {};
+
+		TBinaryTreeNode(TBinaryTree* inTree, TBinaryTreeNode* inParent, KEY inKey, VALUE inValue)
+			: Tree(inTree), Parent(inParent), Key(inKey), Value(inValue)
+		{
+			if (Parent)
+			{
+				if (Key > Parent->Key)
+				{
+					Parent->Right = this;
+					LeftNeighbour = Parent;
+					RightNeighbour = Parent->RightNeighbour;
+					if (LeftNeighbour) LeftNeighbour->RightNeighbour = this;
+					if(RightNeighbour) RightNeighbour->LeftNeighbour = this;
+				} else if (Key < Parent->Key)
+				{
+					Parent->Left = this;
+					LeftNeighbour = Parent->LeftNeighbour;
+					RightNeighbour = Parent;
+					if (LeftNeighbour) LeftNeighbour->RightNeighbour = this;
+					if (RightNeighbour) RightNeighbour->LeftNeighbour = this;
+				}
+			}
+			TBinaryTreeNode* Outer = Parent;
+			TBinaryTreeNode* Target = this;
+			while (Outer)
+			{
+				if (Outer->Right == Target)
+				{
+					Outer->Balance++;
+				} else if (Outer->Left == Target)
+				{
+					Outer->Balance--;
+				}
+				Target = Outer;
+				Outer = Outer->Parent;
+			}
+			Tree->Count++;
+
+
+			Outer = Parent;
+			while (Outer)
+			{
+				Tree->Balance(Outer);
+				Outer = Outer->Parent;
+			}
+		};
+		~TBinaryTreeNode()
+		{
+			if (Tree->RootNode == this)
+				Tree->RootNode = nullptr;
+			TBinaryTreeNode* Outer = Parent;
+			TBinaryTreeNode* Target = this;
+			while (Outer)
+			{
+				if (Outer->Right == Target)
+				{
+					Outer->Balance--;
+				}
+				else if (Outer->Left == Target)
+				{
+					Outer->Balance++;
+				}
+				Target = Outer;
+				Outer = Outer->Parent;
+			}
+
+			if (Parent)
+			{
+				if (Parent->Left == this)
+					Parent->Left = nullptr;
+				if (Parent->Right == this)
+					Parent->Right = nullptr;
+			}
+			if (RightNeighbour)
+			{
+				RightNeighbour->LeftNeighbour = LeftNeighbour;
+			}
+			if(LeftNeighbour)
+			{
+				LeftNeighbour->RightNeighbour = RightNeighbour;
+			}
+
+			Tree->Count--;
+
+			Outer = Parent;
+			while (Outer)
+			{
+				Tree->Balance(Outer);
+				Outer = Outer->Parent;
+			}
+		};
+
+		int GetNodeDepth()
+		{
+			int Depth = 0;
+			TBinaryTreeNode* Outer = Parent;
+			while (Outer)
+			{
+				Depth++;
+				Outer = Outer->Parent;
+			}
+			return Depth;
+		};
+
+		TBinaryTree* Tree = nullptr;
+		KEY Key;
+		VALUE Value;
+
+		TBinaryTreeNode* Parent = nullptr;
+		TBinaryTreeNode* Left = nullptr;
+		TBinaryTreeNode* Right = nullptr;
+
+		TBinaryTreeNode* LeftNeighbour = nullptr;
+		TBinaryTreeNode* RightNeighbour = nullptr;
+
+		int Balance = 0;
+	};
+		
+	TBinaryTreeNode* RootNode = nullptr;
+	int Count = 0;
+
+	void SwapNodes(TBinaryTreeNode* A, TBinaryTreeNode* B) const
+	{
+		if (A == nullptr || B == nullptr)
+		{
+			KEY key = A->Key;
+			VALUE value = A->Value;
+			TBinaryTreeNode* parent = A->Parent;
+			TBinaryTreeNode* rn = A->RightNeighbour;
+			TBinaryTreeNode* ln = A->LeftNeighbour;
+			A->Key = B->Key;
+			A->Value = B->Value;
+			A->Parent = B->Parent;
+			A->RightNeighbour = B->RightNeighbour;
+			A->LeftNeighbour = B->LeftNeighbour;
+			B->Key = key;
+			B->Value = value;
+			B->Parent = parent;
+			B->RightNeighbour = rn;
+			B->LeftNeighbour = ln;
+		}
+	};
+
+	void Balance(TBinaryTreeNode* TargetNode)
+	{
+		// Rule # 1
+		if (TargetNode && TargetNode->Left && TargetNode->Left->Right)
+		{
+			if (TargetNode->Balance == -2 && TargetNode->Left->Balance == 1)
+			{
+				TBinaryTreeNode *A = TargetNode, *B = TargetNode->Left, *C = TargetNode->Left->Right;
+				if (RootNode == A)
+					RootNode = C;
+
+				if (A->Parent)
+				{
+					if (A->Parent->Left == A)
+						A->Parent->Left = C;
+					else if (A->Parent->Right == A)
+						A->Parent->Right = C;
+				}
+
+
+				C->Parent = A->Parent;
+				B->Parent = C;
+				A->Parent = C;
+
+				C->Left = B;
+				C->Right = A;
+
+				A->Left = nullptr;
+				B->Right = nullptr;
+
+				A->Balance = 0;
+				B->Balance = 0;
+				C->Balance = 0;
+
+				return;
+			}
+		}
+		// Rule #2
+		if (TargetNode && TargetNode->Right && TargetNode->Right->Left)
+		{
+			if (TargetNode->Balance == 2 && TargetNode->Right->Balance == -1)
+			{
+				TBinaryTreeNode *A = TargetNode, *B = TargetNode->Right, *C = TargetNode->Right->Left;
+				if (RootNode == A)
+					RootNode = C;
+
+				if (A->Parent)
+				{
+					if (A->Parent->Left == A)
+						A->Parent->Left = C;
+					else if (A->Parent->Right == A)
+						A->Parent->Right = C;
+				}
+
+				
+
+				C->Parent = A->Parent;
+				B->Parent = C;
+				A->Parent = C;
+
+				C->Left = A;
+				C->Right = B;
+
+				A->Right = nullptr;
+				B->Left = nullptr;
+
+				A->Balance = 0;
+				B->Balance = 0;
+				C->Balance = 0;
+
+				return;
+			}
+		}
+		// Rule #3
+		if (TargetNode && TargetNode->Right && TargetNode->Right->Right)
+		{
+			if (TargetNode->Balance == 2 && TargetNode->Right->Balance > 0)
+			{
+				TBinaryTreeNode *A = TargetNode, *B = TargetNode->Right, *C = TargetNode->Right->Right;
+				if (RootNode == A)
+					RootNode = B;
+
+				if (A->Parent)
+				{
+					if (A->Parent->Left == A)
+						A->Parent->Left = B;
+					else if (A->Parent->Right == A)
+						A->Parent->Right = B;
+				}
+
+				B->Left = A;
+				B->Right = C;
+
+				B->Parent = A->Parent;
+				A->Parent = B;
+				C->Parent = B;
+
+				A->Right = nullptr;
+
+
+				A->Balance = 0;
+				B->Balance = 0;
+				C->Balance = 0;
+
+				return;
+			}
+		}
+		// Rule #4
+		if (TargetNode && TargetNode->Left && TargetNode->Left->Left)
+		{
+			if (TargetNode->Balance == -2 && TargetNode->Left->Balance < 0)
+			{
+				TBinaryTreeNode *A = TargetNode, *B = TargetNode->Left, *C = TargetNode->Left->Left;
+				if (RootNode == A)
+					RootNode = B;
+
+				if (A->Parent)
+				{
+					if (A->Parent->Left == A)
+						A->Parent->Left = B;
+					else if (A->Parent->Right == A)
+						A->Parent->Right = B;
+				}
+
+
+				B->Left = C;
+				B->Right = A;
+
+				B->Parent = A->Parent;
+				A->Parent = B;
+				C->Parent = B;
+
+				A->Left = nullptr;
+
+				A->Balance = 0;
+				B->Balance = 0;
+				C->Balance = 0;
+
+				return;
+			}
+		}
+		// Rule #5
+		if (TargetNode && TargetNode->Right && TargetNode->Right->Left == nullptr && TargetNode->Left == nullptr)
+		{
+			TBinaryTreeNode *A = TargetNode, *B = TargetNode->Right;
+			if (RootNode == A)
+				RootNode = B;
+
+			if (A->Parent)
+			{
+				if (A->Parent->Left == A)
+					A->Parent->Left = B;
+				else if (A->Parent->Right == A)
+					A->Parent->Right = B;
+			}
+
+			B->Parent = A->Parent;
+			A->Parent = B;
+
+			B->Left = A;
+			A->Right = nullptr;
+			
+			return;
+		}
+	};
+
+public:
+
+	~TBinaryTree()
+	{
+		Cleanup();
+	};
+
+	TBinaryTreeNode* Get(const KEY Key)
+	{
+		TBinaryTreeNode* TargetNode = RootNode;
+		while (TargetNode != nullptr)
+		{
+			if (TargetNode->Key == Key)
+			{
+				return TargetNode;
+			} else {
+				if (TargetNode->Key > Key)
+				{
+					if (TargetNode->Left != nullptr)
+					{
+						TargetNode = TargetNode->Left;
+						continue;
+					}
+					return nullptr;
+				}
+				if (TargetNode->Key < Key)
+				{
+					if (TargetNode->Right != nullptr)
+					{
+						TargetNode = TargetNode->Right;
+						continue;
+					}
+					return nullptr;
+				}
+				break;
+			}
+		}
+		return nullptr;
+	};
+	TBinaryTreeNode* Put(const KEY& Key, const VALUE& Value)
+	{
+		if (RootNode == nullptr)
+		{
+			RootNode = new TBinaryTreeNode(this, nullptr, Key, Value);
+			return RootNode;
+		} else {
+			TBinaryTreeNode* TargetNode = RootNode;
+			KEY TargetKey = Key;
+			VALUE TargetValue = Value;
+
+			while (TargetNode)
+			{
+				if (TargetNode->Key == TargetKey)
+				{
+					TargetNode->Value = TargetValue;
+					break;
+				}
+				else if (TargetKey > TargetNode->Key) // right
+                {
+                    if (TargetNode->Right)
+                    {
+                        TargetNode = TargetNode->Right;
+                        continue;
+                    }
+                    
+                    return new TBinaryTreeNode(this, TargetNode, TargetKey, TargetValue);
+                } else if(TargetKey < TargetNode->Key) // left
+                {
+                    if (TargetNode->Left)
+                    {
+                        TargetNode = TargetNode->Left;
+                        continue;
+                    }
+                    return new TBinaryTreeNode(this, TargetNode, TargetKey, TargetValue);
+                }
+			}
+		}
+		return nullptr;
+	};
+	void Remove(const KEY& Key)
+	{
+		TBinaryTreeNode* TargetNode = RootNode;
+		while (TargetNode != nullptr)
+		{
+			if (TargetNode->Key == Key)
+			{
+				if (TargetNode->Left == nullptr && TargetNode->Right == nullptr) // Node was leaf
+					delete TargetNode;
+				else if( // Node was branch with single subbranch
+					(TargetNode->Left == nullptr && TargetNode->Right) ||
+					(TargetNode->Right == nullptr && TargetNode->Left)
+					)
+				{
+					TBinaryTreeNode* NotEmptyNode = (TargetNode->Right ? TargetNode->Right : TargetNode->Left);
+					NotEmptyNode->Parent = TargetNode->Parent;
+					delete TargetNode;
+					if (NotEmptyNode->Parent)
+					{
+						if (NotEmptyNode->Parent->Left == TargetNode)
+						{
+							NotEmptyNode->Parent->Left = NotEmptyNode;
+						}
+						else if (NotEmptyNode->Parent->Right == TargetNode)
+						{
+							NotEmptyNode->Parent->Right = NotEmptyNode;
+						}
+					}
+				} else if(TargetNode->Left && TargetNode->Right) // Node has both left and right side branches
+				{
+
+					TBinaryTreeNode* Right = TargetNode->Right;
+					TBinaryTreeNode* Left = TargetNode->Left;
+
+					TBinaryTreeNode* TargetParent = TargetNode->Parent;
+					int TargetNodeBalance = TargetNode->Balance;
+
+					if (RootNode == TargetNode)
+						RootNode = Right;
+
+					delete TargetNode;
+
+					Right->Parent = TargetParent;
+					if (Right->Parent)
+					{
+						if (Right->Parent->Left == TargetNode)
+						{
+							Right->Parent->Left = Right;
+						}
+						else if (Right->Parent->Right == TargetNode)
+						{
+							Right->Parent->Right = Right;
+						}
+					}
+
+
+					while (Right->Left != nullptr)
+						Right = Right->Left;
+
+					Right->Left = Left;
+					Left->Parent = Right;
+					Right->Balance += (Left->Balance + TargetNodeBalance) - 1;
+
+				}
+				return;
+			}
+			else {
+				if (TargetNode->Key > Key)
+				{
+					if (TargetNode->Left != nullptr)
+					{
+						TargetNode = TargetNode->Left;
+						continue;
+					}
+					return;
+				}
+				if (TargetNode->Key < Key)
+				{
+					if (TargetNode->Right != nullptr)
+					{
+						TargetNode = TargetNode->Right;
+						continue;
+					}
+					return;
+				}
+				break;
+			}
+		}
+	};
+	void Cleanup()
+	{
+		TBinaryTreeNode* TargetNode = RootNode;
+		while (TargetNode)
+		{
+			if (TargetNode->Left)
+			{
+				TargetNode = TargetNode->Left;
+				continue;
+			}
+			if (TargetNode->Right)
+			{
+				TargetNode = TargetNode->Right;
+				continue;
+			}
+			TBinaryTreeNode* Parent = TargetNode->Parent;
+			delete TargetNode;
+			TargetNode = Parent;
+		}
+		RootNode = nullptr;
+	}
+
+	VALUE& operator[](const KEY& Key)
+	{
+		TBinaryTreeNode* Result = Get(Key);
+		if (Result == nullptr)
+			Result = Put(Key, VALUE());
+		return Result->Value;
+	}
+
+	TBinaryTreeNode* GetLeftMost()
+	{
+		if (RootNode == nullptr)
+			return nullptr;
+		TBinaryTreeNode* LeftMost = RootNode;
+		while (LeftMost->LeftNeighbour)
+			LeftMost = LeftMost->LeftNeighbour;
+		return LeftMost;
+	}
+};

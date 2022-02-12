@@ -45,5 +45,6 @@ void BaseCharacter::AddAcceleration(const Vector2D& inAcceleration)
 
 void BaseCharacter::OnTick(float DeltaTime)
 {
-	Physics->SetVelocity(MovementInput * MovementSpeed);
+	
+	Physics->SetVelocity(MovementInput.GetNormalized() * MovementSpeed);
 }
