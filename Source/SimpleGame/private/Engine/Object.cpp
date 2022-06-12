@@ -32,7 +32,19 @@ Component::~Component()
 	Owner->UnregisterComponent(this);
 }
 
-Transform2D VisualComponent::GetWorldTransform() const
+
+void Component::SetTickGroup(ETickGroup inTickGroup)
+{
+	GetWorld()->RegisterTickable(this, inTickGroup);
+	TickGroup = inTickGroup;
+}
+
+void Component::RemoveFromTickGroup()
+{
+	GetWorld()->UnregisterTickable(this, TickGroup);
+}
+
+Transform2D WorldPresentComponent::GetWorldTransform() const
 {
 	return LocalTransform * GetOwner()->GetTransform();
 }
@@ -62,3 +74,13 @@ void Entity::UnregisterComponent(Component* inComponent)
 	Components.Remove(inComponent);
 }
 
+void Entity::SetTickGroup(ETickGroup inTickGroup)
+{
+	GetWorld()->RegisterTickable(this, inTickGroup);
+	TickGroup = inTickGroup;
+}
+
+void Entity::RemoveFromTickGroup()
+{
+	GetWorld()->UnregisterTickable(this, TickGroup);
+}

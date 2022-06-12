@@ -15,7 +15,7 @@ void DynamicSpriteComponent::OnResize()
 }
 
 DynamicSpriteComponent::DynamicSpriteComponent(String Name, Entity* Owner)
-	: VisualComponent(Name, Owner)
+	: VisualComponent(Name, Owner), RenderTarget(nullptr)
 {
 	OnResize();
 }

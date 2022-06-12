@@ -11,5 +11,5 @@ public:
 
 	Vector2D Direction;
 
-	virtual void OnTick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override;
 };

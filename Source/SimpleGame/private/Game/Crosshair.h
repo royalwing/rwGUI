@@ -18,7 +18,7 @@ private:
 public:
 	Crosshair(String inName,World* inWorld);
 
-	void OnTick(float DeltaTime) override;
+	void Tick(float DeltaTime, ETickGroup TickGroup) override;
 
 	void SetOwningCharacter(class PlayerCharacter* inCharacter);
 	class PlayerCharacter* GetOwnerCharacter() const;

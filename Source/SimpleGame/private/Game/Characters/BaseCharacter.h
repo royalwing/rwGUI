@@ -18,5 +18,5 @@ public:
 
 	void AddAcceleration(const Vector2D& inAcceleration);
 
-	virtual void OnTick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override;
 };

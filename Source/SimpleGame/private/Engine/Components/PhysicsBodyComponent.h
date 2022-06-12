@@ -5,8 +5,6 @@
 enum EPhysicsBodyType
 {
 	PBT_Circle,
-	PBT_Box,
-	PBT_Capsule,
 	PBT_Rectangle
 };
 
@@ -23,15 +21,30 @@ namespace rw
 
 }
 
-class PhysicsBodyComponent : public Component
+class PhysicsBodyComponent : public WorldPresentComponent
 {
-	using Component::Component;
+	using WorldPresentComponent::WorldPresentComponent;
 private:
+
+	EPhysicsBodyType PhysBodyType;
+	float Radius;
+	Vector2D BoxSize;
 	Vector2D LinearAcceleration;
 	float AngularAcceleration;
 	Vector2D LinearVelocity;
 	float AngularVelocity;
-	float Radius;
+
+	struct AppliedForce
+	{
+		Vector2D WorldPosition;
+		Vector2D WorldDirection;
+		Vector2D LocalPosition;
+		Vector2D LocalDirection;
+	};
+
+	List<AppliedForce> AppliedForces;
+
+	void ApplyForce(Vector2D inWorldPosition, Vector2D inWorldDirection);
 public:
 
 
@@ -39,12 +52,17 @@ public:
 	float Deceleration = 150000.0f;
 	float VelocityLoss = 2100.0f;
 
-	PhysicsBodyComponent(String inName, Entity* inOwner, EPhysicsBodyType inType);
+	PhysicsBodyComponent(String inName, Entity* inOwner);
+	~PhysicsBodyComponent();
+
+	EPhysicsBodyType GetBodyType() const { return PhysBodyType; };
 
 	void SetSphereRadius(const float& inRadius);
+	void SetBox(const Vector2D& Size);
+	Vector2D GetBoxSize() const { return BoxSize; };
 
 	void AddAcceleration(const Vector2D& Acceleration);
 	void SetVelocity(const Vector2D& newVelocity);
 
-	virtual void OnTick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override;
 };

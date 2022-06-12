@@ -1,5 +1,6 @@
 #pragma once
 #include "Elements/Drawables/Drawable.h"
+#include "Tickables.h"
 #include "Object.h"
 
 class RenderPrimitive
@@ -9,6 +10,7 @@ public:
 	Vector2D Position;
 	float Rotation;
 };
+
 
 class World
 {
@@ -21,7 +23,10 @@ private:
 
 	void Tick(float DeltaTime);
 
+	LinkedList<class ITickable*> TickGroups[(uint8_t)ETickGroup::TG_MAX];
+
 	LinkedList<class Entity*> Entities;
+	LinkedList<class PhysicsBodyComponent*> PhysicalBodies;
 
 	friend class Engine;
 	friend class Entity;
@@ -43,8 +48,12 @@ public:
 		Entities.Remove(inEntity);
 		delete inEntity;
 	}
+
+	void RegisterTickable(ITickable* inTickable, ETickGroup inTickGroup);
+	void UnregisterTickable(ITickable* inTickable, ETickGroup inTickGroup);
 	
 };
+
 
 class Engine
 {

@@ -18,12 +18,15 @@ void CrosshairComponent::OnDynamicDraw(ID2D1BitmapRenderTarget* renderTarget)
 Crosshair::Crosshair(String inName, World* inWorld)
 	: Entity(inName, inWorld)
 {
+
+	SetTickGroup();
+
 	CrosshairComponent* CrosshairComp = CreateComponent<CrosshairComponent>("Crosshair");
 	CrosshairComp->SetSortOrder(999);
 	CrosshairComp->SetSize({ 24, 24 });
 }
 
-void Crosshair::OnTick(float DeltaTime)
+void Crosshair::Tick(float DeltaTime, ETickGroup TickGroup)
 {
 	if(OwnerCharacter!=nullptr)
 	{

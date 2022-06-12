@@ -11,7 +11,7 @@ class PlayerCharacter : public BaseCharacter
 public:
 	Vector2D GetAimingLocation() const;
 
-	virtual void OnTick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override;
 
 	void StartShooting() { bWantsToShoot = true; };
 	void StopShooting() { bWantsToShoot = false; };

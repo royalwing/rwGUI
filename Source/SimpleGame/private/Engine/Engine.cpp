@@ -1,10 +1,10 @@
 ﻿#include "Engine.h"
 #include "Common/DebugHelpers.h"
+#include "Components/PhysicsBodyComponent.h"
 
 World::World(Engine* pEngine)
 	: _engine(pEngine)
 {
-	
 }
 
 World::~World()
@@ -19,13 +19,18 @@ World::~World()
 void World::Tick(float DeltaTime)
 {
 	CurrentDeltaSeconds = DeltaTime;
-	for (auto Itr = Entities.Itr(); Itr.IsValid(); Itr = Itr.Next())
+	for(uint8_t GroupID = 1; GroupID < (uint8_t)ETickGroup::TG_MAX; GroupID++)
 	{
-		Itr->Tick(DeltaTime);
-		if (!Itr.IsValid()) continue;// Entity may be deleted while tick	
-		for (auto CompItr = Itr->GetComponents().Itr(); CompItr.IsValid(); CompItr = CompItr.Next())
+		if(GroupID == (uint8_t)ETickGroup::Physics)
 		{
-			CompItr->Tick(DeltaTime);
+			for(LinkedList<PhysicsBodyComponent*>::Iterator& Itr = PhysicalBodies.Itr(); Itr.IsValid();Itr=Itr.Next())
+			{
+				Itr->Tick(DeltaTime, (ETickGroup)GroupID);
+			}
+		}
+		for (LinkedList<ITickable*>::Iterator& Itr = TickGroups[GroupID].Itr(); Itr.IsValid(); Itr = Itr.Next())
+		{
+			Itr->Tick(DeltaTime, (ETickGroup)GroupID);
 		}
 	}
 }
@@ -62,6 +67,18 @@ World* Engine::CreateWorld()
 	World* pNewWorld = new World(this);
 	Worlds.Add(pNewWorld);
 	return pNewWorld;
+}
+
+void World::RegisterTickable(ITickable* inTickable, ETickGroup inTickGroup)
+{
+	if(inTickGroup==ETickGroup::None) return;
+	TickGroups[(uint8_t)inTickGroup].Add(inTickable);
+}
+
+void World::UnregisterTickable(ITickable* inTickable, ETickGroup inTickGroup)
+{
+	if(inTickGroup==ETickGroup::None) return;
+	TickGroups[(uint8_t)inTickGroup].Remove(inTickable);
 }
 
 void Engine::RemoveWorld(World* pWorld)

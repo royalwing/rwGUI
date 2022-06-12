@@ -1,5 +1,6 @@
 #pragma once
 #include "Common/String.h"
+#include "Engine/Tickables.h"
 #include "Common/rwmath.h"
 
 class Object
@@ -27,26 +28,38 @@ protected:
 	friend class World;
 };
 
-class Component : public Object
+class Component : public Object, public ITickable
 {
 private:
+	ETickGroup TickGroup;
 	class Entity* Owner;
 public:
 	Component(String inName, class Entity* inOwner);
 	~Component();
 
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override {};
+	virtual void SetTickGroup(ETickGroup inTickGroup = ETickGroup::Tick) override;
+	virtual void RemoveFromTickGroup() override;
+
 	class Entity* GetOwner() const { return Owner; };
 };
 
-class VisualComponent : public Component
+
+class WorldPresentComponent : public Component
 {
 	using Component::Component;
 private:
 	Transform2D LocalTransform;
-	int SortOrder = 0;
 public:
 	Transform2D GetWorldTransform() const;
+};
 
+class VisualComponent : public WorldPresentComponent
+{
+	using WorldPresentComponent::WorldPresentComponent;
+private:
+	int SortOrder = 0;
+public:
 	virtual void Draw(ID2D1BitmapRenderTarget* renderTarget) {};
 
 	void SetSortOrder(int inOrder) { SortOrder=inOrder; };
@@ -54,10 +67,11 @@ public:
 
 };
 
-class Entity : public Object
+class Entity : public Object, public ITickable
 {
 	using Object::Object;
 private:
+	ETickGroup TickGroup;
 	Transform2D Transform;
 	LinkedList<Component*> Components;
 public:
@@ -79,11 +93,11 @@ public:
 	void RegisterComponent(class Component* inComponent);
 	void UnregisterComponent(class Component* inComponent);
 
-	void SetPosition(const Vector2D& newPosition)
-	{
-		Transform.SetPosition(newPosition);
-	};
+	void SetPosition(const Vector2D& newPosition) { Transform.SetPosition(newPosition); };
 	Vector2D GetPosition() const { return Transform.GetPosition(); };
+	Transform2D GetTransform() const { return Transform; };	
 
-	Transform2D GetTransform() const { return Transform; };
+	virtual void Tick(float DeltaTime, ETickGroup TickGroup) override {};
+	virtual void SetTickGroup(ETickGroup inTickGroup = ETickGroup::Tick) override;
+	virtual void RemoveFromTickGroup() override;
 };

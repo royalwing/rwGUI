@@ -14,9 +14,9 @@ Vector2D PlayerCharacter::GetAimingLocation() const
 	return Vector2D();
 }
 
-void PlayerCharacter::OnTick(float DeltaTime)
+void PlayerCharacter::Tick(float DeltaTime, ETickGroup TickGroup)
 {
-	BaseCharacter::OnTick(DeltaTime);
+	BaseCharacter::Tick(DeltaTime, TickGroup);
 	TimeSinceLastFire += DeltaTime;
 	if (TimeSinceLastFire > (1.0f / FireRate) && bWantsToShoot)
 	{

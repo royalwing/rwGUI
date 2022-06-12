@@ -5,6 +5,7 @@
 #include "Engine/Engine.h"
 #include "Game/Characters/PlayerCharacter.h"
 #include "Engine/Components/SpriteComponent.h"
+#include "Engine/PredefinedEntities.h"
 #include "Game/Crosshair.h"
 
 RUN_APPLICATION(SimpleGame);
@@ -43,6 +44,10 @@ void SimpleGame::OnInit()
 		BrushRed->Release();
 		BrushGreen->Release();
 	});
+
+	SimpleBlock* pBlockEntity = pWorld->SpawnEntity<SimpleBlock>("Block_1");
+	pBlockEntity->SetSize(Vector2D(200, 200));
+	pBlockEntity->SetPosition(Vector2D(150, 80));
 
 
 	LocalPlayerCharacter = pWorld->SpawnEntity<PlayerCharacter>("LocalPlayerCharacter");
@@ -129,10 +134,6 @@ void SimpleGame::BuildPages()
 
 	Layout* pUILayout = new Layout("UILayout", LayoutType_VERTICAL);
 	pGameLayout->AddChild(pUILayout);
-
-
-
-
 
 	AddPage(MainPage);
 }

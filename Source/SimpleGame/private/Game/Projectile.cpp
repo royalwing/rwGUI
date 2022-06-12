@@ -5,18 +5,21 @@
 Projectile::Projectile(String inName, World* inWorld)
 	: Entity(inName, inWorld)
 {
+
+	SetTickGroup();
+
 	DynamicSpriteComponent* Sprite = CreateComponent<DynamicSpriteComponent>("Sprite");
 	Sprite->SetSize({ 8, 8 });
 	Sprite->SetSortOrder(15);
 	Sprite->SetOnDraw([](ID2D1BitmapRenderTarget* renderTarget)
 	{
-			ID2D1SolidColorBrush* Brush;
-			renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0.0f,1.0f).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
-			const Vector2D Size = renderTarget->GetSize();
-			const float BorderWidth = 2.0f;
-			D2D1_ELLIPSE ellipse = D2D1::Ellipse(Size / 2, Size.x/2-BorderWidth/2, Size.y/2-BorderWidth/2);
-			renderTarget->DrawEllipse(&ellipse, Brush, BorderWidth);
-			Brush->Release();
+		ID2D1SolidColorBrush* Brush;
+		renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0.0f,1.0f).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
+		const Vector2D Size = renderTarget->GetSize();
+		const float BorderWidth = 2.0f;
+		D2D1_ELLIPSE ellipse = D2D1::Ellipse(Size / 2, Size.x/2-BorderWidth/2, Size.y/2-BorderWidth/2);
+		renderTarget->DrawEllipse(&ellipse, Brush, BorderWidth);
+		Brush->Release();
 	});
 
 	Body = CreateComponent<PhysicsBodyComponent>("Body");
@@ -26,7 +29,7 @@ Projectile::Projectile(String inName, World* inWorld)
 	SetLifespan(1.0f);
 }
 
-void Projectile::OnTick(float DeltaTime)
+void Projectile::Tick(float DeltaTime, ETickGroup TickGroup)
 {
 	Body->SetVelocity(Direction*1400.0f);
 }

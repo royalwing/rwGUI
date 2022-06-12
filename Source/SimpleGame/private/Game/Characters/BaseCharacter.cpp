@@ -6,9 +6,9 @@
 BaseCharacter::BaseCharacter(String Name, World* inWorld)
 	: Entity(Name, inWorld)
 {
-	
-	DynamicSpriteComponent* Sprite = new DynamicSpriteComponent("Sprite", this);
-	RegisterComponent(Sprite);
+	SetTickGroup(ETickGroup::Tick);
+
+	DynamicSpriteComponent* Sprite = CreateComponent<DynamicSpriteComponent>("Sprite");
 	Sprite->SetSize({ 64,64 });
 	Sprite->SetSortOrder(1);
 	Sprite->SetOnDraw([](ID2D1BitmapRenderTarget* renderTarget)
@@ -43,7 +43,7 @@ void BaseCharacter::AddAcceleration(const Vector2D& inAcceleration)
 	Physics->AddAcceleration(inAcceleration);
 }
 
-void BaseCharacter::OnTick(float DeltaTime)
+void BaseCharacter::Tick(float DeltaTime, ETickGroup TickGroup)
 {	
 	Physics->SetVelocity(MovementInput.GetNormalized() * MovementSpeed);
 }

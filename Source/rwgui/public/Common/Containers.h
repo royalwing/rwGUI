@@ -290,6 +290,13 @@ private:
 	size_t Count = 0;
 	Entry* First = nullptr;
 public:
+
+	LinkedList()
+	: Count(0),
+	First(nullptr)
+	{
+
+	}
 	void Add(const T& Data)
 	{
 		bool bWasLocked = false;
