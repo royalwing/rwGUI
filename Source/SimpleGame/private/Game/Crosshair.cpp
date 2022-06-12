@@ -4,7 +4,7 @@
 void CrosshairComponent::OnDynamicDraw(ID2D1BitmapRenderTarget* renderTarget)
 {
 	ID2D1SolidColorBrush* Brush;
-	renderTarget->CreateSolidColorBrush(Color(0, 0, 0, 255).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
+	renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0.0f,1.0f).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
 	Vector2D Size = renderTarget->GetSize();
 	float CrosshairWidth = 2.0f;
 	renderTarget->DrawLine(Vector2D(Size.x / 2, 0), Vector2D(Size.x / 2, Size.y*0.4f), Brush, CrosshairWidth);

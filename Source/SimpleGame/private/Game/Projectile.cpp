@@ -11,7 +11,7 @@ Projectile::Projectile(String inName, World* inWorld)
 	Sprite->SetOnDraw([](ID2D1BitmapRenderTarget* renderTarget)
 	{
 			ID2D1SolidColorBrush* Brush;
-			renderTarget->CreateSolidColorBrush(Color(0, 0, 0, 255).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
+			renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0.0f,1.0f).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
 			const Vector2D Size = renderTarget->GetSize();
 			const float BorderWidth = 2.0f;
 			D2D1_ELLIPSE ellipse = D2D1::Ellipse(Size / 2, Size.x/2-BorderWidth/2, Size.y/2-BorderWidth/2);

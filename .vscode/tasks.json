@@ -3,7 +3,7 @@
         {
             "taskName": "Build",
             "isShellCommand": true,
-            "command": "python D:\\Projects\\BuildingSystem\\Builder\\build.py SimpleGame",
+            "command": "python .\\..\\builder\\build.py SimpleGame",
             "isBuildCommand": true
         }
     ]

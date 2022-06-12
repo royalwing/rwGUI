@@ -16,7 +16,7 @@ void SimpleGame::OnInit()
 	if(pWorld = Engine::Get()->CreateWorld())
 	{
 		pViewport = new Viewport("GameViewport", pWorld);
-		pViewport->SetClearColor(Color(1.0, 1.0, 1.0, 1.0));		
+		pViewport->SetClearColor(Color(0.1,0.1,0.1, 1.0));		
 	}
 
 	Entity* pEntity = pWorld->SpawnEntity<Entity>("Grid");
@@ -25,9 +25,9 @@ void SimpleGame::OnInit()
 	Sprite->SetOnDraw([](ID2D1BitmapRenderTarget* renderTarget)
 	{
 		ID2D1SolidColorBrush *BrushWhite, *BrushRed, *BrushGreen;
-		renderTarget->CreateSolidColorBrush(Color(0, 0, 0, 0.1f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushWhite);
-		renderTarget->CreateSolidColorBrush(Color(1.0f, 0, 0, 0.5f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushRed);
-		renderTarget->CreateSolidColorBrush(Color(0, 1.0f, 0, 0.5f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushGreen);
+		renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0.0f, 0.1f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushWhite);
+		renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0, 0.5f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushRed);
+		renderTarget->CreateSolidColorBrush(Color(1.0f, 0.7f, 0, 0.5f).ToD2D1ColorF(), D2D1::BrushProperties(), &BrushGreen);
 		const Vector2D Size = renderTarget->GetSize();
 		for(int x = 0; x < Size.x;x+=32)
 		{

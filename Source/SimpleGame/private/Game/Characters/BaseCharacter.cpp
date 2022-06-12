@@ -14,7 +14,7 @@ BaseCharacter::BaseCharacter(String Name, World* inWorld)
 	Sprite->SetOnDraw([](ID2D1BitmapRenderTarget* renderTarget)
 	{
 		ID2D1SolidColorBrush* Brush;
-		renderTarget->CreateSolidColorBrush(Color(0, 0, 0, 255).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
+		renderTarget->CreateSolidColorBrush(Color(0.5f, 0.35f, 0.0f,1.0f).ToD2D1ColorF(), D2D1::BrushProperties(), &Brush);
 		const Vector2D Size = renderTarget->GetSize();
 		float OuterBorderWidth = 1.0f;
 		float InnerBorderWidth = 12.0f;
@@ -44,7 +44,6 @@ void BaseCharacter::AddAcceleration(const Vector2D& inAcceleration)
 }
 
 void BaseCharacter::OnTick(float DeltaTime)
-{
-	
+{	
 	Physics->SetVelocity(MovementInput.GetNormalized() * MovementSpeed);
 }
